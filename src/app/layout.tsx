@@ -3,6 +3,7 @@ import "./globals.css";
 import { LeadProvider } from "@/context/LeadContext";
 import { COMPANY_INFO } from "@/lib/data";
 import DualFounderWhatsAppSpeedDial from "@/components/DualFounderWhatsAppSpeedDial";
+import FloatingRoboticAgent from "@/components/FloatingRoboticAgent";
 
 export const metadata: Metadata = {
   metadataBase: new URL(COMPANY_INFO.websiteUrl),
@@ -122,6 +123,7 @@ export default function RootLayout({
         <LeadProvider>
           {children}
           <DualFounderWhatsAppSpeedDial />
+          <FloatingRoboticAgent />
         </LeadProvider>
       </body>
     </html>
