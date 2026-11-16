@@ -35,7 +35,7 @@ export default function PartnershipSpotlight() {
                 Strategic Development Alliance • Proven Local Track Record
               </div>
               <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-serif font-bold text-slate-900 leading-tight">
-                Value Group × Ravi Estate{" "}
+                Value Group × Property Files Network{" "}
                 <span className="text-amber-600">Development Partnership</span>
               </h2>
               <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
@@ -133,7 +133,7 @@ export default function PartnershipSpotlight() {
                 <div className="p-4 rounded-xl bg-slate-900/90 border border-slate-800 space-y-2 text-xs">
                   <div className="flex justify-between">
                     <span className="text-slate-400">Location:</span>
-                    <span className="text-white font-semibold">DHA Phase 5, Ring Road Corridor, Lahore</span>
+                    <span className="text-white font-semibold">DHA Phase 5, Ring Road Axis, Lahore</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-slate-400">Offering:</span>
@@ -176,7 +176,7 @@ export default function PartnershipSpotlight() {
                     Diversified Real Estate Classes Across Lahore
                   </h4>
                   <p className="text-xs sm:text-sm text-slate-400 mt-1">
-                    Every development under the Value Group &amp; Ravi Estate portfolio targets specific investor profiles:
+                    Every development under the Value Group &amp; Property Files Network portfolio targets specific investor profiles:
                   </p>
                 </div>
 
@@ -212,7 +212,7 @@ export default function PartnershipSpotlight() {
                   <CheckCircle2 className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
                   <span>
                     <strong className="text-white">Direct Developer Pricing:</strong>{" "}
-                    As the official marketing partner for Value Group developments, Ravi Estate offers investors direct allocation, transparent pricing, and zero hidden transfer surcharges.
+                    As the official marketing partner for Value Group developments, Property Files Network offers investors direct allocation, transparent pricing, and zero hidden transfer surcharges.
                   </span>
                 </div>
               </div>

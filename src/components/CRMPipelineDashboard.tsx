@@ -165,7 +165,7 @@ export default function CRMPipelineDashboard({}: CRMPipelineDashboardProps) {
     await addLead({
       clientName: newClientName.trim(),
       phone: newPhone.trim(),
-      email: "client@raviestate.com",
+      email: "client@propertyfilesnetwork.com",
       originType: newOrigin,
       countryCity: newCountryCity.trim() || "Lahore, Pakistan",
       propertyCategory: newCategory,
@@ -178,7 +178,7 @@ export default function CRMPipelineDashboard({}: CRMPipelineDashboardProps) {
       priority: Number(newValPKR) >= 70 ? "VIP" : "High",
       notes: [
         newInitialNote.trim() ||
-          "Direct advisor entry logged via Ravi Estate CRM portal.",
+          "Direct advisor entry logged via Property Files Network CRM portal.",
       ],
     });
 
@@ -203,7 +203,7 @@ export default function CRMPipelineDashboard({}: CRMPipelineDashboardProps) {
                   <span>Internal Sales &amp; Lead Management Portal • Role-Based</span>
                 </div>
                 <h1 className="text-2xl sm:text-3xl font-serif font-bold text-slate-900">
-                  Ravi Estate — Client Advisory Pipeline
+                  Property Files Network — Client Advisory Pipeline
                 </h1>
                 <p className="text-xs sm:text-sm text-slate-600">
                   Track domestic institutional and overseas Pakistani client inquiries across Lahore developments.

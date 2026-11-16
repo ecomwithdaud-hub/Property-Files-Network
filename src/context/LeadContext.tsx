@@ -19,7 +19,7 @@ interface LeadContextType {
 
 const LeadContext = createContext<LeadContextType | undefined>(undefined);
 
-const STORAGE_KEY = "ravi_estate_crm_leads_v1";
+const STORAGE_KEY = "property_files_network_crm_leads_v1";
 
 export function LeadProvider({ children }: { children: React.ReactNode }) {
   const [leads, setLeads] = useState<Lead[]>(INITIAL_CRM_LEADS);

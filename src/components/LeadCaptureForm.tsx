@@ -91,7 +91,7 @@ export default function LeadCaptureForm({
     const created = await addLead({
       clientName: clientName.trim(),
       phone: phone.trim(),
-      email: email.trim() || "advisory.client@raviestate.com",
+      email: email.trim() || "advisory.client@propertyfilesnetwork.com",
       originType,
       countryCity: countryCity.trim() || "Lahore, Pakistan",
       propertyCategory,

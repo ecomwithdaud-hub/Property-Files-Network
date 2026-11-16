@@ -1,4 +1,5 @@
 import { MetadataRoute } from "next";
+import { COMPANY_INFO } from "@/lib/data";
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -9,6 +10,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/crm", "/api/"],
       },
     ],
-    sitemap: "https://raviestate.com/sitemap.xml",
+    sitemap: `${COMPANY_INFO.websiteUrl}/sitemap.xml`,
   };
 }

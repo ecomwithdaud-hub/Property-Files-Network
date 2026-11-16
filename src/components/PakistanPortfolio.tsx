@@ -56,7 +56,7 @@ export default function PakistanPortfolio() {
                 <span className="text-amber-700">Lahore, Pakistan</span>
               </h2>
               <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
-                Explore Ravi Estate and Value Group&apos;s verified portfolio of luxury executive apartments, grade-A corporate towers, automated smart townhouses, and organic country estates across Lahore&apos;s primary growth corridors.
+                Explore Property Files Network and Value Group&apos;s verified portfolio of luxury executive apartments, grade-A corporate towers, automated smart townhouses, and organic country estates across Lahore&apos;s primary growth corridors.
               </p>
             </div>
 

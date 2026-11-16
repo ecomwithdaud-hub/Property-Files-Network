@@ -6,17 +6,15 @@ import { usePathname } from "next/navigation";
 import {
   Phone,
   Globe,
-  Instagram,
-  Facebook,
   LayoutDashboard,
   Building2,
   Menu,
   X,
   FileDown,
   Mail,
-  BookOpen,
 } from "lucide-react";
-import RaviEstateLogo from "./RaviEstateLogo";
+import PropertyFilesLogo from "./PropertyFilesLogo";
+import SocialLinks from "./SocialLinks";
 import { COMPANY_INFO } from "@/lib/data";
 import { useLeads } from "@/context/LeadContext";
 
@@ -44,13 +42,13 @@ export default function Navbar({ activeModule = "public", setActiveModule }: Nav
       {/* Top Corporate Ribbon */}
       <div className="bg-slate-900 text-slate-200 text-xs">
         <div className="max-w-7xl mx-auto px-6 lg:px-10 py-2.5 flex flex-wrap items-center justify-between gap-4">
-          <div className="flex flex-wrap items-center gap-5 sm:gap-7">
+          <div className="flex flex-wrap items-center gap-4 sm:gap-6">
             <a
               href={`tel:${COMPANY_INFO.pakistanPhoneRaw}`}
               className="flex items-center gap-2 hover:text-amber-300 transition-colors whitespace-nowrap"
             >
               <Phone className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-              <span className="text-slate-400">Advisory Hotline:</span>
+              <span className="text-slate-400">Advisory Desk:</span>
               <span className="font-semibold text-white">
                 {COMPANY_INFO.pakistanPhone}
               </span>
@@ -82,34 +80,17 @@ export default function Navbar({ activeModule = "public", setActiveModule }: Nav
             </a>
           </div>
 
-          <div className="flex items-center gap-5 ml-auto whitespace-nowrap">
-            <a
-              href={COMPANY_INFO.instagramUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center gap-1.5 hover:text-amber-300 transition-colors text-xs"
-            >
-              <Instagram className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-              <span>{COMPANY_INFO.instagramHandle}</span>
-            </a>
-            <span className="text-slate-700">|</span>
-            <a
-              href={COMPANY_INFO.facebookUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center gap-1.5 hover:text-amber-300 transition-colors text-xs"
-            >
-              <Facebook className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-              <span>{COMPANY_INFO.facebookName}</span>
-            </a>
+          {/* Social Channels: TikTok, Instagram, Facebook, LinkedIn */}
+          <div className="flex items-center ml-auto whitespace-nowrap">
+            <SocialLinks variant="navbar" showLabels={true} />
           </div>
         </div>
       </div>
 
       {/* Main Corporate Navigation Bar */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-10 py-4 lg:py-5 flex items-center justify-between gap-6">
+      <div className="max-w-7xl mx-auto px-6 lg:px-10 py-3.5 lg:py-4 flex items-center justify-between gap-6">
         <Link href="/" className="cursor-pointer shrink-0">
-          <RaviEstateLogo variant="light" showTagline={true} />
+          <PropertyFilesLogo variant="light" size="md" showTagline={true} />
         </Link>
 
         {/* Center Desktop Navigation Links */}
@@ -266,6 +247,11 @@ export default function Navbar({ activeModule = "public", setActiveModule }: Nav
               <FileDown className="w-4 h-4 text-amber-400" />
               Download Official Portfolio Dossier
             </button>
+          </div>
+
+          {/* Mobile Socials */}
+          <div className="pt-3 border-t border-slate-200 flex items-center justify-center">
+            <SocialLinks variant="navbar" />
           </div>
         </div>
       )}

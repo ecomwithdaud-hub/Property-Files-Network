@@ -6,7 +6,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BrochureModal from "@/components/BrochureModal";
 import ScrollReveal from "@/components/ScrollReveal";
-import { BLOG_POSTS, BlogPost } from "@/lib/data";
+import { BLOG_POSTS, BlogPost, COMPANY_INFO } from "@/lib/data";
 import {
   BookOpen,
   Search,
@@ -78,7 +78,7 @@ export default function BlogIndexPage() {
                   <span className="text-amber-700">Pakistan Real Estate</span>
                 </h1>
                 <p className="text-base sm:text-lg text-slate-600 leading-relaxed">
-                  Real data, empirical yield comparisons, land banking insights, and regulatory checklists authored by Ravi Estate senior partners to educate the public and protect investor capital.
+                  Real data, empirical yield comparisons, land banking insights, and regulatory checklists authored by {COMPANY_INFO.name} senior partners to educate the public and protect investor capital.
                 </p>
               </div>
             </ScrollReveal>
@@ -269,7 +269,7 @@ export default function BlogIndexPage() {
               </div>
               <div className="space-y-2">
                 <h2 className="text-2xl sm:text-3xl font-serif font-bold text-slate-900">
-                  Subscribe to Ravi Estate Quarterly Market Intelligence
+                  Subscribe to {COMPANY_INFO.name} Quarterly Market Intelligence
                 </h2>
                 <p className="text-xs sm:text-sm text-slate-600 max-w-xl mx-auto">
                   Receive verified transaction reports, LDA regulatory updates, commercial yield indices, and land banking analysis directly in your inbox. No spam, ever.

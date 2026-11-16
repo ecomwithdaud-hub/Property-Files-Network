@@ -4,16 +4,16 @@ import { LeadProvider } from "@/context/LeadContext";
 import { COMPANY_INFO } from "@/lib/data";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://raviestate.com"),
+  metadataBase: new URL(COMPANY_INFO.websiteUrl),
   title: {
-    default: "Ravi Estate | Lahore Real Estate Advisory & Property Investments",
-    template: "%s | Ravi Estate",
+    default: `${COMPANY_INFO.name} | Lahore Real Estate Advisory & Property Investments`,
+    template: `%s | ${COMPANY_INFO.name}`,
   },
   description:
-    "Ravi Estate (raviestate.com) — 'Deals in all kinds of properties.' Premier real estate advisory and investment marketing firm in Lahore, Pakistan. Official partner of Value Group developments across DHA Phase 5, Gulberg III, Model Town, and Barki Road.",
+    `${COMPANY_INFO.name} (${COMPANY_INFO.domain}) — 'Deals in all kinds of properties.' Premier real estate advisory and investment marketing firm in Lahore, Pakistan. Official partner of Value Group developments across DHA Phase 5, Gulberg III, Model Town, and Barki Road.`,
   keywords: [
-    "Ravi Estate",
-    "raviestate.com",
+    "Property Files Network",
+    "propertyfilesnetwork.com",
     "Lahore real estate advisory",
     "DHA Lahore property consultants",
     "Gulberg commercial office space",
@@ -25,31 +25,31 @@ export const metadata: Metadata = {
     "Punjab property due diligence",
     "Pakistan property yield analysis",
   ],
-  authors: [{ name: "Ravi Estate", url: "https://raviestate.com" }],
-  creator: "Ravi Estate",
+  authors: [{ name: COMPANY_INFO.name, url: COMPANY_INFO.websiteUrl }],
+  creator: COMPANY_INFO.name,
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://raviestate.com",
-    siteName: "Ravi Estate",
-    title: "Ravi Estate | Institutional Real Estate Advisory in Lahore, Pakistan",
+    url: COMPANY_INFO.websiteUrl,
+    siteName: COMPANY_INFO.name,
+    title: `${COMPANY_INFO.name} | Institutional Real Estate Advisory in Lahore, Pakistan`,
     description:
       "Premier property advisory firm advising high-net-worth families, institutions, and overseas Pakistanis across verified residential, commercial, and agricultural developments in Lahore.",
     images: [
       {
-        url: "/images/ravi-estate-logo.png",
+        url: "/images/property-files-network-logo.jpg",
         width: 800,
-        height: 600,
-        alt: "Ravi Estate - Deals in all kinds of properties",
+        height: 800,
+        alt: `${COMPANY_INFO.name} - Deals in all kinds of properties`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ravi Estate | Lahore Property Advisory & Investment Marketing",
+    title: `${COMPANY_INFO.name} | Lahore Property Advisory & Investment Marketing`,
     description:
       "Official advisory and marketing partner for Value Group developments in Lahore, Pakistan.",
-    images: ["/images/ravi-estate-logo.png"],
+    images: ["/images/property-files-network-logo.jpg"],
   },
   robots: {
     index: true,
@@ -72,12 +72,12 @@ export default function RootLayout({
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "RealEstateAgent",
-    name: "Ravi Estate",
-    url: "https://raviestate.com",
-    logo: "https://raviestate.com/images/ravi-estate-logo.png",
-    image: "https://raviestate.com/images/ravi-estate-logo.png",
+    name: COMPANY_INFO.name,
+    url: COMPANY_INFO.websiteUrl,
+    logo: `${COMPANY_INFO.websiteUrl}/images/property-files-network-logo.jpg`,
+    image: `${COMPANY_INFO.websiteUrl}/images/property-files-network-logo.jpg`,
     description:
-      "Premier real estate advisory & marketing company established in 2008 in Lahore, Pakistan.",
+      `Premier real estate advisory & marketing company established in ${COMPANY_INFO.foundedYear} in Lahore, Pakistan.`,
     telephone: COMPANY_INFO.pakistanPhone,
     email: COMPANY_INFO.email,
     address: {
@@ -104,8 +104,10 @@ export default function RootLayout({
       },
     ],
     sameAs: [
-      COMPANY_INFO.instagramUrl,
-      COMPANY_INFO.facebookUrl,
+      COMPANY_INFO.socialLinks.tiktok.url,
+      COMPANY_INFO.socialLinks.instagram.url,
+      COMPANY_INFO.socialLinks.facebook.url,
+      COMPANY_INFO.socialLinks.linkedin.url,
     ],
   };
 

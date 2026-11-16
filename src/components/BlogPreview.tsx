@@ -25,7 +25,7 @@ export default function BlogPreview() {
                 <span className="text-amber-700">Pakistan Real Estate</span>
               </h2>
               <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
-                Empirical market analyses, yield comparisons, land banking strategies, and legal due diligence guides authored by Ravi Estate senior advisors.
+                Empirical market analyses, yield comparisons, land banking strategies, and legal due diligence guides authored by Property Files Network senior advisors.
               </p>
             </div>
 

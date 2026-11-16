@@ -1,10 +1,11 @@
 "use client";
 
 import React from "react";
-import { ShieldCheck, Scale, Compass, Award, Users, CheckCircle2 } from "lucide-react";
+import { Scale, Compass, Award, Users } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
+import { COMPANY_INFO } from "@/lib/data";
 
-export default function WhyRaviEstate() {
+export default function WhyPropertyFiles() {
   const pillars = [
     {
       icon: Scale,
@@ -14,7 +15,7 @@ export default function WhyRaviEstate() {
     {
       icon: Award,
       title: "18+ Years Institutional Track Record",
-      desc: "Founded in 2008 in Lahore, Ravi Estate has guided over PKR 45 Billion in residential, commercial, and agricultural property transactions through changing market cycles.",
+      desc: `Founded in 2008 in Lahore, ${COMPANY_INFO.name} has guided over PKR 45 Billion in residential, commercial, and agricultural property transactions through changing market cycles.`,
     },
     {
       icon: Compass,
@@ -34,11 +35,11 @@ export default function WhyRaviEstate() {
         <ScrollReveal direction="up">
           <div className="max-w-3xl space-y-3">
             <div className="text-xs font-bold uppercase tracking-widest text-amber-700">
-              The Ravi Estate Advisory Standard
+              The Property Files Network Standard
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-serif font-bold text-slate-900 leading-tight">
               Why Discerning Investors Trust{" "}
-              <span className="text-amber-700">Ravi Estate</span>
+              <span className="text-amber-700">{COMPANY_INFO.name}</span>
             </h2>
             <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
               We operate as fiduciary real estate advisors rather than speculative brokers. Our mandate is simple: ensure total capital safety, legal clarity, and dependable yield performance.

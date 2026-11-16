@@ -16,12 +16,12 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Contact & Advisory Desks | Ravi Estate (raviestate.com) | Lahore Offices",
+  title: `Contact & Advisory Desks | ${COMPANY_INFO.name} (${COMPANY_INFO.domain}) | Lahore Offices`,
   description:
-    "Connect with Ravi Estate property advisors in Lahore. Visit our DHA Phase 5 and Gulberg III offices, call +92 300 4154156, or submit an inquiry for commercial, residential, and farmhouse properties.",
+    `Connect with ${COMPANY_INFO.name} property advisors in Lahore. Visit our DHA Phase 5 and Gulberg III offices, call +92 300 4154156, or submit an inquiry for commercial, residential, and farmhouse properties.`,
   keywords: [
-    "Contact Ravi Estate",
-    "Ravi Estate Lahore Phone",
+    `Contact ${COMPANY_INFO.name}`,
+    `${COMPANY_INFO.name} Lahore Phone`,
     "DHA Phase 5 real estate office",
     "Gulberg property consultant",
     "Overseas Pakistani real estate Lahore",
@@ -31,11 +31,11 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   const faqs = [
     {
-      q: "Where are Ravi Estate's physical offices located?",
+      q: `Where are ${COMPANY_INFO.name}'s physical offices located?`,
       a: "Our primary advisory desks are positioned in DHA Phase 5 and Gulberg III, Lahore, providing direct on-ground access to Lahore's key commercial and residential corridors.",
     },
     {
-      q: "How does Ravi Estate verify property titles before acquisition?",
+      q: `How does ${COMPANY_INFO.name} verify property titles before acquisition?`,
       a: "Our legal advisory desk independently audits the Halqa Patwari's record of rights (Fard & Intiqal), checks town planning approvals with the Lahore Development Authority (LDA), and secures official No Demand Certificates (NDC) from DHA prior to presenting assets to clients.",
     },
     {
@@ -43,7 +43,7 @@ export default function ContactPage() {
       a: "Yes. Through our specialized Overseas Advisory Desk, we guide diaspora clients on executing Special Power of Attorney (PoA) attested by the Pakistani High Commission / Consulate, and structure payments through Roshan Digital Accounts (RDA) for full legal capital repatriation.",
     },
     {
-      q: "Does Ravi Estate charge consultation fees for initial portfolio reviews?",
+      q: `Does ${COMPANY_INFO.name} charge consultation fees for initial portfolio reviews?`,
       a: "Initial property consultations, investment feasibility reviews, and project walkthroughs are complimentary. Professional brokerage and legal conveyance fees apply solely upon successful transaction execution.",
     },
   ];

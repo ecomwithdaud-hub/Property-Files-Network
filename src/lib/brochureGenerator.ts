@@ -2,17 +2,17 @@ import { COMPANY_INFO, PAKISTAN_PORTFOLIO } from "./data";
 
 /**
  * Generates an official, corporate PDF 1.4 binary document containing the
- * Ravi Estate & Value Group Pakistan Portfolio Investment Dossier
+ * Property Files Network & Value Group Pakistan Portfolio Investment Dossier
  * and triggers a browser file download.
  */
 export function downloadOfficialBrochurePDF() {
   const linesPage = [
-    "RAVI ESTATE  |  raviestate.com  |  Deals in all kinds of properties.",
+    "PROPERTY FILES NETWORK  |  propertyfilesnetwork.com  |  Deals in all kinds of properties.",
     "OFFICIAL PAKISTAN REAL ESTATE INVESTMENT DOSSIER",
     "==========================================================================",
-    "DEVELOPMENT PARTNER: VALUE GROUP  |  ADVISORY DESK: RAVI ESTATE",
+    "DEVELOPMENT PARTNER: VALUE GROUP  |  ADVISORY DESK: PROPERTY FILES NETWORK",
     "Head Office: Main Boulevard, DHA Phase 5 / Gulberg Advisory Desk, Lahore",
-    "Direct Phone & WhatsApp: +92 300 4154156  |  Email: advisory@raviestate.com",
+    "Direct Phone & WhatsApp: +92 300 4154156  |  Email: advisory@propertyfilesnetwork.com",
     "--------------------------------------------------------------------------",
     "1. GREEN VIEW EXECUTIVE APARTMENTS (DHA Phase 5, Lahore)",
     "   - Location: Prime DHA Phase 5 adjacent to Lahore Ring Road",
@@ -106,7 +106,7 @@ export function downloadOfficialBrochurePDF() {
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = "Ravi-Estate-Pakistan-Portfolio-Investment-Dossier.pdf";
+  a.download = "Property-Files-Network-Pakistan-Portfolio-Investment-Dossier.pdf";
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);

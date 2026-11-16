@@ -74,19 +74,43 @@ export interface BlogPost {
 }
 
 export const COMPANY_INFO = {
-  name: "Ravi Estate",
-  domain: "raviestate.com",
-  websiteUrl: "https://raviestate.com",
+  name: "Property Files Network",
+  shortName: "Property Files Network",
+  domain: "propertyfilesnetwork.com",
+  websiteUrl: "https://propertyfilesnetwork.com",
   tagline: "Deals in all kinds of properties.",
   foundedYear: "2008",
   pakistanPhone: "+92 300 4154156",
   pakistanPhoneRaw: "+923004154156",
   whatsappUrl: "https://wa.me/923004154156",
-  email: "advisory@raviestate.com",
-  instagramHandle: "@ravi_estate.pk",
-  instagramUrl: "https://instagram.com/ravi_estate.pk",
-  facebookName: "Ravi Estate",
-  facebookUrl: "https://facebook.com/raviestate",
+  email: "advisory@propertyfilesnetwork.com",
+  // Official Social Media Links
+  tiktokUrl: "https://www.tiktok.com/@propertyfilesnetwork",
+  instagramUrl: "https://www.instagram.com/propertyfilesnetwork/",
+  facebookUrl: "https://www.facebook.com/profile.php?id=61595992805673",
+  linkedinUrl: "https://www.linkedin.com/company/property-files-network",
+  tiktokHandle: "@propertyfilesnetwork",
+  instagramHandle: "@propertyfilesnetwork",
+  facebookName: "Property Files Network",
+  linkedinName: "Property Files Network",
+  socialLinks: {
+    tiktok: {
+      url: "https://www.tiktok.com/@propertyfilesnetwork",
+      handle: "@propertyfilesnetwork",
+    },
+    instagram: {
+      url: "https://www.instagram.com/propertyfilesnetwork/",
+      handle: "@propertyfilesnetwork",
+    },
+    facebook: {
+      url: "https://www.facebook.com/profile.php?id=61595992805673",
+      handle: "Property Files Network",
+    },
+    linkedin: {
+      url: "https://www.linkedin.com/company/property-files-network",
+      handle: "Property Files Network",
+    },
+  },
   headOffice: "Main Boulevard, DHA Phase 5 / Gulberg Advisory Desk, Lahore, Pakistan",
   officeHours: "Monday – Saturday: 10:00 AM – 7:30 PM (PKT)",
 };
@@ -99,7 +123,7 @@ export const PAKISTAN_PORTFOLIO: PortfolioProject[] = [
     city: "Lahore",
     status: "Completed & Delivered",
     type: "Luxury Apartments",
-    partnership: "Value Group × Ravi Estate",
+    partnership: "Value Group × Property Files Network",
     completionYear: "Delivered • High Occupancy",
     unitsInfo: "1, 2 & 3 Bed Executive Suites",
     startingPrice: "PKR 2.85 Crore",
@@ -130,7 +154,7 @@ export const PAKISTAN_PORTFOLIO: PortfolioProject[] = [
     city: "Lahore",
     status: "Completed & Delivered",
     type: "Luxury Apartments",
-    partnership: "Value Group × Ravi Estate",
+    partnership: "Value Group × Property Files Network",
     completionYear: "Completed • Fully Occupied",
     unitsInfo: "Studio, 1 & 2 Bed Urban Apartments",
     startingPrice: "PKR 1.65 Crore",
@@ -141,7 +165,7 @@ export const PAKISTAN_PORTFOLIO: PortfolioProject[] = [
       "Direct walking access to Model Town Link Road retail and commercial hub",
       "Earthquake-resistant reinforced concrete engineering by Value Group",
       "High-speed Mitsubishi elevators with automatic rescue devices",
-      "Full rental management desk operated by Ravi Estate advisory team",
+      "Full rental management desk operated by Property Files Network advisory team",
       "High-yield entry-level price point with established occupancy records",
     ],
     architecturalStyle: "Modern Urban Mid-Rise",
@@ -161,7 +185,7 @@ export const PAKISTAN_PORTFOLIO: PortfolioProject[] = [
     city: "Lahore",
     status: "Ready for Possession",
     type: "Gated Residencies",
-    partnership: "Value Group × Ravi Estate",
+    partnership: "Value Group × Property Files Network",
     completionYear: "Ready / Near Possession",
     unitsInfo: "Luxury Villas & Designer Residencies",
     startingPrice: "PKR 3.40 Crore",
@@ -192,7 +216,7 @@ export const PAKISTAN_PORTFOLIO: PortfolioProject[] = [
     city: "Lahore",
     status: "Ongoing Development",
     type: "Smart Homes",
-    partnership: "Value Group × Ravi Estate",
+    partnership: "Value Group × Property Files Network",
     completionYear: "Under Active Construction",
     unitsInfo: "IoT-Enabled Smart Villas & Townhouses",
     startingPrice: "PKR 2.95 Crore",
@@ -223,7 +247,7 @@ export const PAKISTAN_PORTFOLIO: PortfolioProject[] = [
     city: "Lahore",
     status: "Completed & Delivered",
     type: "Commercial Corporate",
-    partnership: "Value Group × Ravi Estate",
+    partnership: "Value Group × Property Files Network",
     completionYear: "Operational Grade-A Commercial Tower",
     unitsInfo: "Corporate Offices, Retail Showrooms & Penthouses",
     startingPrice: "PKR 4.50 Crore",
@@ -254,7 +278,7 @@ export const PAKISTAN_PORTFOLIO: PortfolioProject[] = [
     city: "Lahore",
     status: "Ready for Possession",
     type: "Organic Farmhouses",
-    partnership: "Value Group × Ravi Estate",
+    partnership: "Value Group × Property Files Network",
     completionYear: "Mature Developed Estates",
     unitsInfo: "2, 4 & 8 Kanal Bespoke Farm Estates",
     startingPrice: "PKR 6.75 Crore",
@@ -292,7 +316,7 @@ export const BLOG_POSTS: BlogPost[] = [
     publishDate: "November 10, 2026",
     author: {
       name: "Chaudhry Bilal",
-      role: "Head of Commercial Advisory, Ravi Estate",
+      role: "Head of Commercial Advisory, Property Files Network",
     },
     metrics: [
       { label: "Gulberg Corporate Avg Yield", value: "10.5% – 12.0%", note: "Multi-year corporate covenants" },
@@ -316,7 +340,7 @@ export const BLOG_POSTS: BlogPost[] = [
       {
         sectionTitle: "Case Study 1: The Corporate Floor in Gulberg III",
         paragraphs: [
-          "In 2017, an institutional family office advised by Ravi Estate acquired an entire 4,200 sq. ft. office floor in a newly commissioned corporate tower on Gulberg III for PKR 48 Million. By securing a 5-year lease with a regional software engineering consultancy at PKR 110/sq. ft. with an escalating 10% annual increment clause, the investor realized an initial gross yield of 11.5%.",
+          "In 2017, an institutional family office advised by Property Files Network acquired an entire 4,200 sq. ft. office floor in a newly commissioned corporate tower on Gulberg III for PKR 48 Million. By securing a 5-year lease with a regional software engineering consultancy at PKR 110/sq. ft. with an escalating 10% annual increment clause, the investor realized an initial gross yield of 11.5%.",
           "By 2026, the capitalized asset value had climbed to PKR 112 Million, while the monthly rental income had expanded to over PKR 920,000, illustrating how vertical density in Gulberg compounds both income and capital reserves simultaneously.",
         ],
       },
@@ -348,7 +372,7 @@ export const BLOG_POSTS: BlogPost[] = [
     publishDate: "November 04, 2026",
     author: {
       name: "Hassan Nawaz",
-      role: "Director of Land Acquisitions, Ravi Estate",
+      role: "Director of Land Acquisitions, Property Files Network",
     },
     metrics: [
       { label: "Barki Road 5-Year Land Value Growth", value: "+145%", note: "Post DHA Phase 8 expansion" },
@@ -372,14 +396,14 @@ export const BLOG_POSTS: BlogPost[] = [
       {
         sectionTitle: "Value Lahore Organic Farmhouses: A Case Study in Land Banking",
         paragraphs: [
-          "Developed under the Value Group and advised by Ravi Estate, the Value Lahore Organic Farmhouses enclave exemplifies this philosophy. Buyers acquire cleared, fertile land parcels of 2, 4, or 8 Kanals complete with sweet-water tube well access, secure boundary perimeters, and paved access roads.",
+          "Developed under the Value Group and advised by Property Files Network, the Value Lahore Organic Farmhouses enclave exemplifies this philosophy. Buyers acquire cleared, fertile land parcels of 2, 4, or 8 Kanals complete with sweet-water tube well access, secure boundary perimeters, and paved access roads.",
           "Early adopters who purchased land here at PKR 1.8 Crore per Kanal in 2019 have witnessed parcels surpass PKR 3.8 Crore per Kanal in 2026, driven by the widening of Barki Road and the delivery of surrounding residential infrastructure.",
         ],
       },
       {
         sectionTitle: "Legal Due Diligence Specific to Punjab Farmhouse Land",
         paragraphs: [
-          "Purchasing agricultural or semi-urban land requires meticulous attention beyond standard residential transfer files. The Ravi Estate legal advisory desk verifies: (1) Intiqal (mutation) records in the local Revenue Patwarkhana, (2) Aks Shajra to confirm exact boundary demarcation, and (3) Non-encumbrance certificates ensuring no agricultural bank loans or court stays exist on the Khasra numbers.",
+          "Purchasing agricultural or semi-urban land requires meticulous attention beyond standard residential transfer files. The Property Files Network legal advisory desk verifies: (1) Intiqal (mutation) records in the local Revenue Patwarkhana, (2) Aks Shajra to confirm exact boundary demarcation, and (3) Non-encumbrance certificates ensuring no agricultural bank loans or court stays exist on the Khasra numbers.",
         ],
       },
     ],
@@ -395,7 +419,7 @@ export const BLOG_POSTS: BlogPost[] = [
     publishDate: "October 28, 2026",
     author: {
       name: "Zainab Raza",
-      role: "Lead Diaspora Advisory Consultant, Ravi Estate",
+      role: "Lead Diaspora Advisory Consultant, Property Files Network",
     },
     metrics: [
       { label: "Annual Overseas Remittances into Real Estate", value: "$3.8B+", note: "National diaspora estimate" },
@@ -408,7 +432,7 @@ export const BLOG_POSTS: BlogPost[] = [
         sectionTitle: "The Diaspora Dilemma: Ambition vs. Vulnerability",
         paragraphs: [
           "For millions of expatriate Pakistanis working across London, Dubai, Toronto, and North America, real estate back home is more than an asset class—it represents an emotional anchor and a primary retirement objective. However, informal transactions, reliance on unqualified relatives, and opaque developer marketing have created apprehension.",
-          "The modern Pakistani real estate ecosystem has matured. With State Bank of Pakistan reforms, the Roshan Digital Account (RDA) framework, and professional advisory firms like Ravi Estate, investing from abroad can be as transparent and legally secure as buying property in Manchester or Dallas.",
+          "The modern Pakistani real estate ecosystem has matured. With State Bank of Pakistan reforms, the Roshan Digital Account (RDA) framework, and professional advisory networks like Property Files Network, investing from abroad can be as transparent and legally secure as buying property in Manchester or Dallas.",
         ],
       },
       {
@@ -441,7 +465,7 @@ export const BLOG_POSTS: BlogPost[] = [
     publishDate: "October 18, 2026",
     author: {
       name: "Umer Farooq",
-      role: "Senior Investment Specialist, Ravi Estate",
+      role: "Senior Investment Specialist, Property Files Network",
     },
     metrics: [
       { label: "Unballoted File Realization Time", value: "4 – 8 Years", note: "Subject to land acquisition pacing" },
@@ -464,7 +488,7 @@ export const BLOG_POSTS: BlogPost[] = [
           "Conversely, Investor B deployed PKR 18 Million in an on-ground possession plot in DHA Phase 12 (EME Sector). Over the identical period, Investor B constructed a smart rental townhouse (e.g., Green View Smart Homes model) which now yields PKR 140,000 monthly in steady rent and holds an asset valuation exceeding PKR 42 Million.",
         ],
         callout: {
-          title: "The Ravi Estate Due Diligence Filter",
+          title: "The Property Files Network Due Diligence Filter",
           text: "We advise our clients never to commit more than 20% of their property portfolio to unballoted files. Always prioritize infrastructure-backed possession assets where title registration is finalized immediately.",
         },
       },
@@ -481,7 +505,7 @@ export const BLOG_POSTS: BlogPost[] = [
     publishDate: "October 05, 2026",
     author: {
       name: "Chaudhry Bilal",
-      role: "Head of Commercial Advisory, Ravi Estate",
+      role: "Head of Commercial Advisory, Property Files Network",
     },
     metrics: [
       { label: "Maintenance Cost Reduction", value: "55% – 65%", note: "Compared to standalone 1-Kanal villas" },
@@ -517,11 +541,11 @@ export const BLOG_POSTS: BlogPost[] = [
     publishDate: "September 24, 2026",
     author: {
       name: "Hassan Nawaz",
-      role: "Director of Land Acquisitions, Ravi Estate",
+      role: "Director of Land Acquisitions, Property Files Network",
     },
     metrics: [
       { label: "Annual Property Disputes in Punjab Courts", value: "100,000+", note: "Primarily stemming from informal verifications" },
-      { label: "Ravi Estate Title Clearance Standard", value: "100%", note: "Independent verification protocol" },
+      { label: "Property Files Network Title Clearance Standard", value: "100%", note: "Independent verification protocol" },
       { label: "Mandatory Document Checks", value: "7 Core Steps", note: "Covering LDA, DHA, Revenue & FBR" },
     ],
     tags: ["Legal Checklist", "LDA Approved", "DHA Verification", "Property Fraud Prevention", "Punjab Revenue"],
@@ -545,8 +569,8 @@ export const BLOG_POSTS: BlogPost[] = [
           "7. Registered Sale Deed (Baya-Nama): Ensure the deed is officially registered before the Sub-Registrar and properly mutated (Intiqal) in the revenue books.",
         ],
         callout: {
-          title: "Ravi Estate Legal Guarantee",
-          text: "Every property represented in the Ravi Estate portfolio undergoes rigorous multi-layer verification by our dedicated real estate attorneys before it is introduced to our investors.",
+          title: "Property Files Network Legal Guarantee",
+          text: "Every property represented in the Property Files Network portfolio undergoes rigorous multi-layer verification by our dedicated real estate attorneys before it is introduced to our investors.",
         },
       },
     ],
@@ -661,7 +685,7 @@ export const INITIAL_CRM_LEADS: Lead[] = [
     stage: "consultation",
     priority: "Standard",
     notes: [
-      "In-person consultation scheduled at Ravi Estate DHA Phase 5 office for Friday 4:00 PM.",
+      "In-person consultation scheduled at Property Files Network DHA Phase 5 office for Friday 4:00 PM.",
       "Seeking dependable rental income stream in central Lahore.",
     ],
     createdAt: "2026-11-13",
@@ -683,7 +707,7 @@ export const INITIAL_CRM_LEADS: Lead[] = [
     stage: "contacted",
     priority: "VIP",
     notes: [
-      "Read Ravi Estate Barki Road case study online.",
+      "Read Property Files Network Barki Road case study online.",
       "Reviewing Special Power of Attorney (PoA) requirements for land registration in Lahore.",
     ],
     createdAt: "2026-11-14",
@@ -705,7 +729,7 @@ export const INITIAL_CRM_LEADS: Lead[] = [
     stage: "new",
     priority: "Standard",
     notes: [
-      "Inbound inquiry submitted via raviestate.com website portal.",
+      "Inbound inquiry submitted via propertyfilesnetwork.com website portal.",
       "Requested site visit opposite DHA Phase 8 Barki Road.",
     ],
     createdAt: "2026-11-15",

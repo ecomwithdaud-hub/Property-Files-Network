@@ -5,7 +5,7 @@ import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import PartnershipSpotlight from "@/components/PartnershipSpotlight";
 import PakistanPortfolio from "@/components/PakistanPortfolio";
-import WhyRaviEstate from "@/components/WhyRaviEstate";
+import WhyPropertyFiles from "@/components/WhyPropertyFiles";
 import BlogPreview from "@/components/BlogPreview";
 import LeadCaptureForm from "@/components/LeadCaptureForm";
 import Footer from "@/components/Footer";
@@ -24,7 +24,7 @@ export default function HomePage() {
           <HeroSection />
           <PartnershipSpotlight />
           <PakistanPortfolio />
-          <WhyRaviEstate />
+          <WhyPropertyFiles />
           <BlogPreview />
           <LeadCaptureForm
             onSwitchToCRM={() => {

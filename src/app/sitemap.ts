@@ -1,8 +1,8 @@
 import { MetadataRoute } from "next";
-import { BLOG_POSTS } from "@/lib/data";
+import { BLOG_POSTS, COMPANY_INFO } from "@/lib/data";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://raviestate.com";
+  const baseUrl = COMPANY_INFO.websiteUrl;
 
   const staticPages: MetadataRoute.Sitemap = [
     {

@@ -40,12 +40,12 @@ export async function generateMetadata({
 
   if (!post) {
     return {
-      title: "Article Not Found | Ravi Estate",
+      title: `Article Not Found | ${COMPANY_INFO.name}`,
     };
   }
 
   return {
-    title: `${post.title} | Ravi Estate Market Intelligence`,
+    title: `${post.title} | ${COMPANY_INFO.name} Market Intelligence`,
     description: post.excerpt,
     keywords: post.tags,
     openGraph: {
@@ -54,8 +54,8 @@ export async function generateMetadata({
       type: "article",
       publishedTime: post.publishDate,
       authors: [post.author.name],
-      url: `https://raviestate.com/blog/${post.slug}`,
-      siteName: "Ravi Estate",
+      url: `${COMPANY_INFO.websiteUrl}/blog/${post.slug}`,
+      siteName: COMPANY_INFO.name,
     },
     twitter: {
       card: "summary_large_image",
@@ -88,16 +88,16 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     },
     publisher: {
       "@type": "Organization",
-      name: "Ravi Estate",
-      url: "https://raviestate.com",
+      name: COMPANY_INFO.name,
+      url: COMPANY_INFO.websiteUrl,
       logo: {
         "@type": "ImageObject",
-        url: "https://raviestate.com/images/ravi-estate-logo.png",
+        url: `${COMPANY_INFO.websiteUrl}/images/property-files-network-logo.jpg`,
       },
     },
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `https://raviestate.com/blog/${post.slug}`,
+      "@id": `${COMPANY_INFO.websiteUrl}/blog/${post.slug}`,
     },
   };
 
@@ -251,7 +251,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                   <div className="p-6 rounded-2xl bg-slate-900 text-white space-y-4 shadow-lg border border-slate-800">
                     <div className="space-y-1">
                       <div className="text-[11px] font-bold uppercase tracking-widest text-amber-400">
-                        Ravi Estate Advisory Desk
+                        {COMPANY_INFO.name} Advisory Desk
                       </div>
                       <h3 className="text-lg font-serif font-bold">
                         Need Guidance on This Property Strategy?

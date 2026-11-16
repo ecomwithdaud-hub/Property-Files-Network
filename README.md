@@ -1,13 +1,13 @@
-# Ravi Estate (`raviestate.com`)
+# Property Files Network (`propertyfilesnetwork.com`)
 
 > **"Deals in all kinds of properties."**
 
-Full-stack **Next.js (App Router)** and **Tailwind CSS** web application for **Ravi Estate**, a premier real estate advisory and investment marketing firm founded in 2008 in Lahore, Pakistan.
+Full-stack **Next.js (App Router)** and **Tailwind CSS** web application for **Property Files Network**, a premier real estate advisory and investment marketing firm founded in 2008 in Lahore, Pakistan.
 
 ## Architecture & Features
 
 ### 1. Multi-Page Corporate Portal
-- **Home (`/`)**: Corporate Hero, Value Group Partnership Spotlight, Landmark Pakistan Portfolio, The Ravi Estate Standard (Pillars), Latest Market Intelligence / Blog preview, and Private Advisory Booking Form.
+- **Home (`/`)**: Corporate Hero, Value Group Partnership Spotlight, Landmark Pakistan Portfolio, The Property Files Network Standard (Pillars), Latest Market Intelligence / Blog preview, and Private Advisory Booking Form.
 - **About Us (`/about`)**: 18+ years history, leadership & advisory desks (Chaudhry Bilal, Hassan Nawaz, Zainab Raza, Umer Farooq), corporate ethics, and milestone chronology (2008–2026).
 - **Pakistan Portfolio (`/portfolio`)**: Full catalog of verified Lahore developments with Value Group:
   - *Green View Executive Apartments* (DHA Phase 5, Lahore)
@@ -24,6 +24,11 @@ Full-stack **Next.js (App Router)** and **Tailwind CSS** web application for **R
   5. *The Vertical Living Revolution: Why Model Town Link Road & PECO Road Outperform Suburban Sprawl*
   6. *The 7-Step Property Due Diligence Checklist for Punjab: LDA, DHA, and Registry Verifications*
 - **Contact (`/contact`)**: Lahore offices (DHA Phase 5 & Gulberg III), hotline (+92 300 4154156), WhatsApp direct, email desk, and Investor FAQs.
+- **Official Social Channels**:
+  - TikTok: [https://www.tiktok.com/@propertyfilesnetwork](https://www.tiktok.com/@propertyfilesnetwork)
+  - Instagram: [https://www.instagram.com/propertyfilesnetwork/](https://www.instagram.com/propertyfilesnetwork/)
+  - Facebook: [https://www.facebook.com/profile.php?id=61595992805673](https://www.facebook.com/profile.php?id=61595992805673)
+  - LinkedIn: [https://www.linkedin.com/company/property-files-network](https://www.linkedin.com/company/property-files-network)
 - **Official Dossier Generator**: Client-side binary PDF generator for the official Pakistan Portfolio Investment Dossier.
 
 ### 2. Internal CRM Pipeline Dashboard (`/crm`)

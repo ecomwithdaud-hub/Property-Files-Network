@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
       id: body.id || `LD-${Math.floor(1050 + Math.random() * 9000)}`,
       clientName: body.clientName || "Prospective Client",
       phone: body.phone || "+92 300 0000000",
-      email: body.email || "advisory.client@raviestate.com",
+      email: body.email || "advisory.client@propertyfilesnetwork.com",
       originType: body.originType || "Pakistan",
       countryCity: body.countryCity || "Lahore, Pakistan",
       propertyCategory: body.propertyCategory || "Luxury High-Rise Apartments",
@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
       priority: body.priority || "High",
       notes: Array.isArray(body.notes)
         ? body.notes
-        : [body.notes || "Inbound inquiry submitted via raviestate.com website portal."],
+        : [body.notes || "Inbound inquiry submitted via propertyfilesnetwork.com website portal."],
       createdAt: new Date().toISOString().split("T")[0],
       lastContacted: "Just now",
     };

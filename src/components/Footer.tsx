@@ -5,8 +5,6 @@ import Link from "next/link";
 import {
   Phone,
   Globe,
-  Instagram,
-  Facebook,
   MapPin,
   FileDown,
   ShieldCheck,
@@ -15,7 +13,8 @@ import {
   Clock,
   BookOpen,
 } from "lucide-react";
-import RaviEstateLogo from "./RaviEstateLogo";
+import PropertyFilesLogo from "./PropertyFilesLogo";
+import SocialLinks from "./SocialLinks";
 import { COMPANY_INFO, PAKISTAN_PORTFOLIO, BLOG_POSTS } from "@/lib/data";
 import { useLeads } from "@/context/LeadContext";
 import ScrollReveal from "./ScrollReveal";
@@ -35,11 +34,11 @@ export default function Footer({ onSwitchToCRM }: FooterProps) {
           <ScrollReveal direction="up">
             <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
               <div className="flex items-center gap-4">
-                <div className="h-16 w-16 rounded-xl bg-white p-1.5 shadow-sm border border-slate-200 shrink-0">
+                <div className="h-16 w-16 rounded-xl overflow-hidden border border-amber-400/30 bg-slate-900 shadow-md shrink-0">
                   <img
-                    src="/images/ravi-estate-logo.png"
-                    alt="Ravi Estate Official Logo"
-                    className="w-full h-full object-contain"
+                    src="/images/property-files-network-logo.jpg"
+                    alt="Property Files Network Official Logo"
+                    className="w-full h-full object-cover object-center"
                   />
                 </div>
                 <div>
@@ -47,7 +46,7 @@ export default function Footer({ onSwitchToCRM }: FooterProps) {
                     Official Advisory &amp; Marketing Partner • Value Group
                   </span>
                   <h3 className="text-xl sm:text-2xl font-serif font-bold text-white mt-0.5">
-                    Ravi Estate — &ldquo;{COMPANY_INFO.tagline}&rdquo;
+                    Property Files Network — &ldquo;{COMPANY_INFO.tagline}&rdquo;
                   </h3>
                   <p className="text-xs sm:text-sm text-slate-400 mt-1">
                     Advising high-net-worth families, institutions, and overseas Pakistanis across Lahore since {COMPANY_INFO.foundedYear}.
@@ -90,9 +89,9 @@ export default function Footer({ onSwitchToCRM }: FooterProps) {
       <div className="max-w-7xl mx-auto px-6 lg:px-10 py-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
         {/* Col 1: Brand & Socials */}
         <div className="space-y-4">
-          <RaviEstateLogo variant="dark" showTagline={true} />
+          <PropertyFilesLogo variant="dark" size="md" showTagline={true} />
           <p className="text-sm text-slate-400 leading-relaxed">
-            Premier property advisory and investment marketing firm specializing in verified, high-yield residential apartments, corporate office towers, smart townhouses, and organic country estates across Lahore, Pakistan.
+            Institutional property advisory and portfolio marketing firm specializing in verified, high-yield residential apartments, corporate office towers, smart townhouses, and organic country estates across Lahore, Pakistan.
           </p>
 
           <div className="pt-1 space-y-2 text-xs">
@@ -113,25 +112,12 @@ export default function Footer({ onSwitchToCRM }: FooterProps) {
             </div>
           </div>
 
-          <div className="pt-2 flex flex-wrap gap-2.5">
-            <a
-              href={COMPANY_INFO.instagramUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-medium text-white transition-all"
-            >
-              <Instagram className="w-3.5 h-3.5 text-amber-400" />
-              <span>{COMPANY_INFO.instagramHandle}</span>
-            </a>
-            <a
-              href={COMPANY_INFO.facebookUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-medium text-white transition-all"
-            >
-              <Facebook className="w-3.5 h-3.5 text-amber-400" />
-              <span>{COMPANY_INFO.facebookName}</span>
-            </a>
+          {/* 4 Official Social Media Channels */}
+          <div className="pt-2">
+            <div className="text-[11px] uppercase tracking-wider text-slate-400 font-semibold mb-2.5">
+              Official Media Channels
+            </div>
+            <SocialLinks variant="footer" />
           </div>
         </div>
 
@@ -226,7 +212,7 @@ export default function Footer({ onSwitchToCRM }: FooterProps) {
         <div className="max-w-7xl mx-auto px-6 lg:px-10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
           <div>
             © {new Date().getFullYear()}{" "}
-            <strong className="text-white">Ravi Estate</strong> (
+            <strong className="text-white">Property Files Network</strong> (
             {COMPANY_INFO.domain}) —{" "}
             <span className="italic text-amber-400">
               &ldquo;{COMPANY_INFO.tagline}&rdquo;

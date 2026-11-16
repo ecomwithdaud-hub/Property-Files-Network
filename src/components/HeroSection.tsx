@@ -31,7 +31,7 @@ export default function HeroSection() {
             <ScrollReveal direction="up" delayMs={50}>
               <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-md bg-amber-50 border border-amber-200/80 text-amber-900 text-xs font-semibold uppercase tracking-widest">
                 <Award className="w-3.5 h-3.5 text-amber-700" />
-                <span>Premier Real Estate Advisory &amp; Investment Marketing • Est. 2008</span>
+                <span>Premier Real Estate Advisory &amp; Investment Marketing • Est. {COMPANY_INFO.foundedYear}</span>
               </div>
             </ScrollReveal>
 
@@ -46,7 +46,7 @@ export default function HeroSection() {
                 </h1>
 
                 <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl">
-                  Welcome to <strong className="text-slate-900">Ravi Estate</strong> (
+                  Welcome to <strong className="text-slate-900">Property Files Network</strong> (
                   <span className="text-slate-900 font-medium">
                     {COMPANY_INFO.domain}
                   </span>
@@ -161,14 +161,14 @@ export default function HeroSection() {
           <div className="lg:col-span-5">
             <ScrollReveal direction="left" delayMs={180}>
               <div className="rounded-2xl bg-white border border-slate-200 p-6 sm:p-7 shadow-xl shadow-slate-200/60 space-y-5">
-                {/* Official Ravi Estate Crest Banner */}
+                {/* Official Property Files Network Crest Banner */}
                 <div className="flex items-center justify-between gap-4 pb-4 border-b border-slate-100">
                   <div className="flex items-center gap-3.5">
-                    <div className="h-14 w-16 rounded-lg bg-white p-1 border border-slate-200 shrink-0">
+                    <div className="h-14 w-14 rounded-xl overflow-hidden border border-slate-200 bg-white shadow-sm shrink-0">
                       <img
-                        src="/images/ravi-estate-logo.png"
-                        alt="Ravi Estate Official Crest"
-                        className="w-full h-full object-contain"
+                        src="/images/property-files-network-logo.jpg"
+                        alt="Property Files Network Official Crest"
+                        className="w-full h-full object-cover object-center"
                       />
                     </div>
                     <div>
@@ -176,7 +176,7 @@ export default function HeroSection() {
                         Official Advisory Firm
                       </div>
                       <div className="text-lg font-serif font-bold text-slate-900">
-                        Ravi Estate
+                        Property Files Network
                       </div>
                       <div className="text-xs font-serif italic text-slate-500">
                         &ldquo;{COMPANY_INFO.tagline}&rdquo;

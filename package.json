@@ -1,5 +1,5 @@
 {
-  "name": "ravi-estate",
+  "name": "property-files-network",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -10,9 +10,9 @@
   },
   "dependencies": {
     "lucide-react": "^0.468.0",
-    "next": "^16.4.0",
-    "react": "^19.3.0",
-    "react-dom": "^19.3.0"
+    "next": "^16.4.6",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
   },
   "devDependencies": {
     "@types/node": "^20",

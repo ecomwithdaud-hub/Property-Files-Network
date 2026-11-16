@@ -18,12 +18,12 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "About Us | Ravi Estate (raviestate.com) | Lahore Real Estate Advisory",
+  title: `About Us | ${COMPANY_INFO.name} (${COMPANY_INFO.domain}) | Lahore Real Estate Advisory`,
   description:
-    "Learn about Ravi Estate's 18+ year history as a premier property advisory firm in Lahore, Pakistan. Official marketing partner of Value Group with over PKR 45B in guided real estate transactions.",
+    `Learn about ${COMPANY_INFO.name}'s 18+ year history as a premier property advisory firm in Lahore, Pakistan. Official marketing partner of Value Group with over PKR 45B in guided real estate transactions.`,
   keywords: [
-    "About Ravi Estate",
-    "Ravi Estate Lahore",
+    `About ${COMPANY_INFO.name}`,
+    `${COMPANY_INFO.name} Lahore`,
     "Value Group partnership",
     "DHA Lahore property consultants",
     "Gulberg commercial advisors",
@@ -66,7 +66,7 @@ export default function AboutPage() {
   const milestones = [
     {
       year: "2008",
-      title: "Establishment of Ravi Estate",
+      title: `Establishment of ${COMPANY_INFO.name}`,
       desc: "Founded in Lahore with an uncompromising philosophy: 'Deals in all kinds of properties.' Built on legal due diligence and transparent advisory.",
     },
     {
@@ -110,7 +110,7 @@ export default function AboutPage() {
                   <span className="text-amber-700">Lahore, Pakistan</span>
                 </h1>
                 <p className="text-base sm:text-lg text-slate-600 leading-relaxed">
-                  Ravi Estate is an institutional property advisory firm built on legal title scrutiny, transparent valuations, and enduring client trust. Our motto — <em className="font-serif text-slate-900">&ldquo;{COMPANY_INFO.tagline}&rdquo;</em> — encapsulates our comprehensive capability across commercial, residential, and agricultural assets.
+                  {COMPANY_INFO.name} is an institutional property advisory firm built on legal title scrutiny, transparent valuations, and enduring client trust. Our motto — <em className="font-serif text-slate-900">&ldquo;{COMPANY_INFO.tagline}&rdquo;</em> — encapsulates our comprehensive capability across commercial, residential, and agricultural assets.
                 </p>
               </div>
             </ScrollReveal>
@@ -146,7 +146,7 @@ export default function AboutPage() {
                   Our Core Pillars
                 </div>
                 <h2 className="text-3xl sm:text-4xl font-serif font-bold text-slate-900 leading-tight">
-                  The Three Principles Guiding Every Ravi Estate Transaction
+                  The Three Principles Guiding Every {COMPANY_INFO.name} Transaction
                 </h2>
               </div>
             </ScrollReveal>
@@ -269,7 +269,7 @@ export default function AboutPage() {
             <ScrollReveal direction="up">
               <div className="space-y-3">
                 <h2 className="text-3xl sm:text-4xl font-serif font-bold">
-                  Speak Directly With a Ravi Estate Senior Partner
+                  Speak Directly With a {COMPANY_INFO.name} Senior Partner
                 </h2>
                 <p className="text-slate-300 text-sm sm:text-base max-w-2xl mx-auto">
                   Whether analyzing commercial lease yield projections or inspecting titled land on Barki Road, schedule an in-person or virtual consultation with our advisory desk.

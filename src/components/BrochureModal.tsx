@@ -38,11 +38,11 @@ export default function BrochureModal() {
         {/* Modal Header */}
         <div className="p-5 sm:p-6 bg-slate-900 text-white border-b border-slate-800 flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-3.5">
-            <div className="h-12 w-12 rounded-lg bg-white p-1 border border-slate-200 shrink-0">
+            <div className="h-12 w-12 rounded-xl overflow-hidden border border-slate-200 bg-white shadow-sm shrink-0">
               <img
-                src="/images/ravi-estate-logo.png"
-                alt="Ravi Estate"
-                className="w-full h-full object-contain"
+                src="/images/property-files-network-logo.jpg"
+                alt="Property Files Network"
+                className="w-full h-full object-cover object-center"
               />
             </div>
             <div>
@@ -50,7 +50,7 @@ export default function BrochureModal() {
                 Official Investment Dossier • Value Group Partnership
               </span>
               <h3 className="text-lg sm:text-xl font-serif font-bold text-white">
-                Ravi Estate Pakistan Real Estate Portfolio
+                Property Files Network Pakistan Real Estate Portfolio
               </h3>
             </div>
           </div>
@@ -106,13 +106,13 @@ export default function BrochureModal() {
             <div className="space-y-5">
               <div className="space-y-2">
                 <span className="text-xs font-bold uppercase tracking-widest text-amber-600">
-                  Ravi Estate × Value Group
+                  Property Files Network × Value Group
                 </span>
                 <h4 className="text-2xl font-serif font-bold text-slate-900">
                   Institutional Real Estate Advisory in Lahore Since 2008
                 </h4>
                 <p className="text-sm text-slate-600 leading-relaxed">
-                  Ravi Estate is an established property advisory and portfolio marketing firm specializing in verified, high-yield domestic real estate. Through our strategic partnership with Value Group, we provide domestic and overseas Pakistani investors with vetted residential apartments, commercial corporate high-rises, smart townhouses, and organic farmhouses.
+                  Property Files Network is an established property advisory and portfolio marketing firm specializing in verified, high-yield domestic real estate. Through our strategic partnership with Value Group, we provide domestic and overseas Pakistani investors with vetted residential apartments, commercial corporate high-rises, smart townhouses, and organic farmhouses.
                 </p>
               </div>
 
@@ -139,7 +139,7 @@ export default function BrochureModal() {
           {activeTab === "projects" && (
             <div className="space-y-4">
               <p className="text-sm text-slate-600">
-                Explore the verified developments in the Ravi Estate &amp; Value Group portfolio:
+                Explore the verified developments in the Property Files Network &amp; Value Group portfolio:
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {PAKISTAN_PORTFOLIO.map((proj) => (
@@ -180,7 +180,7 @@ export default function BrochureModal() {
                   Investor Protection &amp; Legal Framework
                 </h4>
                 <p className="text-sm text-slate-600">
-                  Every acquisition guided by Ravi Estate adheres to stringent legal verifications:
+                  Every acquisition guided by Property Files Network adheres to stringent legal verifications:
                 </p>
               </div>
 
@@ -226,7 +226,7 @@ export default function BrochureModal() {
           </div>
           <div className="flex items-center gap-2 text-emerald-700 font-semibold">
             <ShieldCheck className="w-4 h-4" />
-            <span>Verified Portfolio • Ravi Estate ({COMPANY_INFO.domain})</span>
+            <span>Verified Portfolio • Property Files Network ({COMPANY_INFO.domain})</span>
           </div>
         </div>
       </div>
