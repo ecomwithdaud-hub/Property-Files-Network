@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { LeadProvider } from "@/context/LeadContext";
 import { COMPANY_INFO } from "@/lib/data";
+import DualFounderWhatsAppSpeedDial from "@/components/DualFounderWhatsAppSpeedDial";
 
 export const metadata: Metadata = {
   metadataBase: new URL(COMPANY_INFO.websiteUrl),
@@ -118,7 +119,10 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-white text-slate-900 antialiased selection:bg-amber-400 selection:text-slate-950 overflow-x-hidden w-full min-h-screen">
-        <LeadProvider>{children}</LeadProvider>
+        <LeadProvider>
+          {children}
+          <DualFounderWhatsAppSpeedDial />
+        </LeadProvider>
       </body>
     </html>
   );
