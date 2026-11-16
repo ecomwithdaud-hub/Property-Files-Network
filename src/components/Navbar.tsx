@@ -41,7 +41,7 @@ export default function Navbar({
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-white border-b border-slate-200 shadow-sm">
+    <header className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-md">
       {/* 1. Top Corporate Ribbon (Strictly single-line, no wrapping, responsive padding) */}
       <div className="bg-slate-950 text-slate-200 text-xs border-b border-slate-800/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-9 flex items-center justify-between gap-3 overflow-hidden">

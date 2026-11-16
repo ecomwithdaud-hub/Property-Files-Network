@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import {
   FileDown,
@@ -13,64 +13,160 @@ import {
   FileCheck2,
   MapPin,
   Users,
+  Play,
+  Pause,
+  Maximize2,
+  Volume2,
+  VolumeX,
+  Compass,
+  Sparkles,
 } from "lucide-react";
-import { COMPANY_INFO, FOUNDERS_LEADERSHIP } from "@/lib/data";
+import { COMPANY_INFO, FOUNDERS_LEADERSHIP, PAKISTAN_PORTFOLIO, PortfolioProject } from "@/lib/data";
 import { useLeads } from "@/context/LeadContext";
+import MediaGalleryModal from "./MediaGalleryModal";
+
+const PROPERTY_TOURS = [
+  {
+    id: "mgh-tour",
+    title: "Mangla Garrison Housing Waterfront",
+    subtitle: "Lakefront Villas & 1 Kanal / 10 Marla Files",
+    type: "Waterfront Estate Tour",
+    videoEmbedUrl: "https://www.youtube.com/embed/HM8qOdgxNow",
+    previewImage:
+      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80",
+    badge: "MGH Lakefront",
+    rate: "From PKR 35 Lakh",
+    projectRef: PAKISTAN_PORTFOLIO[0],
+  },
+  {
+    id: "dha-phase9-tour",
+    title: "DHA Lahore Phase 9 Prism Mega Tour",
+    subtitle: "40,000+ Kanals Across 16 Sectors (A to R)",
+    type: "Mega Phase Walkthrough",
+    videoEmbedUrl: "https://www.youtube.com/embed/HcGZbuln3bE",
+    previewImage:
+      "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=80",
+    badge: "Phase 9 Prism",
+    rate: "From PKR 65 Lakh",
+    projectRef: PAKISTAN_PORTFOLIO[3],
+  },
+  {
+    id: "dha-broadway-tour",
+    title: "DHA Phase 8 Broadway Commercial",
+    subtitle: "200ft Main Boulevard & Commercial Plazas",
+    type: "Commercial Investment Tour",
+    videoEmbedUrl: "https://www.youtube.com/embed/2AER-4NtE9c",
+    previewImage:
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80",
+    badge: "Phase 8 Broadway",
+    rate: "Up to 12.8% Yield",
+    projectRef: PAKISTAN_PORTFOLIO[2],
+  },
+];
 
 export default function HeroSection() {
   const { setIsBrochureModalOpen } = useLeads();
+  const [activeTourIndex, setActiveTourIndex] = useState(0);
+  const [isPlayingBackgroundVideo, setIsPlayingBackgroundVideo] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalProject, setModalProject] = useState<PortfolioProject | null>(null);
+
+  const activeTour = PROPERTY_TOURS[activeTourIndex];
+
+  const handleOpenTourModal = (project: PortfolioProject) => {
+    setModalProject(project);
+    setIsModalOpen(true);
+  };
 
   return (
     <section
       id="about"
-      className="relative bg-gradient-to-b from-slate-50 via-white to-slate-50 py-8 sm:py-12 lg:py-14 border-b border-slate-200"
+      className="relative min-h-[640px] lg:min-h-[720px] bg-slate-950 text-white overflow-hidden flex items-center border-b border-slate-800"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-        {/* Main Grid: Left Value Proposition & Right Corporate Dossier Card */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
-          {/* Left 7 Columns: Who We Are & Tagline */}
-          <div className="lg:col-span-7 space-y-5">
-            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-amber-50 border border-amber-200 text-amber-900 text-[11px] font-bold uppercase tracking-wider">
-              <Award className="w-3.5 h-3.5 text-amber-700 shrink-0" />
+      {/* 1. Cinematic Background Video & Luxury Estate Backdrop */}
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        {/* HTML5 Seamless Aerial Property Tour Video */}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          poster="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2000&q=80"
+          className="w-full h-full object-cover object-center opacity-35 scale-105 transform motion-safe:transition-transform duration-1000"
+        >
+          <source
+            src="https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-a-luxury-modern-house-and-pool-42845-large.mp4"
+            type="video/mp4"
+          />
+          <source
+            src="https://assets.mixkit.co/videos/preview/mixkit-modern-luxury-house-exterior-with-swimming-pool-42846-large.mp4"
+            type="video/mp4"
+          />
+        </video>
+
+        {/* Multilayered 3D Atmospheric Gradients for High Readability */}
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 to-slate-950/70" />
+        <div className="absolute inset-0 bg-radial-at-c from-amber-500/10 via-transparent to-slate-950/80 mix-blend-screen" />
+      </div>
+
+      {/* 2. Floating 3D Geometric Accents */}
+      <div className="absolute top-12 left-1/4 w-72 h-72 rounded-full bg-amber-500/10 filter blur-3xl pointer-events-none animate-float-3d" />
+      <div className="absolute bottom-10 right-10 w-96 h-96 rounded-full bg-blue-500/10 filter blur-3xl pointer-events-none animate-float-delayed" />
+
+      {/* 3. Main Content Container */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 lg:py-16 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          {/* Left 7 Columns: Core Identity, Tagline, Bio & Leadership */}
+          <div className="lg:col-span-7 space-y-6">
+            {/* 3D Floating Pill */}
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-500/10 border border-amber-400/30 text-amber-300 text-[11px] font-bold uppercase tracking-wider backdrop-blur-md shadow-xs animate-float-subtle">
+              <Award className="w-3.5 h-3.5 text-amber-400 shrink-0" />
               <span>Smart Deals • Trusted Services • Secure Investments</span>
             </div>
 
+            {/* Main Headline */}
             <div className="space-y-3">
-              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold text-slate-900 tracking-tight leading-tight">
+              <h1 className="text-3xl sm:text-4xl lg:text-[46px] font-serif font-bold text-white tracking-tight leading-[1.15]">
                 Property | Investment | Files —{" "}
-                <span className="text-amber-700">Your Future</span> Starts Here!
+                <span className="text-amber-400 drop-shadow-sm">Your Future</span> Starts Here!
               </h1>
 
-              <p className="text-sm sm:text-base text-slate-700 leading-relaxed">
+              <p className="text-sm sm:text-base text-slate-300 leading-relaxed max-w-2xl font-normal">
                 {COMPANY_INFO.bio}
               </p>
             </div>
 
-            {/* Leadership Bar: M Talha Cheema & M Daud Ali Lashari */}
-            <div className="p-3.5 sm:p-4 rounded-xl bg-white border border-slate-200 shadow-xs space-y-2">
-              <div className="text-[11px] font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
-                <Users className="w-3.5 h-3.5 text-amber-700" />
-                <span>Executive Leadership &amp; Founders</span>
+            {/* 3D Floating Leadership Glass Card */}
+            <div className="glass-3d-dark rounded-xl p-4 sm:p-5 border border-white/10 shadow-xl space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="text-[11px] font-bold uppercase tracking-wider text-amber-400 flex items-center gap-1.5">
+                  <Users className="w-3.5 h-3.5" />
+                  <span>Executive Leadership &amp; Co-Founders</span>
+                </div>
+                <span className="px-2 py-0.5 rounded bg-slate-800 text-slate-300 text-[10px] font-medium border border-slate-700">
+                  DHA Phase 8 Lahore
+                </span>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                 {FOUNDERS_LEADERSHIP.map((leader) => (
                   <div
                     key={leader.name}
-                    className="p-2.5 rounded-lg bg-slate-50 border border-slate-200/80 flex flex-col justify-between"
+                    className="p-3 rounded-lg bg-slate-900/80 border border-white/5 hover:border-amber-400/40 transition-colors flex flex-col justify-between"
                   >
                     <div>
-                      <div className="font-serif font-bold text-slate-900 text-sm">
+                      <div className="font-serif font-bold text-white text-sm">
                         {leader.name}
                       </div>
-                      <div className="text-[11px] font-medium text-amber-700">
+                      <div className="text-[11px] font-medium text-amber-300/90 mt-0.5">
                         {leader.role} • {leader.focus}
                       </div>
                     </div>
                     <a
                       href={`tel:${leader.phone.replace(/\s+/g, "")}`}
-                      className="mt-1.5 font-semibold text-slate-700 hover:text-amber-700 flex items-center gap-1"
+                      className="mt-2 text-xs font-semibold text-slate-200 hover:text-amber-300 flex items-center gap-1.5"
                     >
-                      <Phone className="w-3 h-3 text-amber-600" />
+                      <Phone className="w-3 h-3 text-amber-400" />
                       <span>{leader.phone}</span>
                     </a>
                   </div>
@@ -78,13 +174,13 @@ export default function HeroSection() {
               </div>
             </div>
 
-            {/* Direct Call & WhatsApp Action Buttons */}
+            {/* Action Buttons */}
             <div className="flex flex-wrap items-center gap-3 pt-1">
               <a
                 href={COMPANY_INFO.whatsappUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 rounded-lg bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs sm:text-sm shadow-xs transition-colors"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs sm:text-sm shadow-md hover:shadow-amber-500/20 transition-all"
               >
                 <Phone className="w-4 h-4" />
                 <span>WhatsApp Trading Desk</span>
@@ -92,152 +188,181 @@ export default function HeroSection() {
 
               <a
                 href={`tel:${COMPANY_INFO.pakistanPhoneRaw}`}
-                className="inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs sm:text-sm shadow-xs transition-colors"
+                className="inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-3 rounded-lg bg-slate-900/90 hover:bg-slate-800 text-white font-semibold text-xs sm:text-sm border border-slate-700 backdrop-blur-sm transition-all"
               >
                 <span>Call {COMPANY_INFO.pakistanPhone}</span>
               </a>
 
               <button
                 onClick={() => setIsBrochureModalOpen(true)}
-                className="inline-flex items-center justify-center gap-2 px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-lg bg-white hover:bg-slate-100 text-slate-800 border border-slate-300 font-medium text-xs sm:text-sm transition-colors"
+                className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-white/10 hover:bg-white/15 text-slate-200 border border-white/20 font-medium text-xs sm:text-sm backdrop-blur-sm transition-all"
               >
-                <FileDown className="w-4 h-4 text-amber-700" />
+                <FileDown className="w-4 h-4 text-amber-400" />
                 <span>Download Dossier</span>
               </button>
             </div>
 
-            {/* Verified Address & Contact Bar */}
-            <div className="pt-3 border-t border-slate-200 flex flex-wrap items-center gap-4 text-xs text-slate-600">
+            {/* Address & Multilingual Strip */}
+            <div className="pt-2 border-t border-slate-800/80 flex flex-wrap items-center gap-4 text-xs text-slate-400">
               <div className="flex items-center gap-1.5">
-                <MapPin className="w-3.5 h-3.5 text-amber-700 shrink-0" />
-                <span className="font-medium text-slate-800">
+                <MapPin className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                <span className="text-slate-200 font-medium">
                   {COMPANY_INFO.headOffice}
                 </span>
               </div>
               <div className="flex items-center gap-1.5">
-                <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                <span className="text-slate-600">
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                <span className="text-slate-300">
                   Languages: English • Urdu • Punjabi
                 </span>
               </div>
             </div>
           </div>
 
-          {/* Right 5 Columns: Corporate Identity Showcase Card */}
-          <div className="lg:col-span-5">
-            <div className="rounded-2xl bg-white border border-slate-200 p-5 sm:p-6 shadow-md space-y-4">
-              <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-xl overflow-hidden border border-slate-200 shadow-xs shrink-0">
+          {/* Right 5 Columns: 3D Floating Property & Villa Video Tour Showcase */}
+          <div className="lg:col-span-5 perspective-1000">
+            <div className="preserve-3d card-3d glass-3d-dark rounded-2xl p-4 sm:p-5 border border-white/15 shadow-2xl relative space-y-4">
+              {/* Showcase Card Header */}
+              <div className="flex items-center justify-between pb-3 border-b border-white/10">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-9 h-9 rounded-lg overflow-hidden border border-amber-400/40 bg-slate-900 shrink-0">
                     <img
                       src="/images/property-files-network-logo.jpg"
-                      alt="Property Files Network Official Crest"
+                      alt="Property Files Network Crest"
                       className="w-full h-full object-cover"
                     />
                   </div>
                   <div>
-                    <div className="text-[10px] uppercase font-bold tracking-wider text-amber-700">
-                      Real Estate Advisory
+                    <div className="text-[10px] uppercase font-bold tracking-wider text-amber-400">
+                      Live Property &amp; Villa Tour
                     </div>
-                    <div className="font-serif font-bold text-slate-900 text-base">
-                      Property Files Network
-                    </div>
-                    <div className="text-[11px] text-slate-500">
-                      DHA Phase 8, Lahore
+                    <div className="text-sm font-serif font-bold text-white">
+                      3D Video Walkthrough
                     </div>
                   </div>
                 </div>
-                <span className="px-2.5 py-1 rounded bg-slate-100 text-slate-800 text-[10px] font-bold border border-slate-200">
-                  Verified Desk
-                </span>
-              </div>
 
-              {/* 3 Core Highlights List */}
-              <div className="space-y-2 text-xs">
-                <div className="p-3 rounded-lg bg-slate-50 border border-slate-200/80 flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <FileCheck2 className="w-4 h-4 text-amber-700 shrink-0" />
-                    <div>
-                      <div className="font-bold text-slate-900">
-                        MGH Affidavit Files
-                      </div>
-                      <div className="text-[11px] text-slate-500">
-                        1 Kanal &amp; 10 Marla Mangla Lakefront
-                      </div>
-                    </div>
-                  </div>
-                  <Link
-                    href="#portfolio"
-                    className="text-[11px] font-bold text-amber-700 hover:underline"
-                  >
-                    View
-                  </Link>
-                </div>
-
-                <div className="p-3 rounded-lg bg-slate-50 border border-slate-200/80 flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <Building2 className="w-4 h-4 text-emerald-700 shrink-0" />
-                    <div>
-                      <div className="font-bold text-slate-900">
-                        DHA Property Files
-                      </div>
-                      <div className="text-[11px] text-slate-500">
-                        Phases 6, 7, 8 Broadway, 9 Prism &amp; 10
-                      </div>
-                    </div>
-                  </div>
-                  <Link
-                    href="#portfolio"
-                    className="text-[11px] font-bold text-amber-700 hover:underline"
-                  >
-                    View
-                  </Link>
-                </div>
-
-                <div className="p-3 rounded-lg bg-slate-50 border border-slate-200/80 flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <TrendingUp className="w-4 h-4 text-amber-700 shrink-0" />
-                    <div>
-                      <div className="font-bold text-slate-900">
-                        Strategic Investment Advising
-                      </div>
-                      <div className="text-[11px] text-slate-500">
-                        High-yield wealth &amp; diaspora portfolios
-                      </div>
-                    </div>
-                  </div>
-                  <Link
-                    href="#lead-inquiry"
-                    className="text-[11px] font-bold text-amber-700 hover:underline"
-                  >
-                    Inquire
-                  </Link>
+                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-red-950/80 border border-red-500/40 text-[10px] font-bold text-red-400">
+                  <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+                  <span>ON-GROUND</span>
                 </div>
               </div>
 
-              {/* Direct WhatsApp Callout */}
-              <div className="p-3 rounded-xl bg-slate-900 text-white flex items-center justify-between">
+              {/* Video Walkthrough Screen */}
+              <div className="relative aspect-[16/10] rounded-xl overflow-hidden bg-slate-900 border border-white/15 group">
+                <img
+                  src={activeTour.previewImage}
+                  alt={activeTour.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent" />
+
+                {/* Tour Badge */}
+                <div className="absolute top-2.5 left-2.5">
+                  <span className="px-2.5 py-1 rounded-md bg-slate-950/90 text-amber-300 text-[10px] font-bold uppercase tracking-wider border border-slate-700 backdrop-blur-md">
+                    {activeTour.badge}
+                  </span>
+                </div>
+
+                {/* Play Full Tour Button with Ripple Effect */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <button
+                    onClick={() => handleOpenTourModal(activeTour.projectRef)}
+                    className="w-14 h-14 rounded-full bg-amber-500/90 hover:bg-amber-400 text-slate-950 flex items-center justify-center shadow-2xl transition-all transform hover:scale-110 active:scale-95 group/btn"
+                    title="Watch Verified Video Tour"
+                  >
+                    <Play className="w-6 h-6 fill-current ml-0.5 text-slate-950" />
+                  </button>
+                </div>
+
+                {/* Bottom Video Title & Overlay Info */}
+                <div className="absolute bottom-2.5 left-3 right-3 flex items-end justify-between gap-2">
+                  <div className="space-y-0.5">
+                    <div className="text-[11px] font-semibold text-amber-400 uppercase tracking-wide">
+                      {activeTour.type}
+                    </div>
+                    <div className="text-sm font-serif font-bold text-white leading-tight">
+                      {activeTour.title}
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => handleOpenTourModal(activeTour.projectRef)}
+                    className="px-2.5 py-1 rounded bg-slate-900/90 text-white text-[11px] font-semibold flex items-center gap-1 border border-white/20 hover:bg-slate-800 transition-colors shrink-0"
+                  >
+                    <Maximize2 className="w-3 h-3 text-amber-400" />
+                    <span>Open Tour</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* 3 Tour Selector Tabs */}
+              <div className="space-y-1.5">
+                <div className="text-[10px] uppercase font-bold tracking-wider text-slate-400">
+                  Select Society Walkthrough:
+                </div>
+                <div className="grid grid-cols-3 gap-1.5 text-xs">
+                  {PROPERTY_TOURS.map((tour, idx) => (
+                    <button
+                      key={tour.id}
+                      onClick={() => setActiveTourIndex(idx)}
+                      className={`p-2 rounded-lg text-left transition-all ${
+                        activeTourIndex === idx
+                          ? "bg-amber-500 text-slate-950 font-bold shadow-xs"
+                          : "bg-slate-900/80 text-slate-300 hover:bg-slate-800 border border-white/5"
+                      }`}
+                    >
+                      <div className="truncate text-[11px]">{tour.badge}</div>
+                      <div
+                        className={`text-[10px] truncate ${
+                          activeTourIndex === idx ? "text-slate-900" : "text-amber-400"
+                        }`}
+                      >
+                        {tour.rate}
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Direct WhatsApp Rate Inquiry */}
+              <div className="pt-2 border-t border-white/10 flex items-center justify-between text-xs">
                 <div>
-                  <div className="text-xs font-semibold text-amber-400">
-                    Direct Advisory Consultation
-                  </div>
-                  <div className="text-[11px] text-slate-300">
-                    M Talha Cheema &amp; M Daud Ali Lashari
-                  </div>
+                  <span className="text-[10px] text-slate-400 block uppercase">
+                    Inquire On-Ground Rates
+                  </span>
+                  <span className="font-semibold text-white truncate text-xs">
+                    {activeTour.title}
+                  </span>
                 </div>
                 <a
-                  href={COMPANY_INFO.whatsappUrl}
+                  href={`https://wa.me/923234304259?text=${encodeURIComponent(
+                    `Hello Property Files Network, I watched the ${activeTour.title} video tour on your website and would like to inquire about current file rates and availability.`
+                  )}`}
                   target="_blank"
                   rel="noreferrer"
-                  className="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs transition-colors shrink-0"
+                  className="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-colors shrink-0 flex items-center gap-1"
                 >
-                  WhatsApp
+                  <Phone className="w-3 h-3" />
+                  <span>Inquire</span>
                 </a>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Fullscreen Video Tour Lightbox */}
+      {modalProject && (
+        <MediaGalleryModal
+          isOpen={isModalOpen}
+          onClose={() => {
+            setIsModalOpen(false);
+            setModalProject(null);
+          }}
+          project={modalProject}
+          initialTab="video"
+        />
+      )}
     </section>
   );
 }
