@@ -55,6 +55,36 @@
   }
 }
 
+@keyframes sheen-sweep {
+  0% {
+    transform: translateX(-150%) skewX(-25deg);
+  }
+  45%, 100% {
+    transform: translateX(250%) skewX(-25deg);
+  }
+}
+
+@keyframes float-orb {
+  0%, 100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(25px, -30px) scale(1.06);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.96);
+  }
+}
+
+@keyframes grid-flow {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 36px 36px;
+  }
+}
+
 .animate-float-3d {
   animation: float-gentle 5s ease-in-out infinite;
 }
@@ -69,6 +99,18 @@
 
 .animate-pulse-glow {
   animation: pulse-glow 3s ease-in-out infinite;
+}
+
+.animate-float-orb-1 {
+  animation: float-orb 14s ease-in-out infinite;
+}
+
+.animate-float-orb-2 {
+  animation: float-orb 18s ease-in-out infinite reverse;
+}
+
+.animate-grid-flow {
+  animation: grid-flow 25s linear infinite;
 }
 
 /* 3D Depth Card Utilities */
@@ -107,16 +149,55 @@
   background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 0 0 1px rgba(226, 232, 240, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.06), 0 0 0 1px rgba(226, 232, 240, 0.8);
 }
 
 .glass-3d-dark {
-  background: rgba(15, 23, 42, 0.82);
+  background: rgba(15, 23, 42, 0.84);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+/* Architectural 3D Grids */
+.bg-architectural-grid {
+  background-image: 
+    linear-gradient(to right, rgba(203, 213, 225, 0.28) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(203, 213, 225, 0.28) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.bg-architectural-grid-dark {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+
+/* Sheen sweep effect for badges & highlighted cards */
+.sheen-glow {
+  position: relative;
+  overflow: hidden;
+}
+
+.sheen-glow::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.18),
+    transparent
+  );
+  transform: translateX(-150%) skewX(-25deg);
+  animation: sheen-sweep 7s ease-in-out infinite;
+  pointer-events: none;
 }
 
 /* Scrollbar */

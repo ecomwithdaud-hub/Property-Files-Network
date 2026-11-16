@@ -11,18 +11,20 @@ import {
   Compass,
 } from "lucide-react";
 import { SERVED_REGIONS, COMPANY_INFO } from "@/lib/data";
+import InteractiveTiltCard from "./InteractiveTiltCard";
 
 export default function WhoWeServeLocations() {
   return (
     <section id="locations" className="relative py-10 sm:py-14 bg-slate-950 text-white border-b border-slate-800 overflow-hidden">
-      {/* 3D Atmospheric Glow Orbs */}
-      <div className="absolute top-0 right-1/4 w-80 h-80 rounded-full bg-amber-500/5 filter blur-3xl pointer-events-none animate-float-3d" />
-      <div className="absolute bottom-0 left-10 w-96 h-96 rounded-full bg-blue-500/5 filter blur-3xl pointer-events-none animate-float-delayed" />
+      {/* 3D Flow Architectural Grid & Atmospheric Glow Orbs */}
+      <div className="absolute inset-0 bg-architectural-grid-dark animate-grid-flow opacity-40 pointer-events-none" />
+      <div className="absolute top-0 right-1/4 w-80 h-80 rounded-full bg-amber-500/5 filter blur-3xl pointer-events-none animate-float-orb-1" />
+      <div className="absolute bottom-0 left-10 w-96 h-96 rounded-full bg-blue-500/5 filter blur-3xl pointer-events-none animate-float-orb-2" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-slate-800 pb-5">
           <div className="space-y-1.5 max-w-2xl">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-[11px] font-bold uppercase tracking-wider backdrop-blur-md shadow-2xs">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-[11px] font-bold uppercase tracking-wider backdrop-blur-md shadow-2xs sheen-glow">
               <Globe2 className="w-3.5 h-3.5" />
               <span>3D Geographic Reach • Who We Serve</span>
             </div>
@@ -50,49 +52,48 @@ export default function WhoWeServeLocations() {
         {/* 4 Regions in 3D Perspective Cards Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 perspective-1000">
           {SERVED_REGIONS.map((region) => (
-            <div
-              key={region.province}
-              className="card-3d preserve-3d glass-3d-dark p-4 sm:p-5 rounded-2xl border border-white/10 hover:border-amber-400/50 hover:shadow-2xl transition-all flex flex-col justify-between space-y-3.5 group"
-            >
-              <div className="space-y-2.5">
-                <div className="flex items-center justify-between">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-amber-400">
-                    {region.province}
-                  </span>
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shadow-sm shadow-emerald-400/50" />
-                </div>
-
-                <div className="flex flex-wrap gap-1">
-                  {region.cities.map((city) => (
-                    <span
-                      key={city}
-                      className="px-2 py-0.5 rounded-md bg-slate-900 border border-slate-700/80 text-[11px] font-medium text-slate-200 group-hover:border-amber-400/30 transition-colors"
-                    >
-                      {city}
+            <InteractiveTiltCard key={region.province} maxTilt={4} className="h-full">
+              <div className="h-full card-3d preserve-3d glass-3d-dark p-4 sm:p-5 rounded-2xl border border-white/10 hover:border-amber-400/50 hover:shadow-2xl transition-all flex flex-col justify-between space-y-3.5 group">
+                <div className="space-y-2.5">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-amber-400">
+                      {region.province}
                     </span>
-                  ))}
+                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shadow-sm shadow-emerald-400/50" />
+                  </div>
+
+                  <div className="flex flex-wrap gap-1">
+                    {region.cities.map((city) => (
+                      <span
+                        key={city}
+                        className="px-2 py-0.5 rounded-md bg-slate-900 border border-slate-700/80 text-[11px] font-medium text-slate-200 group-hover:border-amber-400/30 transition-colors"
+                      >
+                        {city}
+                      </span>
+                    ))}
+                  </div>
+
+                  <p className="text-xs text-slate-400 leading-relaxed pt-2 border-t border-slate-800">
+                    {region.description}
+                  </p>
                 </div>
 
-                <p className="text-xs text-slate-400 leading-relaxed pt-2 border-t border-slate-800">
-                  {region.description}
-                </p>
+                <div className="pt-2 border-t border-slate-800 flex items-center justify-between text-xs">
+                  <span className="text-slate-400">Trading Desk</span>
+                  <a
+                    href={`https://wa.me/923234304259?text=${encodeURIComponent(
+                      `Hello Property Files Network, I would like to consult on properties in ${region.province}.`
+                    )}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-amber-400 hover:text-amber-300 font-semibold flex items-center gap-1 group-hover:translate-x-0.5 transition-all"
+                  >
+                    <span>WhatsApp</span>
+                    <ArrowRight className="w-3 h-3" />
+                  </a>
+                </div>
               </div>
-
-              <div className="pt-2 border-t border-slate-800 flex items-center justify-between text-xs">
-                <span className="text-slate-400">Trading Desk</span>
-                <a
-                  href={`https://wa.me/923234304259?text=${encodeURIComponent(
-                    `Hello Property Files Network, I would like to consult on properties in ${region.province}.`
-                  )}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-amber-400 hover:text-amber-300 font-semibold flex items-center gap-1 group-hover:translate-x-0.5 transition-all"
-                >
-                  <span>WhatsApp</span>
-                  <ArrowRight className="w-3 h-3" />
-                </a>
-              </div>
-            </div>
+            </InteractiveTiltCard>
           ))}
         </div>
       </div>

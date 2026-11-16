@@ -13,15 +13,20 @@ import {
   Sparkles,
 } from "lucide-react";
 import { CORE_SPECIALTIES, COMPANY_INFO } from "@/lib/data";
+import InteractiveTiltCard from "./InteractiveTiltCard";
 
 export default function CoreSpecialties() {
   const icons = [FileCheck2, Building2, TrendingUp];
 
   return (
-    <section id="services" className="py-10 sm:py-14 bg-gradient-to-b from-white via-slate-50 to-white border-b border-slate-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+    <section id="services" className="relative py-10 sm:py-14 bg-gradient-to-b from-white via-slate-50/60 to-white border-b border-slate-200 overflow-hidden">
+      {/* 3D Flow Background Accents */}
+      <div className="absolute inset-0 bg-architectural-grid opacity-40 pointer-events-none" />
+      <div className="absolute -top-20 -right-20 w-72 h-72 rounded-full bg-amber-500/5 filter blur-3xl pointer-events-none animate-float-3d" />
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         <div className="max-w-3xl space-y-2">
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-[11px] font-bold uppercase tracking-wider shadow-2xs">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-[11px] font-bold uppercase tracking-wider shadow-2xs sheen-glow">
             <ShieldCheck className="w-3.5 h-3.5 text-amber-700" />
             <span>3D Advisory Pillars • What We Do</span>
           </div>
@@ -39,68 +44,67 @@ export default function CoreSpecialties() {
           {CORE_SPECIALTIES.map((item, idx) => {
             const Icon = icons[idx] || ShieldCheck;
             return (
-              <div
-                key={item.id}
-                className="card-3d preserve-3d glass-3d-light p-5 sm:p-6 rounded-2xl border border-slate-200/90 hover:border-amber-400 hover:shadow-xl transition-all flex flex-col justify-between group"
-              >
-                <div className="space-y-3.5">
-                  <div className="flex items-center justify-between">
-                    <div className="w-11 h-11 rounded-xl bg-slate-950 text-amber-400 flex items-center justify-center shadow-md group-hover:scale-110 group-hover:bg-amber-500 group-hover:text-slate-950 transition-all duration-300">
-                      <Icon className="w-5 h-5" />
-                    </div>
-                    <span className="px-2.5 py-1 rounded-full bg-white border border-slate-200 text-[10px] font-bold text-amber-700 uppercase tracking-wider shadow-2xs">
-                      {item.badge}
-                    </span>
-                  </div>
-
-                  <div>
-                    <h3 className="text-lg font-serif font-bold text-slate-900 group-hover:text-amber-800 transition-colors">
-                      {item.title}
-                    </h3>
-                    <div className="text-xs font-semibold text-amber-700 mt-0.5">
-                      {item.subtitle}
-                    </div>
-                  </div>
-
-                  <p className="text-xs text-slate-600 leading-relaxed">
-                    {item.description}
-                  </p>
-
-                  <div className="pt-2.5 space-y-1.5 border-t border-slate-200/80">
-                    {item.features.map((feat, fIdx) => (
-                      <div
-                        key={fIdx}
-                        className="flex items-start gap-2 text-xs text-slate-700"
-                      >
-                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                        <span>{feat}</span>
+              <InteractiveTiltCard key={item.id} maxTilt={4} className="h-full">
+                <div className="h-full card-3d preserve-3d glass-3d-light p-5 sm:p-6 rounded-2xl border border-slate-200/90 hover:border-amber-400 hover:shadow-2xl transition-all flex flex-col justify-between group">
+                  <div className="space-y-3.5">
+                    <div className="flex items-center justify-between">
+                      <div className="w-11 h-11 rounded-xl bg-slate-950 text-amber-400 flex items-center justify-center shadow-md group-hover:scale-110 group-hover:bg-amber-500 group-hover:text-slate-950 transition-all duration-300">
+                        <Icon className="w-5 h-5" />
                       </div>
-                    ))}
+                      <span className="px-2.5 py-1 rounded-full bg-white border border-slate-200 text-[10px] font-bold text-amber-700 uppercase tracking-wider shadow-2xs">
+                        {item.badge}
+                      </span>
+                    </div>
+
+                    <div>
+                      <h3 className="text-lg font-serif font-bold text-slate-900 group-hover:text-amber-800 transition-colors">
+                        {item.title}
+                      </h3>
+                      <div className="text-xs font-semibold text-amber-700 mt-0.5">
+                        {item.subtitle}
+                      </div>
+                    </div>
+
+                    <p className="text-xs text-slate-600 leading-relaxed">
+                      {item.description}
+                    </p>
+
+                    <div className="pt-2.5 space-y-1.5 border-t border-slate-200/80">
+                      {item.features.map((feat, fIdx) => (
+                        <div
+                          key={fIdx}
+                          className="flex items-start gap-2 text-xs text-slate-700"
+                        >
+                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                          <span>{feat}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="pt-4 border-t border-slate-200 flex items-center justify-between mt-4">
+                    <Link
+                      href="#portfolio"
+                      className="text-xs font-bold text-slate-900 group-hover:text-amber-700 flex items-center gap-1 transition-colors"
+                    >
+                      <span>View Societies</span>
+                      <ArrowRight className="w-3.5 h-3.5 text-amber-600 group-hover:translate-x-1 transition-transform" />
+                    </Link>
+
+                    <a
+                      href={`https://wa.me/923234304259?text=${encodeURIComponent(
+                        `Hello Property Files Network, I would like to consult on ${item.title}.`
+                      )}`}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="p-2 rounded-lg bg-emerald-50 text-emerald-700 hover:bg-emerald-100 hover:scale-105 transition-all shadow-2xs"
+                      title="Direct WhatsApp"
+                    >
+                      <Phone className="w-3.5 h-3.5" />
+                    </a>
                   </div>
                 </div>
-
-                <div className="pt-4 border-t border-slate-200 flex items-center justify-between mt-4">
-                  <Link
-                    href="#portfolio"
-                    className="text-xs font-bold text-slate-900 group-hover:text-amber-700 flex items-center gap-1 transition-colors"
-                  >
-                    <span>View Societies</span>
-                    <ArrowRight className="w-3.5 h-3.5 text-amber-600 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-
-                  <a
-                    href={`https://wa.me/923234304259?text=${encodeURIComponent(
-                      `Hello Property Files Network, I would like to consult on ${item.title}.`
-                    )}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="p-2 rounded-lg bg-emerald-50 text-emerald-700 hover:bg-emerald-100 hover:scale-105 transition-all shadow-2xs"
-                    title="Direct WhatsApp"
-                  >
-                    <Phone className="w-3.5 h-3.5" />
-                  </a>
-                </div>
-              </div>
+              </InteractiveTiltCard>
             );
           })}
         </div>
