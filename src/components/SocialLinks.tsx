@@ -10,7 +10,7 @@ interface SocialLinksProps {
   showLabels?: boolean;
 }
 
-export function TikTokIcon({ className = "w-4 h-4" }: { className?: string }) {
+export function TikTokIcon({ className = "w-3.5 h-3.5" }: { className?: string }) {
   return (
     <svg
       className={className}
@@ -65,7 +65,7 @@ export default function SocialLinks({
             target="_blank"
             rel="noreferrer"
             aria-label={`Property Files Network on ${s.name}`}
-            className="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 hover:text-amber-300 border border-slate-700 text-xs font-medium text-slate-200 transition-all group"
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 hover:text-amber-300 border border-slate-700 text-xs font-medium text-slate-200 transition-all group"
           >
             {s.icon("w-3.5 h-3.5 text-amber-400 group-hover:scale-110 transition-transform shrink-0")}
             <span>{s.name}</span>
@@ -75,25 +75,21 @@ export default function SocialLinks({
     );
   }
 
-  // Default / Navbar variant (compact, elegant top ribbon)
+  // Compact ribbon variant: never wraps, clean icons
   return (
-    <div className={`flex items-center gap-3 sm:gap-4 ${className}`}>
-      {socials.map((s, idx) => (
-        <React.Fragment key={s.name}>
-          <a
-            href={s.url}
-            target="_blank"
-            rel="noreferrer"
-            aria-label={`Property Files Network on ${s.name}`}
-            className="flex items-center gap-1.5 text-slate-300 hover:text-amber-300 transition-colors text-xs font-medium group"
-          >
-            {s.icon("w-3.5 h-3.5 text-amber-400 group-hover:scale-110 transition-transform shrink-0")}
-            {showLabels && <span className="hidden xl:inline">{s.name}</span>}
-          </a>
-          {idx < socials.length - 1 && (
-            <span className="text-slate-700 select-none">|</span>
-          )}
-        </React.Fragment>
+    <div className={`flex items-center gap-2.5 sm:gap-3 shrink-0 ${className}`}>
+      {socials.map((s) => (
+        <a
+          key={s.name}
+          href={s.url}
+          target="_blank"
+          rel="noreferrer"
+          aria-label={`Property Files Network on ${s.name}`}
+          className="p-1 rounded text-slate-300 hover:text-amber-300 hover:bg-slate-800/60 transition-colors flex items-center gap-1 group"
+        >
+          {s.icon("w-3.5 h-3.5 text-amber-400 group-hover:scale-110 transition-transform shrink-0")}
+          {showLabels && <span className="hidden xl:inline text-[11px] font-medium">{s.name}</span>}
+        </a>
       ))}
     </div>
   );

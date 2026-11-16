@@ -57,13 +57,13 @@ export default function PortfolioPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-white text-slate-800">
+    <div className="min-h-screen flex flex-col bg-white text-slate-800 overflow-x-hidden">
       <Navbar />
 
-      <main className="flex-1">
+      <main className="flex-1 w-full overflow-x-hidden">
         {/* Page Hero Header */}
-        <section className="bg-gradient-to-b from-slate-50 via-white to-slate-50 py-16 lg:py-24 border-b border-slate-200">
-          <div className="max-w-7xl mx-auto px-6 lg:px-10">
+        <section className="bg-gradient-to-b from-slate-50 via-white to-slate-50 py-10 sm:py-14 border-b border-slate-200">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <ScrollReveal direction="up">
               <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
                 <div className="max-w-3xl space-y-4">
@@ -108,7 +108,7 @@ export default function PortfolioPage() {
 
         {/* Filter Bar & Projects Catalog */}
         <section className="py-16 bg-slate-50 border-b border-slate-200">
-          <div className="max-w-7xl mx-auto px-6 lg:px-10 space-y-10">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
             {/* Filter Pills */}
             <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 pb-5">
               <div className="flex flex-wrap gap-2">

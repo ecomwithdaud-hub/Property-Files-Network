@@ -5,7 +5,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   Phone,
-  Globe,
   LayoutDashboard,
   Building2,
   Menu,
@@ -13,7 +12,7 @@ import {
   FileDown,
   Mail,
   MapPin,
-  Languages,
+  ArrowRight,
 } from "lucide-react";
 import PropertyFilesLogo from "./PropertyFilesLogo";
 import SocialLinks from "./SocialLinks";
@@ -25,7 +24,10 @@ interface NavbarProps {
   setActiveModule?: (mod: "public" | "crm") => void;
 }
 
-export default function Navbar({ activeModule = "public", setActiveModule }: NavbarProps) {
+export default function Navbar({
+  activeModule = "public",
+  setActiveModule,
+}: NavbarProps) {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { leads, setIsBrochureModalOpen } = useLeads();
@@ -33,75 +35,61 @@ export default function Navbar({ activeModule = "public", setActiveModule }: Nav
 
   const navLinks = [
     { href: "/", label: "Home" },
-    { href: "/about", label: "About Us" },
-    { href: "/portfolio", label: "Societies & Files" },
-    { href: "/blog", label: "Market Intelligence & Blog" },
+    { href: "/about", label: "Who We Are" },
+    { href: "/portfolio", label: "What We Do & Portfolio" },
     { href: "/contact", label: "Contact Us" },
   ];
 
   return (
     <header className="sticky top-0 z-50 w-full bg-white border-b border-slate-200 shadow-sm">
-      {/* Top Corporate Ribbon */}
-      <div className="bg-slate-900 text-slate-200 text-xs">
-        <div className="max-w-7xl mx-auto px-6 lg:px-10 py-2 flex flex-wrap items-center justify-between gap-3">
-          <div className="flex flex-wrap items-center gap-3 sm:gap-5">
+      {/* 1. Top Corporate Ribbon (Strictly single-line, no wrapping, responsive padding) */}
+      <div className="bg-slate-950 text-slate-200 text-xs border-b border-slate-800/80">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-9 flex items-center justify-between gap-3 overflow-hidden">
+          {/* Left: Primary Contact Info */}
+          <div className="flex items-center gap-2 sm:gap-4 shrink-0 min-w-0">
             <a
               href={`tel:${COMPANY_INFO.pakistanPhoneRaw}`}
-              className="flex items-center gap-1.5 hover:text-amber-300 transition-colors whitespace-nowrap"
+              className="flex items-center gap-1.5 text-white hover:text-amber-300 font-semibold transition-colors shrink-0 text-xs"
             >
               <Phone className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-              <span className="text-slate-400">Trading Desk:</span>
-              <span className="font-semibold text-white">
-                {COMPANY_INFO.pakistanPhone}
-              </span>
+              <span className="hidden sm:inline text-slate-400 font-normal">Desk:</span>
+              <span>{COMPANY_INFO.pakistanPhone}</span>
             </a>
 
-            <span className="hidden sm:inline text-slate-700">|</span>
+            <span className="hidden md:inline text-slate-700">|</span>
 
             <a
               href={`tel:${COMPANY_INFO.secondaryPhoneRaw}`}
-              className="hidden md:flex items-center gap-1.5 hover:text-amber-300 transition-colors whitespace-nowrap"
+              className="hidden md:flex items-center gap-1.5 text-slate-300 hover:text-amber-300 transition-colors shrink-0 text-xs"
             >
-              <Phone className="w-3.5 h-3.5 text-amber-400 shrink-0" />
               <span className="text-slate-400">Advisory:</span>
-              <span className="font-semibold text-white">
-                {COMPANY_INFO.secondaryPhone}
-              </span>
+              <span className="font-semibold text-white">{COMPANY_INFO.secondaryPhone}</span>
             </a>
 
             <span className="hidden lg:inline text-slate-700">|</span>
 
-            <a
-              href={`mailto:${COMPANY_INFO.email}`}
-              className="hidden lg:flex items-center gap-1.5 hover:text-amber-300 transition-colors whitespace-nowrap"
-            >
-              <Mail className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-              <span className="text-slate-300">{COMPANY_INFO.email}</span>
-            </a>
-
-            <span className="hidden xl:inline text-slate-700">|</span>
-
-            <div className="hidden xl:flex items-center gap-1.5 text-slate-400">
-              <Languages className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-              <span>Languages: English • Urdu • Punjabi</span>
-            </div>
+            <span className="hidden lg:flex items-center gap-1 text-slate-400 text-xs truncate">
+              <MapPin className="w-3 h-3 text-amber-400 shrink-0" />
+              <span className="truncate">DHA Phase 8, Lahore</span>
+            </span>
           </div>
 
-          {/* Social Channels: TikTok, Instagram, Facebook, LinkedIn */}
-          <div className="flex items-center ml-auto whitespace-nowrap">
-            <SocialLinks variant="navbar" showLabels={true} />
+          {/* Right: Social Media Handles & Desk WhatsApp */}
+          <div className="flex items-center gap-3 shrink-0 ml-auto">
+            <SocialLinks variant="navbar" />
           </div>
         </div>
       </div>
 
-      {/* Main Corporate Navigation Bar */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-10 py-3.5 lg:py-4 flex items-center justify-between gap-6">
-        <Link href="/" className="cursor-pointer shrink-0">
+      {/* 2. Main Navigation Bar */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-4">
+        {/* Brand Logo */}
+        <Link href="/" className="cursor-pointer shrink-0 flex items-center">
           <PropertyFilesLogo variant="light" size="md" showTagline={true} />
         </Link>
 
         {/* Center Desktop Navigation Links */}
-        <nav className="hidden xl:flex items-center gap-7 text-sm font-medium text-slate-700 whitespace-nowrap">
+        <nav className="hidden lg:flex items-center gap-6 xl:gap-8 text-sm font-semibold text-slate-700">
           {navLinks.map((link) => {
             const isActive =
               link.href === "/"
@@ -111,10 +99,10 @@ export default function Navbar({ activeModule = "public", setActiveModule }: Nav
               <Link
                 key={link.href}
                 href={link.href}
-                className={`py-1 transition-all ${
+                className={`py-1.5 transition-colors ${
                   isActive
-                    ? "text-slate-950 font-bold underline underline-offset-8 decoration-amber-600 decoration-2"
-                    : "hover:text-slate-950 hover:underline underline-offset-8 decoration-slate-300"
+                    ? "text-slate-950 font-bold border-b-2 border-amber-600"
+                    : "text-slate-600 hover:text-slate-950"
                 }`}
               >
                 {link.label}
@@ -123,169 +111,146 @@ export default function Navbar({ activeModule = "public", setActiveModule }: Nav
           })}
         </nav>
 
-        {/* Right Action Buttons */}
-        <div className="hidden lg:flex items-center gap-3 shrink-0 whitespace-nowrap">
+        {/* Right Action Controls */}
+        <div className="hidden sm:flex items-center gap-2.5 lg:gap-3 shrink-0">
+          {/* Dossier Download Button */}
           <button
             onClick={() => setIsBrochureModalOpen(true)}
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-200 transition-colors whitespace-nowrap"
+            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-300 transition-colors"
           >
-            <FileDown className="w-4 h-4 text-amber-700 shrink-0" />
-            <span>Official Dossier</span>
+            <FileDown className="w-3.5 h-3.5 text-amber-700 shrink-0" />
+            <span className="hidden md:inline">Download</span> Dossier
           </button>
 
-          {/* Clean Module Toggle Pill */}
+          {/* Portal Switcher (Website vs CRM) */}
           <div className="inline-flex items-center bg-slate-100 p-1 rounded-lg border border-slate-200">
             {setActiveModule ? (
               <>
                 <button
                   onClick={() => setActiveModule("public")}
-                  className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-md text-xs font-semibold transition-all whitespace-nowrap ${
+                  className={`inline-flex items-center gap-1 px-2.5 py-1.5 rounded-md text-xs font-semibold transition-all ${
                     activeModule === "public"
-                      ? "bg-slate-900 text-white shadow-sm"
+                      ? "bg-slate-900 text-white shadow-xs"
                       : "text-slate-600 hover:text-slate-900"
                   }`}
                 >
-                  <Building2 className="w-3.5 h-3.5 shrink-0" />
-                  <span>Website</span>
+                  <Building2 className="w-3 h-3 shrink-0" />
+                  <span>Site</span>
                 </button>
                 <button
                   onClick={() => setActiveModule("crm")}
-                  className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-md text-xs font-semibold transition-all whitespace-nowrap ${
+                  className={`inline-flex items-center gap-1 px-2.5 py-1.5 rounded-md text-xs font-semibold transition-all ${
                     activeModule === "crm"
-                      ? "bg-slate-900 text-white shadow-sm"
+                      ? "bg-slate-900 text-white shadow-xs"
                       : "text-slate-600 hover:text-slate-900"
                   }`}
                 >
-                  <LayoutDashboard className="w-3.5 h-3.5 shrink-0" />
-                  <span>CRM Portal</span>
-                  <span
-                    className={`ml-1 px-1.5 py-0.5 rounded text-[10px] font-bold ${
-                      activeModule === "crm"
-                        ? "bg-amber-400 text-slate-950"
-                        : "bg-slate-200 text-slate-700"
-                    }`}
-                  >
-                    {newLeadsCount}
-                  </span>
+                  <LayoutDashboard className="w-3 h-3 shrink-0" />
+                  <span>CRM</span>
+                  {newLeadsCount > 0 && (
+                    <span className="ml-1 px-1.5 py-0.2 rounded-full text-[10px] bg-amber-500 text-slate-950 font-bold">
+                      {newLeadsCount}
+                    </span>
+                  )}
                 </button>
               </>
             ) : (
-              <>
-                <Link
-                  href="/"
-                  className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-md text-xs font-semibold transition-all whitespace-nowrap ${
-                    pathname !== "/crm"
-                      ? "bg-slate-900 text-white shadow-sm"
-                      : "text-slate-600 hover:text-slate-900"
-                  }`}
-                >
-                  <Building2 className="w-3.5 h-3.5 shrink-0" />
-                  <span>Website</span>
-                </Link>
-                <Link
-                  href="/crm"
-                  className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-md text-xs font-semibold transition-all whitespace-nowrap ${
-                    pathname === "/crm"
-                      ? "bg-slate-900 text-white shadow-sm"
-                      : "text-slate-600 hover:text-slate-900"
-                  }`}
-                >
-                  <LayoutDashboard className="w-3.5 h-3.5 shrink-0" />
-                  <span>CRM Portal</span>
-                  <span className="ml-1 px-1.5 py-0.5 rounded text-[10px] font-bold bg-slate-200 text-slate-700">
-                    {newLeadsCount}
-                  </span>
-                </Link>
-              </>
+              <Link
+                href="/crm"
+                className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-md text-xs font-semibold text-slate-700 hover:text-slate-900"
+              >
+                <LayoutDashboard className="w-3 h-3 shrink-0" />
+                <span>CRM</span>
+              </Link>
             )}
           </div>
         </div>
 
-        {/* Mobile Menu Toggle Button */}
-        <button
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="xl:hidden p-2.5 rounded-lg bg-slate-100 border border-slate-200 text-slate-700 hover:text-slate-950"
-          aria-label="Toggle Menu"
-        >
-          {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
+        {/* Mobile Navigation Toggle Button */}
+        <div className="flex lg:hidden items-center gap-2">
+          {setActiveModule && (
+            <button
+              onClick={() =>
+                setActiveModule(activeModule === "public" ? "crm" : "public")
+              }
+              className="px-2.5 py-1.5 rounded-md text-[11px] font-bold bg-amber-500 text-slate-950 border border-amber-400"
+            >
+              {activeModule === "public" ? "CRM" : "Site"}
+            </button>
+          )}
+
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle navigation menu"
+            className="p-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-300 transition-colors focus:outline-none"
+          >
+            {mobileMenuOpen ? (
+              <X className="w-5 h-5 text-slate-900" />
+            ) : (
+              <Menu className="w-5 h-5 text-slate-900" />
+            )}
+          </button>
+        </div>
       </div>
 
-      {/* Mobile Drawer */}
+      {/* 3. Mobile Dropdown Drawer */}
       {mobileMenuOpen && (
-        <div className="xl:hidden bg-white border-t border-slate-200 px-6 py-5 space-y-4 shadow-lg">
-          <div className="grid grid-cols-2 gap-2 bg-slate-100 p-1.5 rounded-lg border border-slate-200">
-            <Link
-              href="/"
-              onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center justify-center gap-2 py-2.5 rounded-md text-xs font-semibold bg-slate-900 text-white"
+        <div className="lg:hidden border-t border-slate-200 bg-white shadow-xl px-4 py-5 space-y-4">
+          <nav className="flex flex-col space-y-1">
+            {navLinks.map((link) => {
+              const isActive =
+                link.href === "/"
+                  ? pathname === "/"
+                  : pathname?.startsWith(link.href);
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`px-3 py-2.5 rounded-lg text-sm font-semibold transition-colors flex items-center justify-between ${
+                    isActive
+                      ? "bg-slate-900 text-white"
+                      : "text-slate-800 hover:bg-slate-100"
+                  }`}
+                >
+                  <span>{link.label}</span>
+                  <ArrowRight className="w-4 h-4 opacity-70" />
+                </Link>
+              );
+            })}
+          </nav>
+
+          {/* Quick Direct Actions in Mobile Menu */}
+          <div className="pt-3 border-t border-slate-200 grid grid-cols-2 gap-2">
+            <a
+              href={`tel:${COMPANY_INFO.pakistanPhoneRaw}`}
+              className="py-2.5 px-3 rounded-lg bg-slate-900 text-white text-xs font-bold text-center flex items-center justify-center gap-1.5"
             >
-              <Building2 className="w-4 h-4" />
-              Corporate Website
-            </Link>
-            <Link
-              href="/crm"
-              onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center justify-center gap-2 py-2.5 rounded-md text-xs font-semibold text-slate-700 hover:bg-slate-200"
+              <Phone className="w-3.5 h-3.5 text-amber-400" />
+              <span>Call Hotline</span>
+            </a>
+            <a
+              href={`https://wa.me/923234304259?text=${encodeURIComponent(
+                "Hello Property Files Network, I would like to consult on MGH affidavit files and DHA Lahore property files."
+              )}`}
+              target="_blank"
+              rel="noreferrer"
+              className="py-2.5 px-3 rounded-lg bg-amber-500 text-slate-950 text-xs font-bold text-center flex items-center justify-center gap-1.5"
             >
-              <LayoutDashboard className="w-4 h-4" />
-              CRM Portal ({leads.length})
-            </Link>
+              <span>WhatsApp Desk</span>
+            </a>
           </div>
 
-          <div className="flex flex-col space-y-1 text-sm font-medium text-slate-700">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className="px-3 py-2.5 rounded-lg hover:bg-slate-50 text-slate-900"
-              >
-                {link.label}
-              </Link>
-            ))}
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                setIsBrochureModalOpen(true);
-              }}
-              className="w-full mt-2 py-3 px-4 rounded-lg bg-slate-900 text-white font-semibold flex items-center justify-center gap-2 text-xs"
-            >
-              <FileDown className="w-4 h-4 text-amber-400" />
-              Download Official Portfolio Dossier
-            </button>
-          </div>
-
-          {/* Direct Phone Buttons in Mobile Drawer */}
-          <div className="pt-3 border-t border-slate-200 space-y-2 text-xs">
-            <div className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
-              Direct Contact &amp; Languages
-            </div>
-            <div className="flex flex-col gap-1.5">
-              <a
-                href={`tel:${COMPANY_INFO.pakistanPhoneRaw}`}
-                className="flex items-center gap-2 font-bold text-slate-900"
-              >
-                <Phone className="w-3.5 h-3.5 text-amber-600" />
-                <span>Trading: {COMPANY_INFO.pakistanPhone}</span>
-              </a>
-              <a
-                href={`tel:${COMPANY_INFO.secondaryPhoneRaw}`}
-                className="flex items-center gap-2 font-semibold text-slate-700"
-              >
-                <Phone className="w-3.5 h-3.5 text-amber-600" />
-                <span>Advisory: {COMPANY_INFO.secondaryPhone}</span>
-              </a>
-              <div className="text-[11px] text-slate-500 pt-0.5">
-                Fluent in English, Urdu &amp; Punjabi
-              </div>
-            </div>
-          </div>
-
-          {/* Mobile Socials */}
-          <div className="pt-3 border-t border-slate-200 flex items-center justify-center">
-            <SocialLinks variant="navbar" />
-          </div>
+          <button
+            onClick={() => {
+              setMobileMenuOpen(false);
+              setIsBrochureModalOpen(true);
+            }}
+            className="w-full py-2.5 px-3 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-300 text-xs font-semibold flex items-center justify-center gap-2"
+          >
+            <FileDown className="w-4 h-4 text-amber-700" />
+            <span>Download Official Dossier (PDF)</span>
+          </button>
         </div>
       )}
     </header>

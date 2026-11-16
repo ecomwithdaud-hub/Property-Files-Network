@@ -58,26 +58,26 @@ export default function ContactPage() {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col bg-white text-slate-800">
+    <div className="min-h-screen flex flex-col bg-white text-slate-800 overflow-x-hidden">
       <Navbar />
 
-      <main className="flex-1">
+      <main className="flex-1 w-full overflow-x-hidden">
         {/* Page Hero Header */}
-        <section className="bg-gradient-to-b from-slate-50 via-white to-slate-50 py-16 lg:py-24 border-b border-slate-200">
-          <div className="max-w-7xl mx-auto px-6 lg:px-10">
+        <section className="bg-gradient-to-b from-slate-50 via-white to-slate-50 py-10 sm:py-14 border-b border-slate-200">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <ScrollReveal direction="up">
-              <div className="max-w-3xl space-y-4">
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-md bg-amber-50 border border-amber-200/80 text-amber-900 text-xs font-semibold uppercase tracking-widest">
+              <div className="max-w-3xl space-y-3">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-amber-50 border border-amber-200 text-amber-900 text-xs font-semibold uppercase tracking-widest">
                   <Phone className="w-3.5 h-3.5 text-amber-700" />
                   <span>Direct Property Consultation &amp; Trading Desk</span>
                 </div>
-                <h1 className="text-4xl sm:text-5xl font-serif font-bold text-slate-900 leading-tight">
+                <h1 className="text-3xl sm:text-4xl font-serif font-bold text-slate-900 leading-tight">
                   Contact Our DHA Phase 8 Lahore Desks
                 </h1>
-                <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-medium">
+                <p className="text-sm sm:text-base text-slate-700 leading-relaxed font-medium">
                   {COMPANY_INFO.tagline}
                 </p>
-                <p className="text-sm sm:text-base text-slate-600 leading-relaxed pt-1">
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed pt-1">
                   Connect with Co-Founders M Talha Cheema and M Daud Ali Lashari for verified MGH affidavit files, DHA Lahore property files, and strategic real estate investment advisory.
                 </p>
               </div>
@@ -87,7 +87,7 @@ export default function ContactPage() {
 
         {/* Contact Information Cards Strip */}
         <section className="py-12 bg-white border-b border-slate-200">
-          <div className="max-w-7xl mx-auto px-6 lg:px-10">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {/* Card 1: Primary Hotline */}
               <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 space-y-2.5">
@@ -188,7 +188,7 @@ export default function ContactPage() {
 
         {/* Frequently Asked Questions */}
         <section className="py-20 bg-slate-50 border-b border-slate-200">
-          <div className="max-w-4xl mx-auto px-6 lg:px-10 space-y-12">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
             <ScrollReveal direction="up">
               <div className="text-center space-y-3">
                 <div className="text-xs font-bold uppercase tracking-widest text-amber-700 flex items-center justify-center gap-1.5">

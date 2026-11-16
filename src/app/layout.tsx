@@ -110,14 +110,14 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en">
+    <html lang="en" className="overflow-x-hidden">
       <head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="bg-white text-slate-900 antialiased selection:bg-amber-400 selection:text-slate-950">
+      <body className="bg-white text-slate-900 antialiased selection:bg-amber-400 selection:text-slate-950 overflow-x-hidden w-full min-h-screen">
         <LeadProvider>{children}</LeadProvider>
       </body>
     </html>
