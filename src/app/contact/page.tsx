@@ -1,50 +1,59 @@
 import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import BrochureModal from "@/components/BrochureModal";
 import LeadCaptureForm from "@/components/LeadCaptureForm";
 import ScrollReveal from "@/components/ScrollReveal";
-import { COMPANY_INFO } from "@/lib/data";
+import { COMPANY_INFO, FOUNDERS_LEADERSHIP } from "@/lib/data";
 import {
   Phone,
   Mail,
   MapPin,
   Clock,
-  ShieldCheck,
   MessageSquare,
+  ShieldCheck,
   HelpCircle,
+  Languages,
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: `Contact & Advisory Desks | ${COMPANY_INFO.name} (${COMPANY_INFO.domain}) | Lahore Offices`,
+  title: `Contact & Office Details | ${COMPANY_INFO.name} | DHA Phase 8 Lahore`,
   description:
-    `Connect with ${COMPANY_INFO.name} property advisors in Lahore. Visit our DHA Phase 5 and Gulberg III offices, call +92 300 4154156, or submit an inquiry for commercial, residential, and farmhouse properties.`,
+    `Connect with ${COMPANY_INFO.name} at ${COMPANY_INFO.headOffice}. Call/WhatsApp ${COMPANY_INFO.pakistanPhone} or ${COMPANY_INFO.secondaryPhone} for MGH affidavit files and DHA Lahore property files.`,
   keywords: [
     `Contact ${COMPANY_INFO.name}`,
-    `${COMPANY_INFO.name} Lahore Phone`,
-    "DHA Phase 5 real estate office",
-    "Gulberg property consultant",
-    "Overseas Pakistani real estate Lahore",
+    "DHA Phase 8 Lahore office",
+    "MGH Affidavit Files Phone",
+    "DHA Lahore property consultants",
+    "M Talha Cheema",
+    "M Daud Ali Lashari",
   ],
 };
 
 export default function ContactPage() {
   const faqs = [
     {
-      q: `Where are ${COMPANY_INFO.name}'s physical offices located?`,
-      a: "Our primary advisory desks are positioned in DHA Phase 5 and Gulberg III, Lahore, providing direct on-ground access to Lahore's key commercial and residential corridors.",
+      q: `Where is Property Files Network's physical office located?`,
+      a: `Our corporate head office is located at ${COMPANY_INFO.headOffice}. We are situated right on the main commercial corridor of DHA Phase 8, offering convenient access for in-person file verification, biometric transfers, and investor consultations.`,
     },
     {
-      q: `How does ${COMPANY_INFO.name} verify property titles before acquisition?`,
-      a: "Our legal advisory desk independently audits the Halqa Patwari's record of rights (Fard & Intiqal), checks town planning approvals with the Lahore Development Authority (LDA), and secures official No Demand Certificates (NDC) from DHA prior to presenting assets to clients.",
+      q: `How do you handle MGH (Mangla Garrison Housing) 1 Kanal and 10 Marla affidavit files?`,
+      a: "We actively buy, sell, and exchange verified MGH 1 Kanal and 10 Marla affidavit files. Every file is authenticated directly with the project directorate before any payment is exchanged, ensuring immediate liquidity and guaranteed legal title.",
     },
     {
-      q: "Can Overseas Pakistanis transact without physically traveling to Lahore?",
-      a: "Yes. Through our specialized Overseas Advisory Desk, we guide diaspora clients on executing Special Power of Attorney (PoA) attested by the Pakistani High Commission / Consulate, and structure payments through Roshan Digital Accounts (RDA) for full legal capital repatriation.",
+      q: `Which DHA Lahore phases do you handle property files for?`,
+      a: "We specialize in property files across DHA Lahore Phases 6, 7, 8 (including Broadway Commercial, Sector Y & Park View), Phase 9 Prism (40,000+ Kanal balloted sectors), and Phase 10 allocation files.",
     },
     {
-      q: `Does ${COMPANY_INFO.name} charge consultation fees for initial portfolio reviews?`,
-      a: "Initial property consultations, investment feasibility reviews, and project walkthroughs are complimentary. Professional brokerage and legal conveyance fees apply solely upon successful transaction execution.",
+      q: `Which regional cities and provinces do you serve?`,
+      a: "We actively serve clients across Punjab (Lahore, Rawalpindi, Jhelum, Dina, Kharian), the Capital Territory (Islamabad), Sindh (Karachi), and Azad Kashmir (Mirpur), alongside the overseas diaspora in the UK, Europe, and North America.",
+    },
+    {
+      q: `Can overseas Pakistanis complete transactions remotely?`,
+      a: "Yes. Through our specialized overseas desk, we guide expatriates on executing embassy-attested Special Power of Attorney (PoA) and structuring compliant fund transfers via Roshan Digital Accounts (RDA) for full legal capital and profit repatriation.",
+    },
+    {
+      q: `Which languages are your property advisors fluent in?`,
+      a: "Our team provides comprehensive property consultation in English, Urdu, and Punjabi, ensuring crystal-clear understanding and comfort for local and expatriate families.",
     },
   ];
 
@@ -60,13 +69,16 @@ export default function ContactPage() {
               <div className="max-w-3xl space-y-4">
                 <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-md bg-amber-50 border border-amber-200/80 text-amber-900 text-xs font-semibold uppercase tracking-widest">
                   <Phone className="w-3.5 h-3.5 text-amber-700" />
-                  <span>Direct Property Consultation</span>
+                  <span>Direct Property Consultation &amp; Trading Desk</span>
                 </div>
                 <h1 className="text-4xl sm:text-5xl font-serif font-bold text-slate-900 leading-tight">
-                  Contact Our Lahore Advisory Desks
+                  Contact Our DHA Phase 8 Lahore Desks
                 </h1>
-                <p className="text-base sm:text-lg text-slate-600 leading-relaxed">
-                  Connect directly with senior property advisors to discuss commercial lease yields, DHA residential acquisitions, Barki Road organic farmhouses, or overseas repatriation protocols.
+                <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-medium">
+                  {COMPANY_INFO.tagline}
+                </p>
+                <p className="text-sm sm:text-base text-slate-600 leading-relaxed pt-1">
+                  Connect with Co-Founders M Talha Cheema and M Daud Ali Lashari for verified MGH affidavit files, DHA Lahore property files, and strategic real estate investment advisory.
                 </p>
               </div>
             </ScrollReveal>
@@ -76,57 +88,96 @@ export default function ContactPage() {
         {/* Contact Information Cards Strip */}
         <section className="py-12 bg-white border-b border-slate-200">
           <div className="max-w-7xl mx-auto px-6 lg:px-10">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {/* Card 1: Primary Hotline */}
+              <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 space-y-2.5">
+                <div className="w-10 h-10 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-amber-700 shadow-sm">
+                  <Phone className="w-5 h-5" />
+                </div>
+                <div className="text-xs uppercase font-bold tracking-wider text-slate-500">
+                  Trading Hotline
+                </div>
+                <a
+                  href={`tel:${COMPANY_INFO.pakistanPhoneRaw}`}
+                  className="text-lg font-bold text-slate-900 hover:text-amber-700 block transition-colors"
+                >
+                  {COMPANY_INFO.pakistanPhone}
+                </a>
+                <p className="text-xs text-slate-500">M Talha Cheema • File Trading Desk</p>
+                <a
+                  href={`https://wa.me/923234304259?text=${encodeURIComponent(
+                    "Hello M Talha Cheema, I would like to inquire about property files."
+                  )}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 hover:underline pt-1"
+                >
+                  <span>Chat on WhatsApp &rarr;</span>
+                </a>
+              </div>
+
+              {/* Card 2: Secondary Hotline */}
+              <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 space-y-2.5">
                 <div className="w-10 h-10 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-amber-700 shadow-sm">
                   <Phone className="w-5 h-5" />
                 </div>
                 <div className="text-xs uppercase font-bold tracking-wider text-slate-500">
                   Advisory Hotline
                 </div>
-                <div className="text-lg font-bold text-slate-900">
-                  {COMPANY_INFO.pakistanPhone}
-                </div>
-                <p className="text-xs text-slate-500">Direct phone &amp; WhatsApp inquiries</p>
+                <a
+                  href={`tel:${COMPANY_INFO.secondaryPhoneRaw}`}
+                  className="text-lg font-bold text-slate-900 hover:text-amber-700 block transition-colors"
+                >
+                  {COMPANY_INFO.secondaryPhone}
+                </a>
+                <p className="text-xs text-slate-500">M Daud Ali Lashari • Investment Desk</p>
+                <a
+                  href={`https://wa.me/923204154156?text=${encodeURIComponent(
+                    "Hello M Daud Ali Lashari, I would like to inquire about real estate investments."
+                  )}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 hover:underline pt-1"
+                >
+                  <span>Chat on WhatsApp &rarr;</span>
+                </a>
               </div>
 
-              <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-                <div className="w-10 h-10 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-amber-700 shadow-sm">
-                  <Mail className="w-5 h-5" />
-                </div>
-                <div className="text-xs uppercase font-bold tracking-wider text-slate-500">
-                  Email Desk
-                </div>
-                <div className="text-sm font-bold text-slate-900 truncate">
-                  {COMPANY_INFO.email}
-                </div>
-                <p className="text-xs text-slate-500">Corporate and portfolio briefs</p>
-              </div>
-
-              <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+              {/* Card 3: Head Office */}
+              <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 space-y-2.5">
                 <div className="w-10 h-10 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-amber-700 shadow-sm">
                   <MapPin className="w-5 h-5" />
                 </div>
                 <div className="text-xs uppercase font-bold tracking-wider text-slate-500">
-                  Head Office Locations
+                  Head Office Location
                 </div>
-                <div className="text-sm font-bold text-slate-900">
-                  DHA Phase 5 &amp; Gulberg III
+                <div className="text-sm font-bold text-slate-900 leading-snug">
+                  {COMPANY_INFO.headOffice}
                 </div>
-                <p className="text-xs text-slate-500">Lahore, Punjab, Pakistan</p>
+                <p className="text-xs text-slate-500">In-person biometric &amp; file verification</p>
               </div>
 
-              <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+              {/* Card 4: Email & Languages */}
+              <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 space-y-2.5">
                 <div className="w-10 h-10 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-amber-700 shadow-sm">
-                  <Clock className="w-5 h-5" />
+                  <Mail className="w-5 h-5" />
                 </div>
                 <div className="text-xs uppercase font-bold tracking-wider text-slate-500">
-                  Advisory Hours
+                  Official Email &amp; Languages
                 </div>
-                <div className="text-sm font-bold text-slate-900">
-                  Mon – Sat: 10AM – 7:30PM
+                <a
+                  href={`mailto:${COMPANY_INFO.email}`}
+                  className="text-xs font-bold text-slate-900 hover:text-amber-700 block truncate transition-colors"
+                >
+                  {COMPANY_INFO.email}
+                </a>
+                <div className="flex items-center gap-1.5 text-xs text-slate-600 pt-1">
+                  <Languages className="w-3.5 h-3.5 text-amber-700 shrink-0" />
+                  <span>English • Urdu • Punjabi</span>
                 </div>
-                <p className="text-xs text-slate-500">Pakistan Standard Time (PKT)</p>
+                <p className="text-[11px] text-slate-400">
+                  {COMPANY_INFO.officeHours}
+                </p>
               </div>
             </div>
           </div>
@@ -145,7 +196,7 @@ export default function ContactPage() {
                   <span>Frequently Asked Questions</span>
                 </div>
                 <h2 className="text-3xl sm:text-4xl font-serif font-bold text-slate-900">
-                  Investor &amp; Advisory FAQs
+                  Property Files Network FAQs
                 </h2>
               </div>
             </ScrollReveal>
@@ -169,7 +220,6 @@ export default function ContactPage() {
       </main>
 
       <Footer />
-      <BrochureModal />
     </div>
   );
 }

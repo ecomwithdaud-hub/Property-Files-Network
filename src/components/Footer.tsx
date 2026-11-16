@@ -12,10 +12,16 @@ import {
   Mail,
   Clock,
   BookOpen,
+  Languages,
 } from "lucide-react";
 import PropertyFilesLogo from "./PropertyFilesLogo";
 import SocialLinks from "./SocialLinks";
-import { COMPANY_INFO, PAKISTAN_PORTFOLIO, BLOG_POSTS } from "@/lib/data";
+import {
+  COMPANY_INFO,
+  PAKISTAN_PORTFOLIO,
+  BLOG_POSTS,
+  SERVED_REGIONS,
+} from "@/lib/data";
 import { useLeads } from "@/context/LeadContext";
 import ScrollReveal from "./ScrollReveal";
 
@@ -43,13 +49,13 @@ export default function Footer({ onSwitchToCRM }: FooterProps) {
                 </div>
                 <div>
                   <span className="text-xs font-bold uppercase tracking-widest text-amber-400">
-                    Official Advisory &amp; Marketing Partner • Value Group
+                    Trusted Real Estate Advisory &amp; File Trading
                   </span>
                   <h3 className="text-xl sm:text-2xl font-serif font-bold text-white mt-0.5">
-                    Property Files Network — &ldquo;{COMPANY_INFO.tagline}&rdquo;
+                    Property Files Network
                   </h3>
-                  <p className="text-xs sm:text-sm text-slate-400 mt-1">
-                    Advising high-net-worth families, institutions, and overseas Pakistanis across Lahore since {COMPANY_INFO.foundedYear}.
+                  <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-2xl font-medium">
+                    {COMPANY_INFO.tagline}
                   </p>
                 </div>
               </div>
@@ -57,7 +63,7 @@ export default function Footer({ onSwitchToCRM }: FooterProps) {
               <div className="flex flex-wrap items-center gap-3 shrink-0">
                 <button
                   onClick={() => setIsBrochureModalOpen(true)}
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm transition-all whitespace-nowrap"
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm transition-all whitespace-nowrap shadow-sm"
                 >
                   <FileDown className="w-4 h-4" />
                   <span>Download Portfolio Dossier</span>
@@ -87,32 +93,25 @@ export default function Footer({ onSwitchToCRM }: FooterProps) {
 
       {/* Main 4-Column Corporate Footer */}
       <div className="max-w-7xl mx-auto px-6 lg:px-10 py-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-        {/* Col 1: Brand & Socials */}
+        {/* Col 1: Brand, Bio & Socials */}
         <div className="space-y-4">
-          <PropertyFilesLogo variant="dark" size="md" showTagline={true} />
-          <p className="text-sm text-slate-400 leading-relaxed">
-            Institutional property advisory and portfolio marketing firm specializing in verified, high-yield residential apartments, corporate office towers, smart townhouses, and organic country estates across Lahore, Pakistan.
+          <PropertyFilesLogo variant="dark" size="md" showTagline={false} />
+          <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
+            {COMPANY_INFO.bio}
           </p>
 
           <div className="pt-1 space-y-2 text-xs">
             <div className="flex items-center gap-2 text-amber-400 font-medium">
               <ShieldCheck className="w-4 h-4 shrink-0" />
-              <span>Value Group Authorized Partner</span>
+              <span>MGH &amp; DHA Property Files Specialists</span>
             </div>
             <div className="flex items-center gap-2 text-slate-300">
-              <Globe className="w-4 h-4 text-amber-400 shrink-0" />
-              <a
-                href={COMPANY_INFO.websiteUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="hover:text-amber-400 underline underline-offset-4"
-              >
-                {COMPANY_INFO.domain}
-              </a>
+              <Languages className="w-4 h-4 text-amber-400 shrink-0" />
+              <span>Languages: {COMPANY_INFO.languages.join(" • ")}</span>
             </div>
           </div>
 
-          {/* 4 Official Social Media Channels */}
+          {/* Official Social Media Channels */}
           <div className="pt-2">
             <div className="text-[11px] uppercase tracking-wider text-slate-400 font-semibold mb-2.5">
               Official Media Channels
@@ -121,12 +120,12 @@ export default function Footer({ onSwitchToCRM }: FooterProps) {
           </div>
         </div>
 
-        {/* Col 2: Pakistan Portfolio Links */}
+        {/* Col 2: Featured Societies & Files */}
         <div className="space-y-3">
           <h4 className="text-xs font-bold uppercase tracking-widest text-amber-400">
-            Pakistan Portfolio (Lahore)
+            Societies &amp; Files
           </h4>
-          <ul className="space-y-2 text-xs text-slate-300">
+          <ul className="space-y-2.5 text-xs text-slate-300">
             {PAKISTAN_PORTFOLIO.map((proj) => (
               <li key={proj.id}>
                 <Link
@@ -135,72 +134,94 @@ export default function Footer({ onSwitchToCRM }: FooterProps) {
                 >
                   <strong className="text-white font-medium">
                     {proj.title}
-                  </strong>{" "}
-                  <span className="text-slate-400">({proj.location})</span>
+                  </strong>
+                  <div className="text-slate-400 text-[11px] mt-0.5">
+                    {proj.fileSpecialty}
+                  </div>
                 </Link>
               </li>
             ))}
           </ul>
         </div>
 
-        {/* Col 3: Market Intelligence & Case Studies */}
+        {/* Col 3: Geographic Coverage */}
         <div className="space-y-3">
           <h4 className="text-xs font-bold uppercase tracking-widest text-amber-400">
-            Research &amp; Case Studies
+            Regions We Serve
           </h4>
-          <ul className="space-y-2.5 text-xs text-slate-300">
-            {BLOG_POSTS.slice(0, 4).map((post) => (
-              <li key={post.slug}>
-                <Link
-                  href={`/blog/${post.slug}`}
-                  className="hover:text-amber-400 transition-colors line-clamp-2"
-                >
-                  <span className="text-white font-medium">{post.title}</span>
-                </Link>
-              </li>
+          <div className="space-y-2.5 text-xs text-slate-300">
+            {SERVED_REGIONS.map((region) => (
+              <div key={region.province} className="space-y-1">
+                <div className="text-white font-semibold text-xs">
+                  {region.province}
+                </div>
+                <div className="text-slate-400 text-[11px]">
+                  {region.cities.join(", ")}
+                </div>
+              </div>
             ))}
-            <li className="pt-1">
+            <div className="pt-2">
               <Link
-                href="/blog"
-                className="text-amber-400 hover:underline font-semibold inline-flex items-center gap-1"
+                href="/about"
+                className="text-amber-400 hover:underline font-semibold inline-flex items-center gap-1 text-xs"
               >
-                <BookOpen className="w-3.5 h-3.5" />
-                <span>Explore all 6 articles &rarr;</span>
+                <span>Meet Founders M Talha Cheema &amp; M Daud Ali Lashari &rarr;</span>
               </Link>
-            </li>
-          </ul>
+            </div>
+          </div>
         </div>
 
         {/* Col 4: Contact & Office Hours */}
         <div className="space-y-4">
           <h4 className="text-xs font-bold uppercase tracking-widest text-amber-400">
-            Direct Advisory Desks
+            Direct Contact &amp; Desks
           </h4>
 
-          <div className="p-4 rounded-xl bg-slate-800/80 border border-slate-700 space-y-1">
-            <div className="text-[11px] uppercase tracking-wider text-amber-400 font-semibold">
-              Pakistan Advisory Hotline
+          {/* Address Card */}
+          <div className="p-4 rounded-xl bg-slate-800/80 border border-slate-700 space-y-1.5 text-xs">
+            <div className="text-[11px] uppercase tracking-wider text-amber-400 font-semibold flex items-center gap-1.5">
+              <MapPin className="w-3.5 h-3.5" />
+              <span>Head Office Address</span>
             </div>
-            <a
-              href={`tel:${COMPANY_INFO.pakistanPhoneRaw}`}
-              className="flex items-center gap-2 text-base font-bold text-white hover:text-amber-400 transition-colors"
-            >
-              <Phone className="w-4 h-4 text-amber-400" />
-              <span>{COMPANY_INFO.pakistanPhone}</span>
-            </a>
-            <div className="flex items-start gap-1.5 text-xs text-slate-400 pt-1">
-              <MapPin className="w-3.5 h-3.5 text-slate-500 shrink-0 mt-0.5" />
-              <span>{COMPANY_INFO.headOffice}</span>
+            <div className="text-sm font-semibold text-white leading-snug">
+              {COMPANY_INFO.headOffice}
             </div>
           </div>
 
-          <div className="p-3.5 rounded-xl bg-slate-800/80 border border-slate-700 space-y-1 text-xs">
-            <div className="flex items-center gap-1.5 text-slate-300">
-              <Mail className="w-3.5 h-3.5 text-amber-400" />
-              <span>{COMPANY_INFO.email}</span>
+          {/* Dual Phone Hotline */}
+          <div className="p-4 rounded-xl bg-slate-800/80 border border-slate-700 space-y-2 text-xs">
+            <div className="text-[11px] uppercase tracking-wider text-amber-400 font-semibold">
+              Phone &amp; WhatsApp Hotlines
             </div>
-            <div className="flex items-center gap-1.5 text-slate-400 pt-1">
-              <Clock className="w-3.5 h-3.5 text-slate-500" />
+            <div className="space-y-1.5">
+              <a
+                href={`tel:${COMPANY_INFO.pakistanPhoneRaw}`}
+                className="flex items-center gap-2 text-sm font-bold text-white hover:text-amber-400 transition-colors"
+              >
+                <Phone className="w-3.5 h-3.5 text-amber-400" />
+                <span>{COMPANY_INFO.pakistanPhone}</span>
+              </a>
+              <a
+                href={`tel:${COMPANY_INFO.secondaryPhoneRaw}`}
+                className="flex items-center gap-2 text-sm font-bold text-white hover:text-amber-400 transition-colors"
+              >
+                <Phone className="w-3.5 h-3.5 text-amber-400" />
+                <span>{COMPANY_INFO.secondaryPhone}</span>
+              </a>
+            </div>
+          </div>
+
+          {/* Email & Hours */}
+          <div className="p-3.5 rounded-xl bg-slate-800/80 border border-slate-700 space-y-1.5 text-xs">
+            <a
+              href={`mailto:${COMPANY_INFO.email}`}
+              className="flex items-center gap-2 text-slate-300 hover:text-amber-300 transition-colors"
+            >
+              <Mail className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+              <span className="truncate">{COMPANY_INFO.email}</span>
+            </a>
+            <div className="flex items-center gap-2 text-slate-400 pt-0.5">
+              <Clock className="w-3.5 h-3.5 text-slate-500 shrink-0" />
               <span>{COMPANY_INFO.officeHours}</span>
             </div>
           </div>
@@ -212,8 +233,7 @@ export default function Footer({ onSwitchToCRM }: FooterProps) {
         <div className="max-w-7xl mx-auto px-6 lg:px-10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
           <div>
             © {new Date().getFullYear()}{" "}
-            <strong className="text-white">Property Files Network</strong> (
-            {COMPANY_INFO.domain}) —{" "}
+            <strong className="text-white">Property Files Network</strong> —{" "}
             <span className="italic text-amber-400">
               &ldquo;{COMPANY_INFO.tagline}&rdquo;
             </span>{" "}
@@ -222,7 +242,7 @@ export default function Footer({ onSwitchToCRM }: FooterProps) {
           <div className="flex flex-wrap items-center gap-4">
             <Link href="/about" className="hover:text-white">About Us</Link>
             <span>•</span>
-            <Link href="/portfolio" className="hover:text-white">Portfolio</Link>
+            <Link href="/portfolio" className="hover:text-white">Societies &amp; Files</Link>
             <span>•</span>
             <Link href="/blog" className="hover:text-white">Blog &amp; Case Studies</Link>
             <span>•</span>

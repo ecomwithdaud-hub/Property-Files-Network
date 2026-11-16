@@ -69,14 +69,14 @@ export default function CRMPipelineDashboard({}: CRMPipelineDashboardProps) {
   const [newOrigin, setNewOrigin] = useState<LeadOrigin>("Pakistan");
   const [newCountryCity, setNewCountryCity] = useState("Lahore, Pakistan");
   const [newCategory, setNewCategory] = useState<PropertyCategory>(
-    "Luxury High-Rise Apartments"
+    "MGH Affidavit Files"
   );
   const [newProject, setNewProject] = useState(
-    "Green View Executive Apartments (DHA Phase 5, Lahore)"
+    "Mangla Garrison Housing (MGH Pakistan)"
   );
-  const [newUnit, setNewUnit] = useState("2-Bed Executive Suite");
-  const [newBudget, setNewBudget] = useState("PKR 2.85 Crore – 4.50 Crore");
-  const [newValPKR, setNewValPKR] = useState(45);
+  const [newUnit, setNewUnit] = useState("1 Kanal MGH Affidavit File");
+  const [newBudget, setNewBudget] = useState("PKR 65 Lakh – 95 Lakh");
+  const [newValPKR, setNewValPKR] = useState(85);
   const [newAgent, setNewAgent] = useState(CRM_AGENTS[0]);
   const [newInitialNote, setNewInitialNote] = useState("");
 
@@ -206,7 +206,7 @@ export default function CRMPipelineDashboard({}: CRMPipelineDashboardProps) {
                   Property Files Network — Client Advisory Pipeline
                 </h1>
                 <p className="text-xs sm:text-sm text-slate-600">
-                  Track domestic institutional and overseas Pakistani client inquiries across Lahore developments.
+                  Track domestic and overseas diaspora inquiries across MGH 1 Kanal &amp; 10 Marla affidavit files, DHA Phase 8 Broadway, Phase 9 Prism &amp; Phase 10.
                 </p>
               </div>
 
@@ -313,7 +313,7 @@ export default function CRMPipelineDashboard({}: CRMPipelineDashboardProps) {
                   PKR {(totalPipelineValuePKR / 10).toFixed(2)} Cr
                 </div>
                 <div className="text-xs text-slate-600">
-                  Across 6 Partner Developments in Lahore
+                  Across MGH &amp; DHA Lahore Property Files
                 </div>
               </div>
             </div>
@@ -345,7 +345,7 @@ export default function CRMPipelineDashboard({}: CRMPipelineDashboardProps) {
                           : "text-slate-600 hover:text-slate-900"
                       }`}
                     >
-                      {orig === "All" ? "All Profiles" : orig}
+                      {orig === "All" ? "All Profiles" : orig === "Pakistan" ? "Pakistan" : "Diaspora"}
                     </button>
                   )
                 )}
@@ -355,9 +355,10 @@ export default function CRMPipelineDashboard({}: CRMPipelineDashboardProps) {
                 {(
                   [
                     "All",
-                    "Luxury High-Rise Apartments",
-                    "Commercial Plazas & Corporate Towers",
-                    "Organic Farmhouses & Agri-Estates",
+                    "MGH Affidavit Files",
+                    "DHA Lahore Property Files",
+                    "Commercial Broadway Plazas",
+                    "Real Estate Investment Advising",
                   ] as const
                 ).map((cat) => (
                   <button
@@ -369,7 +370,7 @@ export default function CRMPipelineDashboard({}: CRMPipelineDashboardProps) {
                         : "text-slate-600 hover:text-slate-900"
                     }`}
                   >
-                    {cat === "All" ? "All Classes" : cat.split(" ")[0]}
+                    {cat === "All" ? "All Files" : cat.split(" ")[0]}
                   </button>
                 ))}
               </div>

@@ -4,25 +4,25 @@ import React, { useState } from "react";
 import {
   X,
   FileDown,
-  MapPin,
-  CheckCircle2,
   Building2,
+  CheckCircle2,
   Phone,
   ShieldCheck,
+  Scale,
+  Compass,
+  MapPin,
+  Languages,
 } from "lucide-react";
-import {
-  COMPANY_INFO,
-  PAKISTAN_PORTFOLIO,
-} from "@/lib/data";
-import { downloadOfficialBrochurePDF } from "@/lib/brochureGenerator";
 import { useLeads } from "@/context/LeadContext";
+import { COMPANY_INFO, PAKISTAN_PORTFOLIO, FOUNDERS_LEADERSHIP } from "@/lib/data";
+import { downloadOfficialBrochurePDF } from "@/lib/brochureGenerator";
 
 export default function BrochureModal() {
   const { isBrochureModalOpen, setIsBrochureModalOpen } = useLeads();
-  const [activeTab, setActiveTab] = useState<
-    "overview" | "projects" | "legal"
-  >("overview");
   const [downloaded, setDownloaded] = useState(false);
+  const [activeTab, setActiveTab] = useState<"overview" | "projects" | "legal">(
+    "overview"
+  );
 
   if (!isBrochureModalOpen) return null;
 
@@ -33,10 +33,10 @@ export default function BrochureModal() {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/75 backdrop-blur-sm p-3 sm:p-6 overflow-y-auto">
-      <div className="relative max-w-4xl w-full rounded-2xl bg-white border border-slate-200 shadow-2xl overflow-hidden my-auto max-h-[92vh] flex flex-col">
-        {/* Modal Header */}
-        <div className="p-5 sm:p-6 bg-slate-900 text-white border-b border-slate-800 flex flex-wrap items-center justify-between gap-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/80 backdrop-blur-sm animate-in fade-in duration-200">
+      <div className="relative w-full max-w-4xl bg-white rounded-2xl shadow-2xl overflow-hidden border border-slate-200 flex flex-col max-h-[90vh]">
+        {/* Modal Corporate Header */}
+        <div className="px-6 sm:px-8 py-5 bg-slate-900 text-white flex items-center justify-between border-b border-slate-800">
           <div className="flex items-center gap-3.5">
             <div className="h-12 w-12 rounded-xl overflow-hidden border border-slate-200 bg-white shadow-sm shrink-0">
               <img
@@ -47,10 +47,10 @@ export default function BrochureModal() {
             </div>
             <div>
               <span className="text-[11px] font-bold uppercase tracking-widest text-amber-400 block">
-                Official Investment Dossier • Value Group Partnership
+                Official Investment Dossier • Property Files Network
               </span>
               <h3 className="text-lg sm:text-xl font-serif font-bold text-white">
-                Property Files Network Pakistan Real Estate Portfolio
+                Societies &amp; Property Files Portfolio
               </h3>
             </div>
           </div>
@@ -78,9 +78,9 @@ export default function BrochureModal() {
         {/* Brochure Tabs */}
         <div className="px-6 py-3 bg-slate-50 border-b border-slate-200 flex flex-wrap gap-2">
           {[
-            { id: "overview", label: "1. Advisory Overview & Methodology" },
-            { id: "projects", label: "2. Landmark Lahore Portfolio (6 Projects)" },
-            { id: "legal", label: "3. Legal Due Diligence & RDA Repatriation" },
+            { id: "overview", label: "1. Advisory Overview & Leadership" },
+            { id: "projects", label: "2. Societies & File Portfolio (5 Key Projects)" },
+            { id: "legal", label: "3. Legal Due Diligence & Remote Diaspora Settlement" },
           ].map((tab) => (
             <button
               key={tab.id}
@@ -106,31 +106,53 @@ export default function BrochureModal() {
             <div className="space-y-5">
               <div className="space-y-2">
                 <span className="text-xs font-bold uppercase tracking-widest text-amber-600">
-                  Property Files Network × Value Group
+                  Property Files Network
                 </span>
                 <h4 className="text-2xl font-serif font-bold text-slate-900">
-                  Institutional Real Estate Advisory in Lahore Since 2008
+                  {COMPANY_INFO.tagline}
                 </h4>
                 <p className="text-sm text-slate-600 leading-relaxed">
-                  Property Files Network is an established property advisory and portfolio marketing firm specializing in verified, high-yield domestic real estate. Through our strategic partnership with Value Group, we provide domestic and overseas Pakistani investors with vetted residential apartments, commercial corporate high-rises, smart townhouses, and organic farmhouses.
+                  {COMPANY_INFO.bio}
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+              {/* Leadership Strip */}
+              <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
+                <div className="text-xs font-bold uppercase tracking-wider text-slate-700">
+                  Co-Founders &amp; Key Contacts
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {FOUNDERS_LEADERSHIP.map((founder) => (
+                    <div key={founder.name} className="space-y-1">
+                      <div className="text-sm font-bold text-slate-900">
+                        {founder.name} ({founder.role})
+                      </div>
+                      <div className="text-xs text-amber-700 font-medium">
+                        {founder.title}
+                      </div>
+                      <div className="text-xs text-slate-600 font-semibold">
+                        Phone/WhatsApp: {founder.phone}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-1">
                 <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-1">
-                  <div className="text-xs text-slate-500 font-medium">Delivered &amp; Ongoing</div>
-                  <div className="text-2xl font-serif font-bold text-slate-900">6 Key Landmarks</div>
-                  <div className="text-xs text-slate-600">Across DHA, Gulberg, Model Town &amp; Barki Road</div>
+                  <div className="text-xs text-slate-500 font-medium">Head Office</div>
+                  <div className="text-base font-serif font-bold text-slate-900">DHA Phase 8</div>
+                  <div className="text-xs text-slate-600">Office No. 98-D, Main Boulevard</div>
                 </div>
                 <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-1">
-                  <div className="text-xs text-slate-500 font-medium">Legal Verification</div>
-                  <div className="text-2xl font-serif font-bold text-emerald-700">100% Title Checked</div>
-                  <div className="text-xs text-slate-600">LDA, DHA &amp; Punjab Revenue compliance</div>
+                  <div className="text-xs text-slate-500 font-medium">MGH Trading</div>
+                  <div className="text-base font-serif font-bold text-emerald-700">1K &amp; 10M Files</div>
+                  <div className="text-xs text-slate-600">Mangla Garrison Housing Affidavits</div>
                 </div>
                 <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-1">
-                  <div className="text-xs text-slate-500 font-medium">Diaspora Services</div>
-                  <div className="text-2xl font-serif font-bold text-amber-600">RDA &amp; PoA Ready</div>
-                  <div className="text-xs text-slate-600">Full banking repatriation assistance</div>
+                  <div className="text-xs text-slate-500 font-medium">DHA Handling</div>
+                  <div className="text-base font-serif font-bold text-amber-600">Phases 6 to 10</div>
+                  <div className="text-xs text-slate-600">Broadway, Prism &amp; Allocation files</div>
                 </div>
               </div>
             </div>
@@ -139,7 +161,7 @@ export default function BrochureModal() {
           {activeTab === "projects" && (
             <div className="space-y-4">
               <p className="text-sm text-slate-600">
-                Explore the verified developments in the Property Files Network &amp; Value Group portfolio:
+                Explore the verified developments in the Property Files Network portfolio:
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {PAKISTAN_PORTFOLIO.map((proj) => (
@@ -165,7 +187,7 @@ export default function BrochureModal() {
                     </div>
                     <div className="text-xs font-semibold text-slate-900 pt-1 border-t border-slate-200/80 flex items-center justify-between">
                       <span>Starting: {proj.startingPrice}</span>
-                      <span className="text-slate-500 font-normal">{proj.unitsInfo}</span>
+                      <span className="text-slate-500 font-normal">{proj.fileSpecialty}</span>
                     </div>
                   </div>
                 ))}
@@ -177,7 +199,7 @@ export default function BrochureModal() {
             <div className="space-y-4">
               <div className="space-y-1">
                 <h4 className="text-xl font-serif font-bold text-slate-900">
-                  Investor Protection &amp; Legal Framework
+                  Investor Protection &amp; File Verification Framework
                 </h4>
                 <p className="text-sm text-slate-600">
                   Every acquisition guided by Property Files Network adheres to stringent legal verifications:
@@ -187,28 +209,33 @@ export default function BrochureModal() {
               <div className="space-y-2.5">
                 {[
                   {
-                    title: "1. Registry & Mutation (Intiqal) Verification",
-                    desc: "Direct verification with the Arazi Record Center (ARC) and Sub-Registrar to ensure unencumbered title deeds.",
+                    title: "1. Direct Directorate Verification",
+                    desc: "Official checking with the Defence Housing Authority (DHA) and Mangla Garrison Housing (MGH) project directorates to ensure genuine allocation.",
                   },
                   {
-                    title: "2. DHA Verification Slip (NDC)",
-                    desc: "Official clearance verifying all development charges, transfer fees, and utility dues are fully cleared.",
+                    title: "2. DHA Verification Slip & NDC",
+                    desc: "Official clearance verifying that all development surcharges, transfer fees, and utility arrears are fully cleared prior to payment.",
                   },
                   {
-                    title: "3. Roshan Digital Account (RDA) Repatriation",
-                    desc: "Structuring inward foreign exchange remittances with State Bank purpose codes ensuring 100% legal capital and profit repatriation rights.",
+                    title: "3. Biometric NADRA & CNIC Validation",
+                    desc: "NADRA biometric verification of the legal owner to eliminate risks of unauthorized proxy transfers.",
                   },
                   {
-                    title: "4. Special Power of Attorney (PoA) Attestation",
-                    desc: "Guidance on embassy attestation and MOFA registration for overseas clients who cannot travel physically to Lahore.",
+                    title: "4. Overseas Diaspora Remote Escrow (RDA & Special PoA)",
+                    desc: "Structured settlement through Roshan Digital Accounts with Pakistani Embassy / Consulate attested Power of Attorney.",
                   },
                 ].map((item, idx) => (
-                  <div key={idx} className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-start gap-3">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                    <div>
-                      <div className="text-xs font-bold text-slate-900">{item.title}</div>
-                      <div className="text-xs text-slate-600 mt-0.5">{item.desc}</div>
+                  <div
+                    key={idx}
+                    className="p-3.5 rounded-lg bg-slate-50 border border-slate-200 space-y-1"
+                  >
+                    <div className="text-sm font-serif font-bold text-slate-900 flex items-center gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                      <span>{item.title}</span>
                     </div>
+                    <p className="text-xs text-slate-600 pl-6 leading-relaxed">
+                      {item.desc}
+                    </p>
                   </div>
                 ))}
               </div>
@@ -216,17 +243,17 @@ export default function BrochureModal() {
           )}
         </div>
 
-        {/* Modal Footer */}
+        {/* Modal Footer Callout */}
         <div className="px-6 py-4 bg-slate-50 border-t border-slate-200 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-600">
           <div className="flex items-center gap-2">
             <Phone className="w-3.5 h-3.5 text-amber-600" />
             <span className="text-slate-900 font-semibold">
-              Pakistan Advisory Hotline: {COMPANY_INFO.pakistanPhone}
+              Advisory Hotlines: {COMPANY_INFO.pakistanPhone} • {COMPANY_INFO.secondaryPhone}
             </span>
           </div>
           <div className="flex items-center gap-2 text-emerald-700 font-semibold">
             <ShieldCheck className="w-4 h-4" />
-            <span>Verified Portfolio • Property Files Network ({COMPANY_INFO.domain})</span>
+            <span>Head Office: {COMPANY_INFO.headOffice}</span>
           </div>
         </div>
       </div>

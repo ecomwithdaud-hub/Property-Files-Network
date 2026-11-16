@@ -1,22 +1,23 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Send,
   CheckCircle2,
   Phone,
-  Mail,
-  MapPin,
   ShieldCheck,
   Building2,
-  Calendar,
+  Clock,
+  Sparkles,
+  ArrowRight,
+  Layers,
+  FileCheck2,
 } from "lucide-react";
 import {
   COMPANY_INFO,
   CRM_AGENTS,
   Lead,
   LeadOrigin,
-  PAKISTAN_PORTFOLIO,
   PropertyCategory,
 } from "@/lib/data";
 import { useLeads } from "@/context/LeadContext";
@@ -41,17 +42,15 @@ export default function LeadCaptureForm({
   const [originType, setOriginType] = useState<LeadOrigin>("Pakistan");
   const [countryCity, setCountryCity] = useState("Lahore, Pakistan");
   const [propertyCategory, setPropertyCategory] = useState<PropertyCategory>(
-    "Luxury High-Rise Apartments"
+    "MGH Affidavit Files"
   );
   const [specificProject, setSpecificProject] = useState(
-    "Green View Executive Apartments (DHA Phase 5, Lahore)"
+    "Mangla Garrison Housing (MGH Pakistan)"
   );
   const [preferredUnitType, setPreferredUnitType] = useState(
-    "2-Bed Executive Suite"
+    "1 Kanal MGH Affidavit File"
   );
-  const [budgetTier, setBudgetTier] = useState(
-    "PKR 2.85 Crore – 4.50 Crore"
-  );
+  const [budgetTier, setBudgetTier] = useState("PKR 65 Lakh – 95 Lakh");
   const [notes, setNotes] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [submittedLead, setSubmittedLead] = useState<Lead | null>(null);
@@ -59,14 +58,24 @@ export default function LeadCaptureForm({
   useEffect(() => {
     if (preselectedProjectForInquiry) {
       setSpecificProject(preselectedProjectForInquiry);
-      if (preselectedProjectForInquiry.includes("Corporate")) {
-        setPropertyCategory("Commercial Plazas & Corporate Towers");
-      } else if (preselectedProjectForInquiry.includes("Farmhouse")) {
-        setPropertyCategory("Organic Farmhouses & Agri-Estates");
-      } else if (preselectedProjectForInquiry.includes("Smart")) {
-        setPropertyCategory("Smart Homes & Turnkey Villas");
+      if (preselectedProjectForInquiry.includes("Mangla") || preselectedProjectForInquiry.includes("MGH")) {
+        setPropertyCategory("MGH Affidavit Files");
+        setPreferredUnitType("1 Kanal MGH Affidavit File");
+        setBudgetTier("PKR 65 Lakh – 95 Lakh");
+      } else if (preselectedProjectForInquiry.includes("Broadway")) {
+        setPropertyCategory("Commercial Broadway Plazas");
+        setPreferredUnitType("4 Marla Commercial Broadway");
+        setBudgetTier("PKR 6.50 Crore – 12.00 Crore");
+      } else if (preselectedProjectForInquiry.includes("Phase 9")) {
+        setPropertyCategory("DHA Lahore Property Files");
+        setPreferredUnitType("1 Kanal Balloted File");
+        setBudgetTier("PKR 2.20 Crore – 3.80 Crore");
+      } else if (preselectedProjectForInquiry.includes("Phase 10")) {
+        setPropertyCategory("DHA Lahore Property Files");
+        setPreferredUnitType("1 Kanal Allocation File");
+        setBudgetTier("PKR 95 Lakh – 1.35 Crore");
       } else {
-        setPropertyCategory("Luxury High-Rise Apartments");
+        setPropertyCategory("DHA Lahore Property Files");
       }
     }
   }, [preselectedProjectForInquiry]);
@@ -78,12 +87,14 @@ export default function LeadCaptureForm({
     setSubmitting(true);
 
     let estimatedValuePKR = 45;
-    if (budgetTier.includes("8.50") || budgetTier.includes("12+")) {
-      estimatedValuePKR = 95;
-    } else if (budgetTier.includes("5.00") || budgetTier.includes("6.75")) {
-      estimatedValuePKR = 60;
-    } else if (budgetTier.includes("1.65") || budgetTier.includes("2.85")) {
+    if (budgetTier.includes("18") || budgetTier.includes("24") || budgetTier.includes("28")) {
+      estimatedValuePKR = 180;
+    } else if (budgetTier.includes("6.50") || budgetTier.includes("12")) {
+      estimatedValuePKR = 90;
+    } else if (budgetTier.includes("2.20") || budgetTier.includes("3.80")) {
       estimatedValuePKR = 30;
+    } else if (budgetTier.includes("65 Lakh") || budgetTier.includes("95 Lakh")) {
+      estimatedValuePKR = 8;
     }
 
     const assignedAgent = CRM_AGENTS[0];
@@ -91,7 +102,7 @@ export default function LeadCaptureForm({
     const created = await addLead({
       clientName: clientName.trim(),
       phone: phone.trim(),
-      email: email.trim() || "advisory.client@propertyfilesnetwork.com",
+      email: email.trim() || "propertyfilesnetwork@gmail.com",
       originType,
       countryCity: countryCity.trim() || "Lahore, Pakistan",
       propertyCategory,
@@ -101,17 +112,18 @@ export default function LeadCaptureForm({
       estimatedValuePKR,
       assignedAgent,
       stage: "new",
-      priority: estimatedValuePKR >= 70 ? "VIP" : "High",
+      priority:
+        estimatedValuePKR >= 60 || originType === "Overseas Pakistani Diaspora"
+          ? "VIP"
+          : "High",
       notes: [
-        notes.trim()
-          ? `Investor Inquiry Note: "${notes.trim()}"`
-          : `Website advisory inquiry for ${specificProject} (${preferredUnitType}).`,
+        notes.trim() ||
+          `Inbound inquiry for ${specificProject} submitted via website portal.`,
       ],
     });
 
-    setSubmitting(false);
     setSubmittedLead(created);
-    setPreselectedProjectForInquiry(null);
+    setSubmitting(false);
   };
 
   const resetForm = () => {
@@ -120,6 +132,7 @@ export default function LeadCaptureForm({
     setPhone("");
     setEmail("");
     setNotes("");
+    setPreselectedProjectForInquiry(null);
   };
 
   return (
@@ -128,104 +141,108 @@ export default function LeadCaptureForm({
       className="py-20 lg:py-24 bg-white border-b border-slate-200 overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-          {/* Left 5 Columns: Corporate Advisory Details */}
-          <div className="lg:col-span-5">
-            <ScrollReveal direction="up" delayMs={80}>
-              <div className="space-y-6">
-                <div className="text-xs font-bold uppercase tracking-widest text-amber-700">
-                  Investor Relations &amp; Advisory Desk
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14">
+          {/* Left 5 Columns: Corporate Commitment & Advisory Credentials */}
+          <div className="lg:col-span-5 space-y-7">
+            <ScrollReveal direction="up">
+              <div className="space-y-4">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-amber-50 border border-amber-200 text-amber-800 text-xs font-bold uppercase tracking-widest">
+                  <ShieldCheck className="w-3.5 h-3.5 text-amber-700" />
+                  <span>Verified Deals &amp; Trading Desk</span>
                 </div>
-
-                <h2 className="text-3xl sm:text-4xl font-serif font-bold text-slate-900 leading-tight">
-                  Schedule a Private Consultation or{" "}
-                  <span className="text-amber-700">Project Briefing</span>
+                <h2 className="text-3xl sm:text-4xl lg:text-[40px] font-serif font-bold text-slate-900 leading-tight">
+                  Consult With Our Co-Founders &amp; Advisors
                 </h2>
-
-                <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
-                  Whether you are an overseas Pakistani planning your next acquisition or a domestic business family exploring high-yield commercial floors or organic farmhouses in Lahore, our senior partners are at your service.
+                <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+                  Whether buying, selling, or exchanging MGH 1 Kanal &amp; 10 Marla affidavit files or transacting in DHA Lahore Phases 6, 7, 8 Broadway, 9 Prism &amp; 10, submit your requirements below for rapid response and verified rates.
                 </p>
+              </div>
+            </ScrollReveal>
 
-                {/* Direct Contact Cards */}
-                <div className="space-y-3.5 pt-2">
-                  <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-4">
-                    <div className="w-11 h-11 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-amber-700 shrink-0 shadow-sm">
-                      <Phone className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <div className="text-xs font-bold uppercase tracking-wider text-slate-500">
-                        Direct Phone &amp; WhatsApp Hotline
-                      </div>
-                      <div className="text-lg font-bold text-slate-900">
-                        {COMPANY_INFO.pakistanPhone}
-                      </div>
-                      <div className="text-xs text-slate-500">
-                        Monday – Saturday • 10:00 AM – 7:30 PM PKT
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-4">
-                    <div className="w-11 h-11 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-slate-800 shrink-0 shadow-sm">
-                      <MapPin className="w-5 h-5 text-amber-700" />
-                    </div>
-                    <div>
-                      <div className="text-xs font-bold uppercase tracking-wider text-slate-500">
-                        Head Office Locations
-                      </div>
-                      <div className="text-sm font-bold text-slate-900">
-                        DHA Phase 5 &amp; Gulberg III
-                      </div>
-                      <div className="text-xs text-slate-500">
-                        Lahore, Punjab, Pakistan
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-4">
-                    <div className="w-11 h-11 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-slate-800 shrink-0 shadow-sm">
-                      <Mail className="w-5 h-5 text-amber-700" />
-                    </div>
-                    <div>
-                      <div className="text-xs font-bold uppercase tracking-wider text-slate-500">
-                        Email Advisory Desk
-                      </div>
-                      <div className="text-sm font-bold text-slate-900">
-                        {COMPANY_INFO.email}
-                      </div>
-                      <div className="text-xs text-slate-500">
-                        Confidential corporate &amp; family office inquiries
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="p-4 rounded-xl bg-amber-50/70 border border-amber-200/80 text-xs text-slate-700 flex items-start gap-3">
-                  <ShieldCheck className="w-5 h-5 text-amber-700 shrink-0 mt-0.5" />
-                  <span>
-                    <strong className="text-slate-900">
-                      Strict Client Confidentiality:
-                    </strong>{" "}
-                    All financial, corporate, and personal property inquiries are managed strictly under attorney-client privilege guidelines.
+            {/* Direct Phone & WhatsApp Hotline */}
+            <ScrollReveal direction="up" delayMs={100}>
+              <div className="p-6 rounded-2xl bg-slate-900 text-white space-y-4 shadow-lg">
+                <div className="space-y-1">
+                  <span className="text-xs font-bold uppercase tracking-wider text-amber-400">
+                    Direct Trading Desk Hotlines
                   </span>
+                  <div className="text-lg font-serif font-bold">
+                    DHA Phase 8 Lahore Head Office
+                  </div>
                 </div>
+
+                <div className="space-y-2 pt-1 border-t border-slate-800 text-xs">
+                  <div className="flex items-center justify-between">
+                    <span className="text-slate-400">M Talha Cheema (Trading):</span>
+                    <a
+                      href={`tel:${COMPANY_INFO.pakistanPhoneRaw}`}
+                      className="font-bold text-amber-400 hover:underline"
+                    >
+                      {COMPANY_INFO.pakistanPhone}
+                    </a>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-slate-400">M Daud Ali Lashari (Advisory):</span>
+                    <a
+                      href={`tel:${COMPANY_INFO.secondaryPhoneRaw}`}
+                      className="font-bold text-amber-400 hover:underline"
+                    >
+                      {COMPANY_INFO.secondaryPhone}
+                    </a>
+                  </div>
+                  <div className="flex items-center justify-between pt-1">
+                    <span className="text-slate-400">Official Email:</span>
+                    <span className="text-slate-200">{COMPANY_INFO.email}</span>
+                  </div>
+                </div>
+
+                <div className="pt-2 flex flex-col sm:flex-row gap-2">
+                  <a
+                    href={`https://wa.me/923234304259?text=${encodeURIComponent(
+                      "Hello Property Files Network, I would like to consult on property files and current rates."
+                    )}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex-1 py-2.5 px-3 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs text-center transition-all flex items-center justify-center gap-1.5"
+                  >
+                    <Phone className="w-3.5 h-3.5" />
+                    <span>WhatsApp Trading Desk</span>
+                  </a>
+                </div>
+              </div>
+            </ScrollReveal>
+
+            {/* Core Guarantees */}
+            <ScrollReveal direction="up" delayMs={180}>
+              <div className="space-y-3 pt-2 text-xs">
+                {[
+                  "100% genuine affidavit & file verification directly with governing directorates",
+                  "Immediate market liquidity with prompt settlement for sellers",
+                  "Multilingual advisory team fluent in English, Urdu, and Punjabi",
+                  "Dedicated overseas diaspora desk assisting UK, North American & Gulf investors",
+                ].map((item, idx) => (
+                  <div key={idx} className="flex items-start gap-2.5 text-slate-700">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <span>{item}</span>
+                  </div>
+                ))}
               </div>
             </ScrollReveal>
           </div>
 
-          {/* Right 7 Columns: Corporate Inquiry Form */}
+          {/* Right 7 Columns: Interactive Lead Booking Form */}
           <div className="lg:col-span-7">
-            <ScrollReveal direction="left" delayMs={150}>
-              <div className="rounded-2xl bg-slate-50 border border-slate-200 p-6 sm:p-8 lg:p-10 shadow-sm">
+            <ScrollReveal direction="left" delayMs={100}>
+              <div className="p-6 sm:p-9 rounded-2xl bg-slate-50 border border-slate-200 shadow-xl shadow-slate-100/70">
                 {submittedLead ? (
-                  <div className="py-6 space-y-6 text-center">
-                    <div className="w-16 h-16 rounded-full bg-emerald-100 border border-emerald-200 text-emerald-700 flex items-center justify-center mx-auto">
-                      <CheckCircle2 className="w-9 h-9" />
+                  <div className="text-center py-8 space-y-5 animate-in fade-in zoom-in-95 duration-300">
+                    <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-700 border border-emerald-300 flex items-center justify-center mx-auto">
+                      <CheckCircle2 className="w-8 h-8" />
                     </div>
 
                     <div className="space-y-2">
-                      <span className="px-3 py-1 rounded bg-white border border-slate-200 text-slate-700 text-xs font-bold uppercase tracking-widest">
-                        Inquiry Registered • Reference #{submittedLead.id}
+                      <span className="text-xs uppercase font-bold tracking-widest text-emerald-700">
+                        Inquiry Successfully Logged
                       </span>
                       <h3 className="text-2xl sm:text-3xl font-serif font-bold text-slate-900">
                         Thank You, {submittedLead.clientName}
@@ -235,7 +252,7 @@ export default function LeadCaptureForm({
                         <strong className="text-slate-900">
                           {submittedLead.specificProject}
                         </strong>{" "}
-                        has been logged into our advisory system. A senior partner will contact you shortly.
+                        has been received. Co-Founders M Talha Cheema or M Daud Ali Lashari will connect with you shortly.
                       </p>
                     </div>
 
@@ -251,7 +268,7 @@ export default function LeadCaptureForm({
                         </span>
                       </div>
                       <div>
-                        <span className="text-slate-500 block">Target Asset Class:</span>
+                        <span className="text-slate-500 block">Category:</span>
                         <span className="text-amber-800 font-bold">
                           {submittedLead.propertyCategory}
                         </span>
@@ -283,82 +300,100 @@ export default function LeadCaptureForm({
                   <form onSubmit={handleSubmit} className="space-y-5">
                     <div className="border-b border-slate-200 pb-4">
                       <h3 className="text-xl font-serif font-bold text-slate-900">
-                        Property Advisory Inquiry Form
+                        Property Files &amp; Advisory Inquiry Form
                       </h3>
                       <p className="text-xs text-slate-600 mt-1">
-                        Please indicate your property preferences to receive tailored floor plans, feasibility analyses, and title verification reports.
+                        Select your preferred society and file size to receive verified current market rates and inventory updates.
                       </p>
                     </div>
 
                     {/* Property Category Selection */}
                     <div>
                       <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-2">
-                        1. Target Asset Class *
+                        1. Target File / Asset Class *
                       </label>
                       <select
                         value={propertyCategory}
                         onChange={(e) => {
                           const cat = e.target.value as PropertyCategory;
                           setPropertyCategory(cat);
-                          if (cat === "Luxury High-Rise Apartments") {
-                            setSpecificProject("Green View Executive Apartments (DHA Phase 5, Lahore)");
-                            setPreferredUnitType("2-Bed Executive Suite");
-                            setBudgetTier("PKR 2.85 Crore – 4.50 Crore");
-                          } else if (cat === "Commercial Plazas & Corporate Towers") {
-                            setSpecificProject("Corporate Tower (Gulberg III, Lahore)");
-                            setPreferredUnitType("Commercial Corporate Floor");
-                            setBudgetTier("PKR 4.50 Crore – 12+ Crore");
-                          } else if (cat === "Organic Farmhouses & Agri-Estates") {
-                            setSpecificProject("Value Lahore Organic Farmhouses (Barki Road)");
-                            setPreferredUnitType("4 Kanal Organic Farm Parcel");
-                            setBudgetTier("PKR 6.75 Crore – 14+ Crore");
-                          } else if (cat === "Smart Homes & Turnkey Villas") {
-                            setSpecificProject("Green View Smart Homes (DHA Phase 12 EME)");
-                            setPreferredUnitType("Turnkey Smart Townhouse");
-                            setBudgetTier("PKR 2.95 Crore – 4.50 Crore");
+                          if (cat === "MGH Affidavit Files") {
+                            setSpecificProject("Mangla Garrison Housing (MGH Pakistan)");
+                            setPreferredUnitType("1 Kanal MGH Affidavit File");
+                            setBudgetTier("PKR 65 Lakh – 95 Lakh");
+                          } else if (cat === "Commercial Broadway Plazas") {
+                            setSpecificProject("DHA Lahore Phase 8 (Broadway Commercial)");
+                            setPreferredUnitType("4 Marla Commercial Broadway");
+                            setBudgetTier("PKR 6.50 Crore – 12.00 Crore");
+                          } else if (cat === "DHA Lahore Property Files") {
+                            setSpecificProject("DHA Lahore Phase 9 Prism");
+                            setPreferredUnitType("1 Kanal Balloted Plot File");
+                            setBudgetTier("PKR 2.20 Crore – 3.80 Crore");
                           } else {
-                            setSpecificProject("Value Residencies (Barki Road, Opp. DHA Phase 8)");
-                            setPreferredUnitType("Gated Residential Plot");
-                            setBudgetTier("PKR 3.40 Crore – 6.00 Crore");
+                            setSpecificProject("DHA Lahore Phase 6");
+                            setPreferredUnitType("1 Kanal Ready Plot");
+                            setBudgetTier("PKR 4.50 Crore – 7.50 Crore");
                           }
                         }}
-                        className="w-full px-3.5 py-2.5 rounded-lg bg-white border border-slate-300 text-sm text-slate-900 focus:outline-none focus:border-slate-900"
+                        className="w-full px-4 py-3 rounded-lg bg-white border border-slate-300 text-sm font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-amber-500"
                       >
-                        <option value="Luxury High-Rise Apartments">Luxury High-Rise Apartments (DHA Phase 5 & Model Town)</option>
-                        <option value="Commercial Plazas & Corporate Towers">Commercial Plazas & Corporate Towers (Gulberg CBD)</option>
-                        <option value="Smart Homes & Turnkey Villas">Smart Homes & Turnkey Villas (DHA Phase 12 EME)</option>
-                        <option value="Organic Farmhouses & Agri-Estates">Organic Farmhouses & Agri-Estates (Barki Road)</option>
-                        <option value="DHA & Master-Planned Land Banking">DHA & Master-Planned Land Banking (Barki Road Opp. DHA 8)</option>
+                        <option value="MGH Affidavit Files">
+                          MGH Affidavit Files (Mangla Garrison 1 Kanal &amp; 10 Marla)
+                        </option>
+                        <option value="DHA Lahore Property Files">
+                          DHA Lahore Property Files (Phases 6, 7, 8, 9 &amp; 10)
+                        </option>
+                        <option value="Commercial Broadway Plazas">
+                          Commercial Broadway Plazas (DHA Phase 8 Commercial 4 &amp; 8 Marla)
+                        </option>
+                        <option value="Real Estate Investment Advising">
+                          Real Estate Investment Advising (High-Yield Portfolio)
+                        </option>
+                        <option value="Luxury High-Rise & Waterfront Villas">
+                          Luxury High-Rise &amp; Waterfront Lake Villas
+                        </option>
                       </select>
                     </div>
 
-                    {/* Name & Phone */}
+                    {/* Specific Project / Society */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="text-xs font-semibold text-slate-700 block mb-1.5">
-                          Full Name / Company Name *
+                        <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-2">
+                          2. Society / Phase *
                         </label>
-                        <input
-                          type="text"
-                          required
-                          value={clientName}
-                          onChange={(e) => setClientName(e.target.value)}
-                          placeholder="e.g. Mian Tariq / Usman Textile Group"
-                          className="w-full px-3.5 py-2.5 rounded-lg bg-white border border-slate-300 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-slate-900"
-                        />
+                        <select
+                          value={specificProject}
+                          onChange={(e) => setSpecificProject(e.target.value)}
+                          className="w-full px-4 py-3 rounded-lg bg-white border border-slate-300 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                        >
+                          <option value="Mangla Garrison Housing (MGH Pakistan)">
+                            Mangla Garrison Housing (MGH Pakistan)
+                          </option>
+                          <option value="DHA Lahore Phase 6">
+                            DHA Lahore Phase 6 (Raya Golf / CCA)
+                          </option>
+                          <option value="DHA Lahore Phase 8 (Broadway Commercial)">
+                            DHA Phase 8 (Broadway Commercial)
+                          </option>
+                          <option value="DHA Lahore Phase 9 Prism">
+                            DHA Phase 9 Prism (40,000+ Kanals)
+                          </option>
+                          <option value="DHA Lahore Phase 10">
+                            DHA Phase 10 (Allocation Files)
+                          </option>
+                        </select>
                       </div>
 
                       <div>
-                        <label className="text-xs font-semibold text-slate-700 block mb-1.5">
-                          Phone / WhatsApp Number *
+                        <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-2">
+                          3. File Cutting / Plot Size *
                         </label>
                         <input
                           type="text"
-                          required
-                          value={phone}
-                          onChange={(e) => setPhone(e.target.value)}
-                          placeholder="+92 300 ... or international format"
-                          className="w-full px-3.5 py-2.5 rounded-lg bg-white border border-slate-300 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-slate-900"
+                          value={preferredUnitType}
+                          onChange={(e) => setPreferredUnitType(e.target.value)}
+                          placeholder="e.g. 10 Marla File, 1 Kanal Affidavit"
+                          className="w-full px-4 py-3 rounded-lg bg-white border border-slate-300 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-amber-500"
                         />
                       </div>
                     </div>
@@ -366,123 +401,148 @@ export default function LeadCaptureForm({
                     {/* Origin & Location */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="text-xs font-semibold text-slate-700 block mb-1.5">
-                          Investor Profile *
+                        <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-2">
+                          4. Investor Origin *
                         </label>
-                        <select
-                          value={originType}
-                          onChange={(e) => setOriginType(e.target.value as LeadOrigin)}
-                          className="w-full px-3.5 py-2.5 rounded-lg bg-white border border-slate-300 text-sm text-slate-900 focus:outline-none focus:border-slate-900"
-                        >
-                          <option value="Pakistan">Pakistan Domestic Resident / Corporate</option>
-                          <option value="Overseas Pakistani Diaspora">Overseas Pakistani (UK / UAE / North America)</option>
-                        </select>
+                        <div className="grid grid-cols-2 gap-2">
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setOriginType("Pakistan");
+                              setCountryCity("Lahore, Pakistan");
+                            }}
+                            className={`py-2.5 px-3 rounded-lg text-xs font-semibold border transition-all ${
+                              originType === "Pakistan"
+                                ? "bg-slate-900 text-white border-slate-900 shadow-sm"
+                                : "bg-white text-slate-700 border-slate-300 hover:bg-slate-100"
+                            }`}
+                          >
+                            Pakistan Resident
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setOriginType("Overseas Pakistani Diaspora");
+                              setCountryCity("London, UK (Roots in Mirpur)");
+                            }}
+                            className={`py-2.5 px-3 rounded-lg text-xs font-semibold border transition-all ${
+                              originType === "Overseas Pakistani Diaspora"
+                                ? "bg-slate-900 text-white border-slate-900 shadow-sm"
+                                : "bg-white text-slate-700 border-slate-300 hover:bg-slate-100"
+                            }`}
+                          >
+                            Overseas Pakistani
+                          </button>
+                        </div>
                       </div>
 
                       <div>
-                        <label className="text-xs font-semibold text-slate-700 block mb-1.5">
-                          Current City &amp; Country
+                        <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-2">
+                          City / Country of Residence
                         </label>
                         <input
                           type="text"
                           value={countryCity}
                           onChange={(e) => setCountryCity(e.target.value)}
-                          placeholder="e.g. Lahore, Karachi, London, Dubai"
-                          className="w-full px-3.5 py-2.5 rounded-lg bg-white border border-slate-300 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-slate-900"
+                          placeholder="e.g. Lahore, Jhelum, Mirpur, London, Dubai"
+                          className="w-full px-4 py-3 rounded-lg bg-white border border-slate-300 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-amber-500"
                         />
                       </div>
                     </div>
 
-                    {/* Project & Budget */}
+                    {/* Client Name & Phone */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="text-xs font-semibold text-slate-700 block mb-1.5">
-                          Preferred Project
+                        <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-2">
+                          Full Name *
                         </label>
-                        <select
-                          value={specificProject}
-                          onChange={(e) => setSpecificProject(e.target.value)}
-                          className="w-full px-3.5 py-2.5 rounded-lg bg-white border border-slate-300 text-sm text-slate-900 focus:outline-none focus:border-slate-900"
-                        >
-                          {PAKISTAN_PORTFOLIO.map((p) => (
-                            <option key={p.id} value={`${p.title} (${p.location})`}>
-                              {p.title} ({p.location})
-                            </option>
-                          ))}
-                        </select>
+                        <input
+                          type="text"
+                          required
+                          value={clientName}
+                          onChange={(e) => setClientName(e.target.value)}
+                          placeholder="e.g. Malik Zeeshan"
+                          className="w-full px-4 py-3 rounded-lg bg-white border border-slate-300 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                        />
                       </div>
 
                       <div>
-                        <label className="text-xs font-semibold text-slate-700 block mb-1.5">
-                          Indicative Budget Range
+                        <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-2">
+                          Phone / WhatsApp *
                         </label>
-                        <select
-                          value={budgetTier}
-                          onChange={(e) => setBudgetTier(e.target.value)}
-                          className="w-full px-3.5 py-2.5 rounded-lg bg-white border border-slate-300 text-sm text-slate-900 focus:outline-none focus:border-slate-900"
-                        >
-                          <option value="PKR 1.65 Crore – 2.85 Crore">PKR 1.65 Cr – 2.85 Cr (Urban Apartments)</option>
-                          <option value="PKR 2.85 Crore – 4.50 Crore">PKR 2.85 Cr – 4.50 Cr (DHA Apartments / Smart Homes)</option>
-                          <option value="PKR 4.50 Crore – 8.00 Crore">PKR 4.50 Cr – 8.00 Cr (Commercial / Farmhouses)</option>
-                          <option value="PKR 8.00 Crore – 15+ Crore">PKR 8.00 Cr – 15+ Cr (Corporate Tower Floor / Estates)</option>
-                        </select>
+                        <input
+                          type="tel"
+                          required
+                          value={phone}
+                          onChange={(e) => setPhone(e.target.value)}
+                          placeholder="+92 300 0000000 or international"
+                          className="w-full px-4 py-3 rounded-lg bg-white border border-slate-300 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                        />
                       </div>
                     </div>
 
-                    {/* Email & Configuration */}
+                    {/* Email & Budget */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="text-xs font-semibold text-slate-700 block mb-1.5">
-                          Email Address
+                        <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-2">
+                          Email Address (Optional)
                         </label>
                         <input
                           type="email"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
-                          placeholder="client@domain.com"
-                          className="w-full px-3.5 py-2.5 rounded-lg bg-white border border-slate-300 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-slate-900"
+                          placeholder="name@example.com"
+                          className="w-full px-4 py-3 rounded-lg bg-white border border-slate-300 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-amber-500"
                         />
                       </div>
 
                       <div>
-                        <label className="text-xs font-semibold text-slate-700 block mb-1.5">
-                          Preferred Unit / Parcel Size
+                        <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-2">
+                          Indicative Budget Tier
                         </label>
-                        <input
-                          type="text"
-                          value={preferredUnitType}
-                          onChange={(e) => setPreferredUnitType(e.target.value)}
-                          placeholder="e.g. 2-Bed Luxury, 4 Kanal Farmhouse"
-                          className="w-full px-3.5 py-2.5 rounded-lg bg-white border border-slate-300 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-slate-900"
-                        />
+                        <select
+                          value={budgetTier}
+                          onChange={(e) => setBudgetTier(e.target.value)}
+                          className="w-full px-4 py-3 rounded-lg bg-white border border-slate-300 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                        >
+                          <option value="PKR 35 Lakh – 65 Lakh">PKR 35 Lakh – 65 Lakh</option>
+                          <option value="PKR 65 Lakh – 95 Lakh">PKR 65 Lakh – 95 Lakh</option>
+                          <option value="PKR 95 Lakh – 1.85 Crore">PKR 95 Lakh – 1.85 Crore</option>
+                          <option value="PKR 2.20 Crore – 4.50 Crore">PKR 2.20 Crore – 4.50 Crore</option>
+                          <option value="PKR 6.50 Crore – 14+ Crore">PKR 6.50 Crore – 14+ Crore</option>
+                          <option value="PKR 18+ Crore (Commercial Broadway)">PKR 18+ Crore (Commercial Broadway)</option>
+                        </select>
                       </div>
                     </div>
 
                     {/* Notes */}
                     <div>
-                      <label className="text-xs font-semibold text-slate-700 block mb-1.5">
-                        Specific Questions or Consultation Notes
+                      <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-2">
+                        Specific Requirements / Inquiries
                       </label>
                       <textarea
-                        rows={2}
+                        rows={3}
                         value={notes}
                         onChange={(e) => setNotes(e.target.value)}
-                        placeholder="Please share any specific requirements, RDA banking questions, or preferred consultation dates..."
-                        className="w-full px-3.5 py-2.5 rounded-lg bg-white border border-slate-300 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-slate-900"
+                        placeholder="Specify if you are looking to buy, sell, or exchange files (e.g. MGH 10 Marla file sell, DHA 9 Prism plot allocation)."
+                        className="w-full px-4 py-3 rounded-lg bg-white border border-slate-300 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-amber-500"
                       />
                     </div>
 
+                    {/* Submit Button */}
                     <button
                       type="submit"
                       disabled={submitting}
-                      className="w-full py-3.5 px-6 rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-semibold text-sm shadow-sm transition-all flex items-center justify-center gap-2"
+                      className="w-full py-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2 disabled:opacity-60"
                     >
-                      <Send className="w-4 h-4 text-amber-400" />
-                      <span>
-                        {submitting
-                          ? "Submitting to Advisory Desk..."
-                          : "Submit Property Advisory Inquiry"}
-                      </span>
+                      {submitting ? (
+                        <span>Processing Inquiry...</span>
+                      ) : (
+                        <>
+                          <Send className="w-4 h-4 text-amber-400" />
+                          <span>Submit Inquiry to Co-Founders Desk</span>
+                        </>
+                      )}
                     </button>
                   </form>
                 )}

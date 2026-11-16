@@ -19,8 +19,8 @@ export default function WhyPropertyFiles() {
     },
     {
       icon: Compass,
-      title: "Exclusive Value Group Partnership",
-      desc: "Direct marketing and advisory partner for high-demand Lahore developments like Green View Executive DHA 5, Corporate Tower Gulberg, and Barki Road Organic Farmhouses.",
+      title: "MGH & DHA File Trading Excellence",
+      desc: "Specialized trading desk for Mangla Garrison Housing (MGH) 1 Kanal and 10 Marla affidavit files, DHA Phase 8 Broadway Commercial, Phase 9 Prism, and Phase 10 allocation files.",
     },
     {
       icon: Users,

@@ -2,91 +2,99 @@ import { COMPANY_INFO, PAKISTAN_PORTFOLIO } from "./data";
 
 /**
  * Generates an official, corporate PDF 1.4 binary document containing the
- * Property Files Network & Value Group Pakistan Portfolio Investment Dossier
+ * Property Files Network Societies & Property Files Investment Dossier
  * and triggers a browser file download.
  */
 export function downloadOfficialBrochurePDF() {
   const linesPage = [
-    "PROPERTY FILES NETWORK  |  propertyfilesnetwork.com  |  Deals in all kinds of properties.",
-    "OFFICIAL PAKISTAN REAL ESTATE INVESTMENT DOSSIER",
+    "PROPERTY FILES NETWORK  |  propertyfilesnetwork.com",
+    "Tagline: Property | Investment | Files — Smart Deals, Trusted Services & Secure Investments.",
+    "OFFICIAL PAKISTAN REAL ESTATE & PROPERTY FILES INVESTMENT DOSSIER",
     "==========================================================================",
-    "DEVELOPMENT PARTNER: VALUE GROUP  |  ADVISORY DESK: PROPERTY FILES NETWORK",
-    "Head Office: Main Boulevard, DHA Phase 5 / Gulberg Advisory Desk, Lahore",
-    "Direct Phone & WhatsApp: +92 300 4154156  |  Email: advisory@propertyfilesnetwork.com",
+    "CO-FOUNDERS: M TALHA CHEEMA & M DAUD ALI LASHARI",
+    `Head Office: ${COMPANY_INFO.headOffice}`,
+    `Trading Desk: ${COMPANY_INFO.pakistanPhone}  |  Advisory: ${COMPANY_INFO.secondaryPhone}`,
+    `Email: ${COMPANY_INFO.email}  |  Languages: English, Urdu & Punjabi`,
     "--------------------------------------------------------------------------",
-    "1. GREEN VIEW EXECUTIVE APARTMENTS (DHA Phase 5, Lahore)",
-    "   - Location: Prime DHA Phase 5 adjacent to Lahore Ring Road",
-    "   - Offering: 1, 2 & 3 Bed Luxury Suites with travertine double-height lobby",
-    "   - Track Record: 9.5% Net Rental Yield + 110% Capital Appreciation",
-    "   - Price Range: Starting from PKR 2.85 Crore",
+    "1. MANGLA GARRISON HOUSING (MGH PAKISTAN)",
+    "   - Location: Mangla Dam Reservoir, Mirpur & Jhelum Border",
+    "   - Specialty: Buying, Selling & Exchanging MGH 1 Kanal & 10 Marla Affidavit Files",
+    "   - Amenities: Army Water Sports Club, Boating, Golf Club, Horse Riding & 5-Star Resort",
+    "   - Indicative File / Villa Price: PKR 35 Lakh – 1.85 Crore",
     "--------------------------------------------------------------------------",
-    "2. VALUE APARTMENTS (PECO Road, Link Road, Model Town Lahore)",
-    "   - Location: Nexus of Model Town Link Road & PECO Road commercial retail hub",
-    "   - Offering: Studio, 1 & 2 Bed Urban Serviced Apartments",
-    "   - Track Record: 100% Sold Out & Delivered with High Occupancy",
-    "   - Price Range: Starting from PKR 1.65 Crore",
+    "2. DHA LAHORE PHASE 6",
+    "   - Location: Main Boulevard & Bedian Road Axis, Ring Road Nawaz Sharif Interchange",
+    "   - Specialty: 10 Marla, 1 Kanal & 2 Kanal Residential Plots & CCA Commercial Plazas",
+    "   - Amenities: Defence Raya 18-Hole Championship Golf Course, CCA 1 & 2 Retail",
+    "   - Indicative Price: PKR 4.50 Crore – 22.00 Crore",
     "--------------------------------------------------------------------------",
-    "3. VALUE RESIDENCIES (Barki Road, Opposite DHA Phase 8 Lahore)",
-    "   - Location: Direct frontage opposite DHA Phase 8 main boulevard",
-    "   - Offering: Designer villas & gated residential plots",
-    "   - Track Record: 5 minutes to Allama Iqbal International Airport",
-    "   - Price Range: Starting from PKR 3.40 Crore",
+    "3. DHA LAHORE PHASE 8 (BROADWAY COMMERCIAL)",
+    "   - Location: Facing Allama Iqbal International Airport & Ring Road, DHA Phase 8",
+    "   - Specialty: 200ft Wide Commercial Broadway, 4 & 8 Marla Commercial Plazas",
+    "   - Amenities: Multinational Banking HQs, Flagship Corporate Plazas, 12.8% Rental Yield",
+    "   - Indicative Commercial Price: PKR 6.50 Crore – 28.00 Crore",
     "--------------------------------------------------------------------------",
-    "4. GREEN VIEW SMART HOMES (DHA Phase 12 EME Sector, Lahore)",
-    "   - Location: Secure Canal Bank corridor in DHA Phase 12 (EME)",
-    "   - Offering: Turnkey IoT-enabled smart villas & townhouses",
-    "   - Features: Solar net-metering provision & smart app automation",
-    "   - Price Range: Starting from PKR 2.95 Crore with construction milestones",
+    "4. DHA LAHORE PHASE 9 PRISM",
+    "   - Location: Between Ferozepur & Bedian Road, DHA Ring Road Interchange",
+    "   - Specialty: 40,000+ Kanals across 16 Sectors (A to R), Balloted & Allocation Files",
+    "   - Amenities: 150ft & 120ft Express Boulevards, Mega Themed Park & DHA Sports Complex",
+    "   - Indicative Price: PKR 65 Lakh – 3.80 Crore",
     "--------------------------------------------------------------------------",
-    "5. CORPORATE TOWER (Gulberg III, Lahore)",
-    "   - Location: Central Business District of Gulberg near Main Boulevard",
-    "   - Offering: Grade-A Corporate Offices, retail showrooms & penthouses",
-    "   - Track Record: 11% Commercial lease yield with institutional tenants",
-    "   - Price Range: Starting from PKR 4.50 Crore",
-    "--------------------------------------------------------------------------",
-    "6. VALUE LAHORE ORGANIC FARMHOUSES (Barki Road, Lahore)",
-    "   - Location: Fertile country estates 15 mins from DHA Phase 6 & Phase 8",
-    "   - Offering: 2, 4 & 8 Kanal bespoke organic farm parcels with sweet water",
-    "   - Track Record: Generational land banking & private pollution-free retreat",
-    "   - Price Range: Starting from PKR 6.75 Crore",
+    "5. DHA LAHORE PHASE 10",
+    "   - Location: Southern Growth Corridor along Bedian Road & Southern Ring Road",
+    "   - Specialty: Allocation Files & Affidavit Files (5M, 10M, 1 Kanal & 2 Kanal)",
+    "   - Amenities: Proposed 300ft Grand Highway, Smart City Infrastructure & High Multiplier",
+    "   - Indicative File Price: PKR 32 Lakh – 1.35 Crore",
     "==========================================================================",
-    "LEGAL DUE DILIGENCE & REPATRIATION GUARANTEE:",
-    "  * 100% Title Verification before Sub-Registrar, LDA, and DHA authorities",
-    "  * Full support for Overseas Pakistanis via Roshan Digital Account (RDA)",
-    "  * Special Power of Attorney (PoA) attestation and legal escrow management",
-    "==========================================================================",
-    `Pakistan Advisory: ${COMPANY_INFO.pakistanPhone}  |  Web: ${COMPANY_INFO.domain}`,
-    `Instagram: ${COMPANY_INFO.instagramHandle}  |  Facebook: ${COMPANY_INFO.facebookName}`,
+    "LEGAL COMPLIANCE & INVESTOR ASSURANCE:",
+    "- 100% Genuine File Verification directly with DHA Lahore and MGH Directorates",
+    "- Prompt biometric execution, legal title vetting, and zero-encumbrance guarantees",
+    "- Overseas Diaspora Desk: Roshan Digital Account (RDA) & Embassy Special PoA routing",
+    `Office: ${COMPANY_INFO.headOffice}`,
   ];
 
-  const escapePdfText = (str: string) =>
-    str.replace(/\\/g, "\\\\").replace(/\(/g, "\\(").replace(/\)/g, "\\)");
+  // Helper to escape PDF strings
+  const sanitize = (text: string) =>
+    text.replace(/\\/g, "\\\\").replace(/\(/g, "\\(").replace(/\)/g, "\\)");
 
-  let streamContent = "BT\n/F1 10.5 Tf\n14.5 TL\n42 795 Td\n";
-  linesPage.forEach((line, idx) => {
-    if (idx === 0 || idx === 1 || idx === 3) {
-      streamContent += `/F2 11.5 Tf\n(${escapePdfText(line)}) Tj\nT*\n/F1 9.2 Tf\n`;
-    } else {
-      streamContent += `(${escapePdfText(line)}) Tj\nT*\n`;
+  // PDF 1.4 Binary Generator
+  let streamContent = "BT\n/F1 14 Tf\n40 765 Td\n";
+  streamContent += `(${sanitize(linesPage[0])}) Tj\nET\n`;
+
+  streamContent += "BT\n/F2 9 Tf\n40 750 Td\n";
+  streamContent += `(${sanitize(linesPage[1])}) Tj\nET\n`;
+
+  streamContent += "BT\n/F1 11 Tf\n40 735 Td\n";
+  streamContent += `(${sanitize(linesPage[2])}) Tj\nET\n`;
+
+  let y = 715;
+  streamContent += "BT\n/F2 8.5 Tf\n";
+  for (let i = 3; i < linesPage.length; i++) {
+    streamContent += `40 ${y} Td\n(${sanitize(linesPage[i])}) Tj\n`;
+    y -= 14;
+    if (linesPage[i].startsWith("---") || linesPage[i].startsWith("===")) {
+      y -= 2;
     }
-  });
-  streamContent += "ET";
+  }
+  streamContent += "ET\n";
 
-  const objects: string[] = [];
-  objects.push("1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\n");
-  objects.push("2 0 obj\n<< /Type /Pages /Kids [3 0 R] /Count 1 >>\nendobj\n");
-  objects.push(
-    "3 0 obj\n<< /Type /Page /Parent 2 0 R /Resources << /Font << /F1 4 0 R /F2 5 0 R >> >> /MediaBox [0 0 595 842] /Contents 6 0 R >>\nendobj\n"
-  );
-  objects.push(
-    "4 0 obj\n<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>\nendobj\n"
-  );
-  objects.push(
-    "5 0 obj\n<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>\nendobj\n"
-  );
-  objects.push(
-    `6 0 obj\n<< /Length ${streamContent.length} >>\nstream\n${streamContent}\nendstream\nendobj\n`
-  );
+  const streamBytes = new TextEncoder().encode(streamContent);
+  const streamLength = streamBytes.length;
+
+  const objects: string[] = [
+    // 1: Catalog
+    `1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\n`,
+    // 2: Pages
+    `2 0 obj\n<< /Type /Pages /Kids [3 0 R] /Count 1 >>\nendobj\n`,
+    // 3: Page
+    `3 0 obj\n<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 4 0 R /Resources << /Font << /F1 5 0 R /F2 6 0 R >> >> >>\nendobj\n`,
+    // 4: Stream
+    `4 0 obj\n<< /Length ${streamLength} >>\nstream\n${streamContent}endstream\nendobj\n`,
+    // 5: Font F1 (Helvetica-Bold)
+    `5 0 obj\n<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>\nendobj\n`,
+    // 6: Font F2 (Helvetica)
+    `6 0 obj\n<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>\nendobj\n`,
+  ];
 
   let pdf = "%PDF-1.4\n";
   const offsets: number[] = [0];

@@ -12,6 +12,8 @@ import {
   X,
   FileDown,
   Mail,
+  MapPin,
+  Languages,
 } from "lucide-react";
 import PropertyFilesLogo from "./PropertyFilesLogo";
 import SocialLinks from "./SocialLinks";
@@ -32,23 +34,23 @@ export default function Navbar({ activeModule = "public", setActiveModule }: Nav
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/about", label: "About Us" },
-    { href: "/portfolio", label: "Portfolio" },
+    { href: "/portfolio", label: "Societies & Files" },
     { href: "/blog", label: "Market Intelligence & Blog" },
-    { href: "/contact", label: "Contact" },
+    { href: "/contact", label: "Contact Us" },
   ];
 
   return (
     <header className="sticky top-0 z-50 w-full bg-white border-b border-slate-200 shadow-sm">
       {/* Top Corporate Ribbon */}
       <div className="bg-slate-900 text-slate-200 text-xs">
-        <div className="max-w-7xl mx-auto px-6 lg:px-10 py-2.5 flex flex-wrap items-center justify-between gap-4">
-          <div className="flex flex-wrap items-center gap-4 sm:gap-6">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10 py-2 flex flex-wrap items-center justify-between gap-3">
+          <div className="flex flex-wrap items-center gap-3 sm:gap-5">
             <a
               href={`tel:${COMPANY_INFO.pakistanPhoneRaw}`}
-              className="flex items-center gap-2 hover:text-amber-300 transition-colors whitespace-nowrap"
+              className="flex items-center gap-1.5 hover:text-amber-300 transition-colors whitespace-nowrap"
             >
               <Phone className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-              <span className="text-slate-400">Advisory Desk:</span>
+              <span className="text-slate-400">Trading Desk:</span>
               <span className="font-semibold text-white">
                 {COMPANY_INFO.pakistanPhone}
               </span>
@@ -57,27 +59,32 @@ export default function Navbar({ activeModule = "public", setActiveModule }: Nav
             <span className="hidden sm:inline text-slate-700">|</span>
 
             <a
-              href={`mailto:${COMPANY_INFO.email}`}
-              className="hidden md:flex items-center gap-2 hover:text-amber-300 transition-colors whitespace-nowrap"
+              href={`tel:${COMPANY_INFO.secondaryPhoneRaw}`}
+              className="hidden md:flex items-center gap-1.5 hover:text-amber-300 transition-colors whitespace-nowrap"
             >
-              <Mail className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-              <span className="text-slate-400">Email:</span>
-              <span className="font-medium text-white">
-                {COMPANY_INFO.email}
+              <Phone className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+              <span className="text-slate-400">Advisory:</span>
+              <span className="font-semibold text-white">
+                {COMPANY_INFO.secondaryPhone}
               </span>
             </a>
 
             <span className="hidden lg:inline text-slate-700">|</span>
 
             <a
-              href={COMPANY_INFO.websiteUrl}
-              target="_blank"
-              rel="noreferrer"
+              href={`mailto:${COMPANY_INFO.email}`}
               className="hidden lg:flex items-center gap-1.5 hover:text-amber-300 transition-colors whitespace-nowrap"
             >
-              <Globe className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-              <span>{COMPANY_INFO.domain}</span>
+              <Mail className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+              <span className="text-slate-300">{COMPANY_INFO.email}</span>
             </a>
+
+            <span className="hidden xl:inline text-slate-700">|</span>
+
+            <div className="hidden xl:flex items-center gap-1.5 text-slate-400">
+              <Languages className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+              <span>Languages: English • Urdu • Punjabi</span>
+            </div>
           </div>
 
           {/* Social Channels: TikTok, Instagram, Facebook, LinkedIn */}
@@ -247,6 +254,32 @@ export default function Navbar({ activeModule = "public", setActiveModule }: Nav
               <FileDown className="w-4 h-4 text-amber-400" />
               Download Official Portfolio Dossier
             </button>
+          </div>
+
+          {/* Direct Phone Buttons in Mobile Drawer */}
+          <div className="pt-3 border-t border-slate-200 space-y-2 text-xs">
+            <div className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
+              Direct Contact &amp; Languages
+            </div>
+            <div className="flex flex-col gap-1.5">
+              <a
+                href={`tel:${COMPANY_INFO.pakistanPhoneRaw}`}
+                className="flex items-center gap-2 font-bold text-slate-900"
+              >
+                <Phone className="w-3.5 h-3.5 text-amber-600" />
+                <span>Trading: {COMPANY_INFO.pakistanPhone}</span>
+              </a>
+              <a
+                href={`tel:${COMPANY_INFO.secondaryPhoneRaw}`}
+                className="flex items-center gap-2 font-semibold text-slate-700"
+              >
+                <Phone className="w-3.5 h-3.5 text-amber-600" />
+                <span>Advisory: {COMPANY_INFO.secondaryPhone}</span>
+              </a>
+              <div className="text-[11px] text-slate-500 pt-0.5">
+                Fluent in English, Urdu &amp; Punjabi
+              </div>
+            </div>
           </div>
 
           {/* Mobile Socials */}

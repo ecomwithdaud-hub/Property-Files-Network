@@ -65,7 +65,7 @@ export default function PropertyFilesLogo({
               size === "sm" ? "text-[11px]" : "text-xs sm:text-[13px]"
             } ${isDark ? "text-slate-300" : "text-slate-600"}`}
           >
-            Deals in all kinds of properties.
+            Smart Deals • Trusted Services • Secure Investments
           </span>
         )}
       </div>

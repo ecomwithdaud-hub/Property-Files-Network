@@ -6,6 +6,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BrochureModal from "@/components/BrochureModal";
 import ScrollReveal from "@/components/ScrollReveal";
+import MediaCarousel from "@/components/MediaCarousel";
+import MediaGalleryModal from "@/components/MediaGalleryModal";
 import { PAKISTAN_PORTFOLIO, PortfolioProject, COMPANY_INFO } from "@/lib/data";
 import { useLeads } from "@/context/LeadContext";
 import {
@@ -15,31 +17,43 @@ import {
   FileDown,
   ArrowRight,
   ShieldCheck,
-  Layers,
   Phone,
+  Film,
+  Sparkles,
+  ArrowUpRight,
 } from "lucide-react";
 
 export default function PortfolioPage() {
   const { setPreselectedProjectForInquiry, setIsBrochureModalOpen } = useLeads();
   const [selectedFilter, setSelectedFilter] = useState<string>("All");
-  const [activeModalProject, setActiveModalProject] = useState<PortfolioProject | null>(null);
+  const [modalProject, setModalProject] = useState<PortfolioProject | null>(null);
+  const [modalTab, setModalTab] = useState<"gallery" | "video">("gallery");
 
   const filterCategories = [
     "All",
-    "Completed & Delivered",
-    "Ready for Possession",
-    "Ongoing Development",
+    "MGH Waterfront Files",
+    "DHA Prime Possession",
+    "DHA Commercial Broadway",
+    "DHA Mega Phase Files",
+    "DHA Allocation Files",
   ];
 
   const filteredProjects =
     selectedFilter === "All"
       ? PAKISTAN_PORTFOLIO
-      : PAKISTAN_PORTFOLIO.filter((p) => p.status === selectedFilter);
+      : PAKISTAN_PORTFOLIO.filter((p) => p.type === selectedFilter);
 
   const handleInquireProject = (title: string, location: string) => {
     setPreselectedProjectForInquiry(`${title} (${location})`);
-    setActiveModalProject(null);
     window.location.href = "/contact";
+  };
+
+  const handleOpenMedia = (
+    project: PortfolioProject,
+    tab: "gallery" | "video" = "gallery"
+  ) => {
+    setModalProject(project);
+    setModalTab(tab);
   };
 
   return (
@@ -55,24 +69,38 @@ export default function PortfolioPage() {
                 <div className="max-w-3xl space-y-4">
                   <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-md bg-amber-50 border border-amber-200/80 text-amber-900 text-xs font-semibold uppercase tracking-widest">
                     <Building2 className="w-3.5 h-3.5 text-amber-700" />
-                    <span>Official Pakistan Portfolio • Value Group Alliance</span>
+                    <span>Verified Project Portfolio &amp; Property Files</span>
                   </div>
                   <h1 className="text-4xl sm:text-5xl font-serif font-bold text-slate-900 leading-tight">
-                    Landmark Developments in{" "}
-                    <span className="text-amber-700">Lahore, Pakistan</span>
+                    Societies, Property Files &amp;{" "}
+                    <span className="text-amber-700">Investment Portfolios</span>
                   </h1>
-                  <p className="text-base sm:text-lg text-slate-600 leading-relaxed">
-                    Explore our curated portfolio of completed and ongoing residential towers, commercial corporate office buildings, smart villas, and organic country farmhouses.
+                  <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-medium">
+                    {COMPANY_INFO.tagline}
+                  </p>
+                  <p className="text-sm sm:text-base text-slate-600 leading-relaxed pt-0.5">
+                    Explore verified MGH 1 Kanal &amp; 10 Marla affidavit files, DHA Lahore Phases 6, 7, 8 Broadway, 9 Prism &amp; 10 allocation files with authentic photography and video overviews.
                   </p>
                 </div>
 
-                <button
-                  onClick={() => setIsBrochureModalOpen(true)}
-                  className="inline-flex items-center gap-2 px-5 py-3.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs shadow-sm transition-all whitespace-nowrap self-start lg:self-end"
-                >
-                  <FileDown className="w-4 h-4" />
-                  <span>Download Portfolio PDF</span>
-                </button>
+                <div className="flex flex-wrap items-center gap-3 shrink-0">
+                  <button
+                    onClick={() => setIsBrochureModalOpen(true)}
+                    className="inline-flex items-center gap-2 px-5 py-3.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs shadow-sm transition-all whitespace-nowrap"
+                  >
+                    <FileDown className="w-4 h-4" />
+                    <span>Download Portfolio Dossier (PDF)</span>
+                  </button>
+                  <a
+                    href={COMPANY_INFO.whatsappUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 px-5 py-3.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs shadow-sm transition-all whitespace-nowrap"
+                  >
+                    <Phone className="w-4 h-4 text-amber-400" />
+                    <span>WhatsApp Trading Desk</span>
+                  </a>
+                </div>
               </div>
             </ScrollReveal>
           </div>
@@ -88,7 +116,7 @@ export default function PortfolioPage() {
                   <button
                     key={cat}
                     onClick={() => setSelectedFilter(cat)}
-                    className={`px-4 py-2 rounded-lg text-xs font-semibold border transition-all ${
+                    className={`px-4 py-2 rounded-lg text-xs font-semibold border transition-all whitespace-nowrap ${
                       selectedFilter === cat
                         ? "bg-slate-900 text-white border-slate-900 shadow-sm"
                         : "bg-white text-slate-700 border-slate-200 hover:border-slate-300"
@@ -98,124 +126,153 @@ export default function PortfolioPage() {
                   </button>
                 ))}
               </div>
-              <div className="text-xs text-slate-500">
-                Showing <strong>{filteredProjects.length}</strong> developments
+
+              <div className="text-xs text-slate-500 font-medium">
+                Showing <strong className="text-slate-900">{filteredProjects.length}</strong> verified society developments
               </div>
             </div>
 
-            {/* Projects Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredProjects.map((project, index) => (
-                <ScrollReveal
-                  key={project.id}
-                  direction="up"
-                  delayMs={(index % 3) * 100}
-                >
+            {/* Projects Grid with Media Carousel */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {filteredProjects.map((project, idx) => (
+                <ScrollReveal key={project.id} direction="up" delayMs={idx * 80}>
                   <div
                     id={project.id}
-                    className="h-full rounded-2xl bg-white border border-slate-200 hover:border-amber-400 hover:shadow-lg transition-all duration-300 flex flex-col justify-between overflow-hidden group"
+                    className="h-full rounded-2xl bg-white border border-slate-200 hover:border-amber-400 hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden group"
                   >
                     <div>
-                      {/* Card Header */}
-                      <div className="p-6 bg-slate-900 text-white border-b border-slate-200 space-y-3">
-                        <div className="flex items-center justify-between gap-2">
-                          <span className="text-[11px] font-semibold uppercase tracking-wider text-amber-400 flex items-center gap-1.5">
-                            <Building2 className="w-3.5 h-3.5" />
-                            <span>{project.type}</span>
+                      {/* Media Carousel Header */}
+                      <div className="relative">
+                        <MediaCarousel
+                          images={project.images}
+                          title={project.title}
+                          videoUrl={project.videoUrl}
+                          onOpenModal={(tab) => handleOpenMedia(project, tab)}
+                        />
+                        <div className="absolute top-3 right-3 z-10">
+                          <span className="px-3 py-1 rounded-md bg-slate-900/90 text-amber-400 text-[11px] font-bold border border-slate-700 backdrop-blur-sm shadow-md">
+                            {project.badgeText}
                           </span>
-                          <span
-                            className={`px-2.5 py-0.5 rounded text-[11px] font-semibold border ${
-                              project.status === "Completed & Delivered"
-                                ? "bg-emerald-950/80 text-emerald-300 border-emerald-700/50"
-                                : project.status === "Ready for Possession"
-                                ? "bg-sky-950/80 text-sky-300 border-sky-700/50"
-                                : "bg-amber-950/80 text-amber-300 border-amber-700/50"
-                            }`}
-                          >
-                            {project.status}
-                          </span>
-                        </div>
-
-                        <div>
-                          <h3 className="text-xl font-serif font-bold text-white group-hover:text-amber-300 transition-colors">
-                            {project.title}
-                          </h3>
-                          <div className="flex items-center gap-1.5 text-xs text-slate-300 mt-1.5">
-                            <MapPin className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-                            <span>{project.location}</span>
-                          </div>
                         </div>
                       </div>
 
-                      {/* Card Content */}
-                      <div className="p-6 space-y-5">
-                        <p className="text-xs text-slate-600 leading-relaxed">
+                      {/* Content */}
+                      <div className="p-6 sm:p-7 space-y-5">
+                        <div className="space-y-1.5">
+                          <div className="flex items-center justify-between text-xs">
+                            <span className="font-bold text-amber-700 uppercase tracking-wider">
+                              {project.type}
+                            </span>
+                            <span className="px-2.5 py-0.5 rounded bg-emerald-50 text-emerald-800 border border-emerald-200 text-[11px] font-semibold">
+                              {project.status}
+                            </span>
+                          </div>
+
+                          <h3 className="text-2xl font-serif font-bold text-slate-900 group-hover:text-amber-700 transition-colors">
+                            {project.title}
+                          </h3>
+
+                          <div className="flex items-center gap-1.5 text-xs text-slate-500 pt-0.5">
+                            <MapPin className="w-3.5 h-3.5 text-amber-600 shrink-0" />
+                            <span>{project.location}</span>
+                          </div>
+                        </div>
+
+                        <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
                           {project.description}
                         </p>
 
-                        <div className="grid grid-cols-2 gap-3 p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 text-xs">
+                        {/* Key Stats Bar */}
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1">
+                          {project.keyStats.map((stat, sIdx) => (
+                            <div
+                              key={sIdx}
+                              className="p-2.5 rounded-lg bg-slate-50 border border-slate-200 text-center"
+                            >
+                              <span className="text-[10px] uppercase text-slate-500 block truncate">
+                                {stat.label}
+                              </span>
+                              <span className="text-xs font-bold text-slate-900 block truncate mt-0.5">
+                                {stat.value}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+
+                        {/* Pricing & Units Info Strip */}
+                        <div className="p-3.5 rounded-xl bg-slate-900 text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs">
                           <div>
-                            <span className="text-[10px] uppercase tracking-wider text-slate-500 block">
-                              Configuration
+                            <span className="text-[10px] uppercase text-slate-400 block">
+                              Indicative File / Plot Pricing
                             </span>
-                            <span className="font-bold text-slate-900 mt-0.5 block truncate">
-                              {project.unitsInfo}
+                            <span className="text-base font-bold text-amber-400">
+                              {project.priceRange}
                             </span>
                           </div>
-                          <div>
-                            <span className="text-[10px] uppercase tracking-wider text-slate-500 block">
-                              Indicative Pricing
+                          <div className="text-left sm:text-right">
+                            <span className="text-[10px] uppercase text-slate-400 block">
+                              Units &amp; Cuttings
                             </span>
-                            <span className="font-bold text-amber-700 mt-0.5 block">
-                              {project.startingPrice}
+                            <span className="text-xs font-semibold text-slate-200">
+                              {project.unitsInfo}
                             </span>
                           </div>
                         </div>
 
-                        {/* Amenities Pills */}
-                        <div className="space-y-1.5">
-                          <span className="text-[10px] uppercase tracking-wider text-slate-500 font-semibold block">
-                            Key Amenities
-                          </span>
+                        {/* Key Amenities Tags */}
+                        <div className="space-y-2">
+                          <div className="text-[11px] font-bold uppercase tracking-wider text-slate-700">
+                            Key Infrastructure &amp; Amenities
+                          </div>
                           <div className="flex flex-wrap gap-1.5">
-                            {project.amenities.slice(0, 3).map((am, i) => (
+                            {project.amenities.map((amenity, aIdx) => (
                               <span
-                                key={i}
-                                className="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-[11px] border border-slate-200"
+                                key={aIdx}
+                                className="px-2.5 py-1 rounded-md bg-slate-100 text-slate-700 text-[11px] font-medium border border-slate-200 flex items-center gap-1"
                               >
-                                {am}
+                                <CheckCircle2 className="w-3 h-3 text-emerald-600 shrink-0" />
+                                <span>{amenity}</span>
                               </span>
                             ))}
                           </div>
                         </div>
-
-                        {/* Highlights */}
-                        <ul className="space-y-2 text-xs text-slate-700 pt-1">
-                          {project.highlights.slice(0, 3).map((hl, idx) => (
-                            <li key={idx} className="flex items-start gap-2">
-                              <CheckCircle2 className="w-3.5 h-3.5 text-amber-600 shrink-0 mt-0.5" />
-                              <span>{hl}</span>
-                            </li>
-                          ))}
-                        </ul>
                       </div>
                     </div>
 
-                    {/* Actions */}
-                    <div className="px-6 pb-6 pt-2 flex items-center gap-3 border-t border-slate-100">
+                    {/* Action Bar */}
+                    <div className="p-6 sm:p-7 pt-0 border-t border-slate-100 flex flex-col sm:flex-row items-center gap-3">
                       <button
                         onClick={() => handleInquireProject(project.title, project.location)}
-                        className="flex-1 py-2.5 px-4 rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs flex items-center justify-center gap-1.5 transition-all"
+                        className="w-full sm:flex-1 py-3 px-4 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition-all shadow-sm flex items-center justify-center gap-2"
                       >
-                        <span>Inquire About Availability</span>
-                        <ArrowRight className="w-3.5 h-3.5 text-amber-400" />
+                        <span>Inquire About Current Rates</span>
+                        <ArrowUpRight className="w-4 h-4 text-amber-400" />
                       </button>
-                      <button
-                        onClick={() => setActiveModalProject(project)}
-                        className="py-2.5 px-4 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-200 text-xs font-semibold transition-all"
-                      >
-                        Specs
-                      </button>
+
+                      <div className="flex items-center gap-2 w-full sm:w-auto">
+                        {project.videoUrl && (
+                          <button
+                            onClick={() => handleOpenMedia(project, "video")}
+                            className="flex-1 sm:flex-none py-3 px-3.5 rounded-lg bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-900 text-xs font-bold flex items-center justify-center gap-1.5 transition-all"
+                            title="Watch Official Video Walkthrough"
+                          >
+                            <Film className="w-4 h-4 text-amber-700" />
+                            <span>Video Tour</span>
+                          </button>
+                        )}
+
+                        <a
+                          href={`https://wa.me/923234304259?text=${encodeURIComponent(
+                            `Hello Property Files Network, I would like to buy/sell files in ${project.title}.`
+                          )}`}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="p-3 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white transition-all shadow-sm"
+                          title="Direct WhatsApp"
+                        >
+                          <Phone className="w-4 h-4" />
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </ScrollReveal>
@@ -223,144 +280,18 @@ export default function PortfolioPage() {
             </div>
           </div>
         </section>
-
-        {/* Project Detail Modal */}
-        {activeModalProject && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/70 backdrop-blur-sm p-4 overflow-y-auto">
-            <div className="max-w-xl w-full rounded-2xl bg-white border border-slate-200 p-6 sm:p-8 shadow-2xl space-y-5 my-auto max-h-[90vh] overflow-y-auto">
-              <div className="flex items-start justify-between gap-4 border-b border-slate-200 pb-4">
-                <div>
-                  <span className="text-xs font-bold uppercase tracking-widest text-amber-700">
-                    {activeModalProject.partnership}
-                  </span>
-                  <h3 className="text-2xl font-serif font-bold text-slate-900 mt-1">
-                    {activeModalProject.title}
-                  </h3>
-                  <div className="flex items-center gap-1.5 text-xs text-slate-600 mt-1">
-                    <MapPin className="w-3.5 h-3.5 text-amber-600" />
-                    <span>{activeModalProject.location}</span>
-                  </div>
-                </div>
-                <button
-                  onClick={() => setActiveModalProject(null)}
-                  className="px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 text-xs font-bold"
-                >
-                  Close ✕
-                </button>
-              </div>
-
-              <p className="text-sm text-slate-600 leading-relaxed">
-                {activeModalProject.description}
-              </p>
-
-              <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2 text-xs">
-                <div className="flex justify-between">
-                  <span className="text-slate-500">Project Status:</span>
-                  <span className="text-slate-900 font-bold">
-                    {activeModalProject.status}
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-slate-500">Architectural Profile:</span>
-                  <span className="text-slate-900 font-medium">
-                    {activeModalProject.architecturalStyle}
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-slate-500">Investment Highlight:</span>
-                  <span className="text-amber-800 font-semibold">
-                    {activeModalProject.roiHighlight}
-                  </span>
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <div className="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
-                  <Layers className="w-3.5 h-3.5 text-amber-600" />
-                  <span>Key Project Amenities</span>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {activeModalProject.amenities.map((am, i) => (
-                    <span
-                      key={i}
-                      className="px-3 py-1 rounded-md bg-slate-100 text-slate-800 text-xs border border-slate-200 font-medium"
-                    >
-                      {am}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              <div className="space-y-2 pt-1">
-                <div className="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
-                  <ShieldCheck className="w-3.5 h-3.5 text-amber-600" />
-                  <span>Development Highlights</span>
-                </div>
-                {activeModalProject.highlights.map((h, i) => (
-                  <div
-                    key={i}
-                    className="flex items-start gap-2 text-xs text-slate-700"
-                  >
-                    <CheckCircle2 className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
-                    <span>{h}</span>
-                  </div>
-                ))}
-              </div>
-
-              <div className="pt-2 flex gap-3">
-                <button
-                  onClick={() =>
-                    handleInquireProject(
-                      activeModalProject.title,
-                      activeModalProject.location
-                    )
-                  }
-                  className="flex-1 py-3 rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs"
-                >
-                  Request Floor Plans &amp; Availability
-                </button>
-                <button
-                  onClick={() => setActiveModalProject(null)}
-                  className="px-5 py-3 rounded-lg bg-slate-100 text-slate-700 text-xs font-semibold"
-                >
-                  Close
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Advisory Booking Banner */}
-        <section className="py-16 bg-white border-b border-slate-200">
-          <div className="max-w-5xl mx-auto px-6 lg:px-10 text-center space-y-6">
-            <ScrollReveal direction="up">
-              <h2 className="text-2xl sm:text-3xl font-serif font-bold text-slate-900">
-                Interested in Private Site Tours or Feasibility Briefs?
-              </h2>
-              <p className="text-xs sm:text-sm text-slate-600 max-w-xl mx-auto">
-                Our property advisors arrange on-ground site visits in DHA Phase 5, Gulberg III, and Barki Road with verified documentation.
-              </p>
-              <div className="pt-2 flex flex-wrap items-center justify-center gap-4">
-                <Link
-                  href="/contact"
-                  className="px-6 py-3 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold"
-                >
-                  Book Private Site Visit
-                </Link>
-                <a
-                  href={`tel:${COMPANY_INFO.pakistanPhoneRaw}`}
-                  className="px-6 py-3 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-200 text-xs font-semibold"
-                >
-                  Call {COMPANY_INFO.pakistanPhone}
-                </a>
-              </div>
-            </ScrollReveal>
-          </div>
-        </section>
       </main>
 
       <Footer />
       <BrochureModal />
+
+      {/* Media Modal */}
+      <MediaGalleryModal
+        project={modalProject}
+        isOpen={Boolean(modalProject)}
+        onClose={() => setModalProject(null)}
+        initialTab={modalTab}
+      />
     </div>
   );
 }

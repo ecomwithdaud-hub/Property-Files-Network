@@ -3,8 +3,9 @@
 import React, { useState } from "react";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
-import PartnershipSpotlight from "@/components/PartnershipSpotlight";
+import CoreSpecialties from "@/components/CoreSpecialties";
 import PakistanPortfolio from "@/components/PakistanPortfolio";
+import WhoWeServeLocations from "@/components/WhoWeServeLocations";
 import WhyPropertyFiles from "@/components/WhyPropertyFiles";
 import BlogPreview from "@/components/BlogPreview";
 import LeadCaptureForm from "@/components/LeadCaptureForm";
@@ -22,8 +23,9 @@ export default function HomePage() {
       {activeModule === "public" ? (
         <main className="flex-1">
           <HeroSection />
-          <PartnershipSpotlight />
+          <CoreSpecialties />
           <PakistanPortfolio />
+          <WhoWeServeLocations />
           <WhyPropertyFiles />
           <BlogPreview />
           <LeadCaptureForm
