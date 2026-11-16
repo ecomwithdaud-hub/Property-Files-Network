@@ -1,60 +1,71 @@
-import { COMPANY_INFO, MADINA_FLAGSHIP_DATA, PAKISTAN_PORTFOLIO } from "./data";
+import { COMPANY_INFO, PAKISTAN_PORTFOLIO } from "./data";
 
 /**
- * Generates a valid, multi-page PDF 1.4 binary document containing the
- * Value Apartments - Madina Al Munawwarah (Wadi Mubarak) Official Brochure
- * & Ravi Estate Track Record Portfolio, and triggers a browser file download.
+ * Generates an official, corporate PDF 1.4 binary document containing the
+ * Ravi Estate & Value Group Pakistan Portfolio Investment Dossier
+ * and triggers a browser file download.
  */
 export function downloadOfficialBrochurePDF() {
-  const linesPage1 = [
+  const linesPage = [
     "RAVI ESTATE  |  raviestate.com  |  Deals in all kinds of properties.",
-    "OFFICIAL INTERNATIONAL INVESTMENT DOSSIER & BROCHURE",
+    "OFFICIAL PAKISTAN REAL ESTATE INVESTMENT DOSSIER",
     "==========================================================================",
-    "PROJECT: VALUE APARTMENTS - MADINA AL MUNAWWARAH (WADI MUBARAK)",
-    "Developer: Value Group   |   Advisory Partner: Ravi Estate",
-    "Location: Wadi Mubarak, First Ring Road Corridor, Madina Al Munawwarah, KSA",
+    "DEVELOPMENT PARTNER: VALUE GROUP  |  ADVISORY DESK: RAVI ESTATE",
+    "Head Office: Main Boulevard, DHA Phase 5 / Gulberg Advisory Desk, Lahore",
+    "Direct Phone & WhatsApp: +92 300 4154156  |  Email: advisory@raviestate.com",
     "--------------------------------------------------------------------------",
-    "STRATEGIC PROXIMITY & SPIRITUAL CONNECTIVITY:",
-    "  * 10 Minutes Drive to Al-Masjid an-Nabawi (The Prophet's Mosque)",
-    "  * Direct Access to Haramain High-Speed Railway Station (8 Mins)",
-    "  * 8 km from Prince Mohammad bin Abdulaziz International Airport",
-    "  * 12 Mins to Masjid Quba  |  14 Mins to Uhud Mountain",
-    "  * 5 Mins to King Fahad Hospital & Al Khalidiyyah Park",
-    "  * 12 Mins to King Fahad Central Park & 15 Mins to Masjid al-Qiblatayn",
+    "1. GREEN VIEW EXECUTIVE APARTMENTS (DHA Phase 5, Lahore)",
+    "   - Location: Prime DHA Phase 5 adjacent to Lahore Ring Road",
+    "   - Offering: 1, 2 & 3 Bed Luxury Suites with travertine double-height lobby",
+    "   - Track Record: 9.5% Net Rental Yield + 110% Capital Appreciation",
+    "   - Price Range: Starting from PKR 2.85 Crore",
     "--------------------------------------------------------------------------",
-    "LUXURY & SMART LIVING AMENITIES:",
-    "  * Integrated IoT Smart Home Automation (Climate, Lighting, Biometric Lock)",
-    "  * 24/7 Five-Star Hotel Concierge, Reception & Multilingual Security",
-    "  * Dedicated Haram Shuttle Service & Underground Resident Parking",
-    "  * Spiritual Prayer Halls & Rooftop Contemplation Lounges",
-    "  * Turnkey Hospitality & Rental Yield Management for Diaspora Investors",
+    "2. VALUE APARTMENTS (PECO Road, Link Road, Model Town Lahore)",
+    "   - Location: Nexus of Model Town Link Road & PECO Road commercial retail hub",
+    "   - Offering: Studio, 1 & 2 Bed Urban Serviced Apartments",
+    "   - Track Record: 100% Sold Out & Delivered with High Occupancy",
+    "   - Price Range: Starting from PKR 1.65 Crore",
     "--------------------------------------------------------------------------",
-    "UNIT CONFIGURATIONS & FLEXIBLE 36-MONTH PAYMENT PLAN:",
-    "  1. Executive Studio Suite (485 - 560 Sq.Ft.)     | SAR 420,000 - 495,000",
-    "  2. 1-Bedroom Luxury Residence (780 - 910 Sq.Ft.) | SAR 680,000 - 790,000",
-    "  3. 2-Bedroom Family Sanctuary (1180-1350 Sq.Ft.) | SAR 980,000 - 1,180,000",
-    "  4. Royal Wadi Penthouse (2,100+ Sq.Ft.)          | SAR 1,850,000+",
-    "  * Booking: 30% Down Payment | Balance over 36 Monthly Installments",
+    "3. VALUE RESIDENCIES (Barki Road, Opposite DHA Phase 8 Lahore)",
+    "   - Location: Direct frontage opposite DHA Phase 8 main boulevard",
+    "   - Offering: Designer villas & gated residential plots",
+    "   - Track Record: 5 minutes to Allama Iqbal International Airport",
+    "   - Price Range: Starting from PKR 3.40 Crore",
     "--------------------------------------------------------------------------",
-    "PROVEN PAKISTAN TRACK RECORD (VALUE GROUP x RAVI ESTATE):",
-    "  * Green View Executive Apartments (DHA Phase 5, Lahore)",
-    "  * Value Apartments (PECO Road, Link Road, Model Town Lahore)",
-    "  * Value Residencies (Barki Road, Opposite DHA Phase 8 Lahore)",
-    "  * Green View Smart Homes (DHA Phase 12 EME, Lahore)",
-    "  * Corporate Tower (Gulberg, Lahore)",
-    "  * Value Lahore Organic Farmhouses (Barki Road, Lahore)",
+    "4. GREEN VIEW SMART HOMES (DHA Phase 12 EME Sector, Lahore)",
+    "   - Location: Secure Canal Bank corridor in DHA Phase 12 (EME)",
+    "   - Offering: Turnkey IoT-enabled smart villas & townhouses",
+    "   - Features: Solar net-metering provision & smart app automation",
+    "   - Price Range: Starting from PKR 2.95 Crore with construction milestones",
+    "--------------------------------------------------------------------------",
+    "5. CORPORATE TOWER (Gulberg III, Lahore)",
+    "   - Location: Central Business District of Gulberg near Main Boulevard",
+    "   - Offering: Grade-A Corporate Offices, retail showrooms & penthouses",
+    "   - Track Record: 11% Commercial lease yield with institutional tenants",
+    "   - Price Range: Starting from PKR 4.50 Crore",
+    "--------------------------------------------------------------------------",
+    "6. VALUE LAHORE ORGANIC FARMHOUSES (Barki Road, Lahore)",
+    "   - Location: Fertile country estates 15 mins from DHA Phase 6 & Phase 8",
+    "   - Offering: 2, 4 & 8 Kanal bespoke organic farm parcels with sweet water",
+    "   - Track Record: Generational land banking & private pollution-free retreat",
+    "   - Price Range: Starting from PKR 6.75 Crore",
     "==========================================================================",
-    `Pakistan Advisory: ${COMPANY_INFO.pakistanPhone}  |  KSA Desk: ${COMPANY_INFO.saudiPhone}`,
-    `Web: ${COMPANY_INFO.domain}  |  IG: ${COMPANY_INFO.instagramHandle}  |  FB: ${COMPANY_INFO.facebookName}`,
+    "LEGAL DUE DILIGENCE & REPATRIATION GUARANTEE:",
+    "  * 100% Title Verification before Sub-Registrar, LDA, and DHA authorities",
+    "  * Full support for Overseas Pakistanis via Roshan Digital Account (RDA)",
+    "  * Special Power of Attorney (PoA) attestation and legal escrow management",
+    "==========================================================================",
+    `Pakistan Advisory: ${COMPANY_INFO.pakistanPhone}  |  Web: ${COMPANY_INFO.domain}`,
+    `Instagram: ${COMPANY_INFO.instagramHandle}  |  Facebook: ${COMPANY_INFO.facebookName}`,
   ];
 
   const escapePdfText = (str: string) =>
     str.replace(/\\/g, "\\\\").replace(/\(/g, "\\(").replace(/\)/g, "\\)");
 
-  let streamContent = "BT\n/F1 11 Tf\n15 TL\n42 790 Td\n";
-  linesPage1.forEach((line, idx) => {
+  let streamContent = "BT\n/F1 10.5 Tf\n14.5 TL\n42 795 Td\n";
+  linesPage.forEach((line, idx) => {
     if (idx === 0 || idx === 1 || idx === 3) {
-      streamContent += `/F2 11.5 Tf\n(${escapePdfText(line)}) Tj\nT*\n/F1 9.5 Tf\n`;
+      streamContent += `/F2 11.5 Tf\n(${escapePdfText(line)}) Tj\nT*\n/F1 9.2 Tf\n`;
     } else {
       streamContent += `(${escapePdfText(line)}) Tj\nT*\n`;
     }
@@ -95,11 +106,11 @@ export function downloadOfficialBrochurePDF() {
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = "Value-Apartments-Madina-Wadi-Mubarak-Ravi-Estate-Brochure.pdf";
+  a.download = "Ravi-Estate-Pakistan-Portfolio-Investment-Dossier.pdf";
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
   setTimeout(() => URL.revokeObjectURL(url), 3000);
 }
 
-export { MADINA_FLAGSHIP_DATA, PAKISTAN_PORTFOLIO };
+export { PAKISTAN_PORTFOLIO };

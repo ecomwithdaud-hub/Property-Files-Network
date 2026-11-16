@@ -1,16 +1,18 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import {
   FileDown,
   ArrowRight,
   Building2,
   MapPin,
-  Train,
+  TrendingUp,
   Phone,
-  CheckCircle2,
+  ShieldCheck,
+  Award,
 } from "lucide-react";
-import { COMPANY_INFO } from "@/lib/data";
+import { COMPANY_INFO, PAKISTAN_PORTFOLIO } from "@/lib/data";
 import { useLeads } from "@/context/LeadContext";
 import ScrollReveal from "./ScrollReveal";
 
@@ -22,42 +24,37 @@ export default function HeroSection() {
       id="hero"
       className="relative bg-gradient-to-b from-slate-50 via-white to-slate-50 py-16 lg:py-24 border-b border-slate-200 overflow-hidden"
     >
-      {/* Subtle Warm Architectural Accent Bar at Top */}
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
-          {/* Left 7 Columns: Corporate Introduction & Complete Advisory Overview */}
+          {/* Left 7 Columns: Corporate Introduction & Value Proposition */}
           <div className="lg:col-span-7 space-y-7">
             <ScrollReveal direction="up" delayMs={50}>
               <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-md bg-amber-50 border border-amber-200/80 text-amber-900 text-xs font-semibold uppercase tracking-widest">
-                <span>Real Estate Advisory &amp; Investment Marketing</span>
+                <Award className="w-3.5 h-3.5 text-amber-700" />
+                <span>Premier Real Estate Advisory &amp; Investment Marketing • Est. 2008</span>
               </div>
             </ScrollReveal>
 
             <ScrollReveal direction="up" delayMs={120}>
               <div className="space-y-4">
-                <h1 className="text-4xl sm:text-5xl lg:text-[52px] font-serif font-bold text-slate-900 tracking-tight leading-[1.16]">
-                  Trusted Property Advisory for{" "}
-                  <span className="text-gold-600">Pakistan</span> &amp;{" "}
-                  <span className="text-slate-800 underline decoration-gold-500/60 decoration-2 underline-offset-8">
-                    Madina Al Munawwarah
+                <h1 className="text-4xl sm:text-5xl lg:text-[54px] font-serif font-bold text-slate-900 tracking-tight leading-[1.15]">
+                  Strategic Real Estate Advisory Across{" "}
+                  <span className="text-amber-700">Lahore</span> &amp;{" "}
+                  <span className="text-slate-900 underline decoration-amber-500/60 decoration-2 underline-offset-8">
+                    Punjab&apos;s Prime Corridors
                   </span>
                 </h1>
 
                 <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl">
                   Welcome to <strong className="text-slate-900">Ravi Estate</strong> (
-                  <span className="text-slate-800 font-medium">
+                  <span className="text-slate-900 font-medium">
                     {COMPANY_INFO.domain}
                   </span>
                   ) —{" "}
                   <em className="font-serif text-slate-800">
                     &ldquo;{COMPANY_INFO.tagline}&rdquo;
                   </em>{" "}
-                  As an official advisory and marketing partner of{" "}
-                  <strong className="text-slate-900">Value Group</strong>, we guide families and institutional investors across six premier developments in Lahore and our flagship international residence in{" "}
-                  <strong className="text-slate-900">
-                    Wadi Mubarak, Madina Al Munawwarah
-                  </strong>
-                  .
+                  In official marketing partnership with <strong className="text-slate-900">Value Group</strong>, we advise high-net-worth families, institutional corporations, and the overseas Pakistani diaspora across verified luxury apartments, corporate skyscrapers, smart townhouses, and organic country estates.
                 </p>
               </div>
             </ScrollReveal>
@@ -66,37 +63,37 @@ export default function HeroSection() {
             <ScrollReveal direction="up" delayMs={200}>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-1">
                 <div className="p-4 rounded-xl bg-white border border-slate-200 shadow-sm flex items-start gap-3">
-                  <MapPin className="w-5 h-5 text-gold-600 shrink-0 mt-0.5" />
+                  <Building2 className="w-5 h-5 text-amber-700 shrink-0 mt-0.5" />
                   <div>
                     <div className="text-sm font-serif font-bold text-slate-900">
-                      10 Mins to Haram
-                    </div>
-                    <div className="text-xs text-slate-500 mt-0.5">
-                      Masjid an-Nabawi, Madina
-                    </div>
-                  </div>
-                </div>
-
-                <div className="p-4 rounded-xl bg-white border border-slate-200 shadow-sm flex items-start gap-3">
-                  <Train className="w-5 h-5 text-slate-800 shrink-0 mt-0.5" />
-                  <div>
-                    <div className="text-sm font-serif font-bold text-slate-900">
-                      Haramain Railway
-                    </div>
-                    <div className="text-xs text-slate-500 mt-0.5">
-                      High-Speed Station Access
-                    </div>
-                  </div>
-                </div>
-
-                <div className="p-4 rounded-xl bg-white border border-slate-200 shadow-sm flex items-start gap-3">
-                  <Building2 className="w-5 h-5 text-gold-600 shrink-0 mt-0.5" />
-                  <div>
-                    <div className="text-sm font-serif font-bold text-slate-900">
-                      6 Lahore Projects
+                      6 Lahore Landmarks
                     </div>
                     <div className="text-xs text-slate-500 mt-0.5">
                       DHA, Gulberg &amp; Model Town
+                    </div>
+                  </div>
+                </div>
+
+                <div className="p-4 rounded-xl bg-white border border-slate-200 shadow-sm flex items-start gap-3">
+                  <TrendingUp className="w-5 h-5 text-emerald-700 shrink-0 mt-0.5" />
+                  <div>
+                    <div className="text-sm font-serif font-bold text-slate-900">
+                      PKR 45B+ Volume
+                    </div>
+                    <div className="text-xs text-slate-500 mt-0.5">
+                      Advised &amp; Transacted
+                    </div>
+                  </div>
+                </div>
+
+                <div className="p-4 rounded-xl bg-white border border-slate-200 shadow-sm flex items-start gap-3">
+                  <ShieldCheck className="w-5 h-5 text-amber-700 shrink-0 mt-0.5" />
+                  <div>
+                    <div className="text-sm font-serif font-bold text-slate-900">
+                      100% Title Rigor
+                    </div>
+                    <div className="text-xs text-slate-500 mt-0.5">
+                      LDA &amp; DHA Cleared Deeds
                     </div>
                   </div>
                 </div>
@@ -106,28 +103,28 @@ export default function HeroSection() {
             {/* Primary Corporate Action Buttons */}
             <ScrollReveal direction="up" delayMs={280}>
               <div className="flex flex-wrap items-center gap-4 pt-2">
-                <a
-                  href="#madina-spotlight"
+                <Link
+                  href="/portfolio"
                   className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-semibold text-sm shadow-sm transition-all"
                 >
-                  <span>Explore Madina Project</span>
-                  <ArrowRight className="w-4 h-4 text-gold-400" />
-                </a>
+                  <span>Explore Pakistan Portfolio</span>
+                  <ArrowRight className="w-4 h-4 text-amber-400" />
+                </Link>
 
                 <button
                   onClick={() => setIsBrochureModalOpen(true)}
-                  className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-lg bg-gold-500 hover:bg-gold-600 text-slate-950 font-bold text-sm shadow-sm transition-all"
+                  className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-sm shadow-sm transition-all"
                 >
                   <FileDown className="w-4 h-4" />
-                  <span>Download Official Brochure</span>
+                  <span>Download Official Dossier</span>
                 </button>
 
-                <a
-                  href="#lead-inquiry"
+                <Link
+                  href="/contact"
                   className="inline-flex items-center gap-2 px-5 py-3.5 rounded-lg bg-white hover:bg-slate-100 text-slate-800 border border-slate-300 font-medium text-sm transition-all"
                 >
-                  <span>Schedule Consultation</span>
-                </a>
+                  <span>Book Private Consultation</span>
+                </Link>
               </div>
             </ScrollReveal>
 
@@ -135,36 +132,36 @@ export default function HeroSection() {
             <ScrollReveal direction="up" delayMs={350}>
               <div className="pt-5 border-t border-slate-200 flex flex-wrap items-center gap-6 text-xs text-slate-600">
                 <div className="flex items-center gap-2">
-                  <Phone className="w-4 h-4 text-gold-600" />
+                  <Phone className="w-4 h-4 text-amber-700" />
                   <span>
-                    Pakistan Advisory:{" "}
+                    Direct Advisory Hotline:{" "}
                     <strong className="text-slate-900">
                       {COMPANY_INFO.pakistanPhone}
                     </strong>
                   </span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Phone className="w-4 h-4 text-slate-800" />
+                <div className="flex items-center gap-1.5">
+                  <MapPin className="w-4 h-4 text-slate-700" />
                   <span>
-                    Saudi Arabia Support:{" "}
+                    Offices:{" "}
                     <strong className="text-slate-900">
-                      {COMPANY_INFO.saudiPhone}
+                      DHA Phase 5 &amp; Gulberg III, Lahore
                     </strong>
                   </span>
                 </div>
                 <div className="flex items-center gap-1.5 text-emerald-700 font-medium">
-                  <CheckCircle2 className="w-4 h-4" />
-                  <span>Authorized Value Group Partner</span>
+                  <ShieldCheck className="w-4 h-4" />
+                  <span>Value Group Official Partner</span>
                 </div>
               </div>
             </ScrollReveal>
           </div>
 
-          {/* Right 5 Columns: Clean Corporate Presentation Card */}
+          {/* Right 5 Columns: Corporate Showcase Card */}
           <div className="lg:col-span-5">
             <ScrollReveal direction="left" delayMs={180}>
-              <div className="rounded-2xl bg-white border border-slate-200 p-6 shadow-xl shadow-slate-200/60 space-y-5">
-                {/* Official Uploaded Ravi Estate Logo Banner */}
+              <div className="rounded-2xl bg-white border border-slate-200 p-6 sm:p-7 shadow-xl shadow-slate-200/60 space-y-5">
+                {/* Official Ravi Estate Crest Banner */}
                 <div className="flex items-center justify-between gap-4 pb-4 border-b border-slate-100">
                   <div className="flex items-center gap-3.5">
                     <div className="h-14 w-16 rounded-lg bg-white p-1 border border-slate-200 shrink-0">
@@ -175,65 +172,78 @@ export default function HeroSection() {
                       />
                     </div>
                     <div>
-                      <div className="text-[11px] uppercase tracking-widest text-gold-600 font-bold">
-                        Established Property Advisors
+                      <div className="text-[11px] uppercase tracking-widest text-amber-700 font-bold">
+                        Official Advisory Firm
                       </div>
                       <div className="text-lg font-serif font-bold text-slate-900">
                         Ravi Estate
                       </div>
                       <div className="text-xs font-serif italic text-slate-500">
-                        &ldquo;Deals in all kinds of properties.&rdquo;
+                        &ldquo;{COMPANY_INFO.tagline}&rdquo;
                       </div>
                     </div>
                   </div>
                   <span className="px-3 py-1 rounded bg-slate-100 text-slate-800 text-[11px] font-semibold border border-slate-200 whitespace-nowrap">
-                    Value Group Partner
+                    Lahore Head Office
                   </span>
                 </div>
 
-                {/* Featured Project Image */}
+                {/* Featured Project Showcase */}
                 <div className="rounded-xl overflow-hidden border border-slate-200 bg-slate-900">
-                  <img
-                    src="/images/value-apartments-showcase.png"
-                    alt="Value Apartments Madina Al Munawwarah by Value Group"
-                    className="w-full h-56 object-cover object-center"
-                  />
-                  <div className="p-4 bg-slate-900 text-white space-y-1">
-                    <div className="text-[11px] uppercase tracking-widest text-gold-400 font-semibold">
-                      Flagship International Offering • Wadi Mubarak
+                  <div className="p-5 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 text-white space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[11px] uppercase tracking-widest text-amber-400 font-semibold">
+                        Value Group Partnership
+                      </span>
+                      <span className="px-2.5 py-0.5 rounded text-[10px] font-semibold bg-emerald-950 border border-emerald-700/60 text-emerald-300">
+                        Completed Landmark
+                      </span>
                     </div>
-                    <div className="text-lg font-serif font-bold">
-                      Value Apartments – Madina Al Munawwarah
+
+                    <div>
+                      <h3 className="text-xl font-serif font-bold text-white">
+                        Green View Executive Apartments
+                      </h3>
+                      <div className="text-xs text-slate-300 flex items-center gap-1.5 mt-1">
+                        <MapPin className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                        <span>DHA Phase 5, Ring Road Axis, Lahore</span>
+                      </div>
                     </div>
-                    <p className="text-xs text-slate-300">
-                      Luxury residences located 10 minutes from Masjid an-Nabawi with direct access to the Haramain High-Speed Railway Station.
+
+                    <p className="text-xs text-slate-300 leading-relaxed pt-1">
+                      Vertical luxury living in the heart of DHA Phase 5. Designed with grand double-height lobbies, 24/7 dedicated generator power, and high corporate tenant occupancy.
                     </p>
+
+                    <div className="grid grid-cols-2 gap-2 pt-2 text-xs">
+                      <div className="p-2.5 rounded-lg bg-slate-800/80 border border-slate-700">
+                        <span className="text-[10px] uppercase text-slate-400 block">Indicative Starting</span>
+                        <span className="font-bold text-amber-400">PKR 2.85 Crore</span>
+                      </div>
+                      <div className="p-2.5 rounded-lg bg-slate-800/80 border border-slate-700">
+                        <span className="text-[10px] uppercase text-slate-400 block">Rental Yield</span>
+                        <span className="font-bold text-white">9.5% Annual</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
-                {/* Location Map Quick Preview */}
-                <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between gap-4">
-                  <div className="flex items-center gap-3">
-                    <img
-                      src="/images/madinah-location-map.png"
-                      alt="Madinah Master Location Map"
-                      className="w-16 h-12 rounded-md object-cover border border-slate-300 shrink-0 bg-white"
-                    />
-                    <div>
-                      <div className="text-xs font-bold text-slate-900">
-                        Madinah Ring Road &amp; Landmarks Map
-                      </div>
-                      <div className="text-[11px] text-slate-500">
-                        8 km to Madinah Int&apos;l Airport • Near Masjid Quba
-                      </div>
-                    </div>
+                {/* Quick Portfolio Selector Strip */}
+                <div className="space-y-2">
+                  <div className="text-xs font-bold uppercase tracking-wider text-slate-700">
+                    Featured Asset Classes
                   </div>
-                  <a
-                    href="#madina-map"
-                    className="px-3.5 py-2 rounded-lg bg-white hover:bg-slate-100 text-slate-900 border border-slate-300 text-xs font-semibold shrink-0 transition-colors"
-                  >
-                    View Map
-                  </a>
+                  <div className="grid grid-cols-2 gap-2 text-xs">
+                    {PAKISTAN_PORTFOLIO.slice(1, 5).map((p) => (
+                      <Link
+                        key={p.id}
+                        href="/portfolio"
+                        className="p-2.5 rounded-lg bg-slate-50 hover:bg-slate-100 border border-slate-200 transition-colors block"
+                      >
+                        <div className="font-semibold text-slate-900 truncate">{p.title}</div>
+                        <div className="text-[11px] text-slate-500 truncate">{p.location}</div>
+                      </Link>
+                    ))}
+                  </div>
                 </div>
               </div>
             </ScrollReveal>

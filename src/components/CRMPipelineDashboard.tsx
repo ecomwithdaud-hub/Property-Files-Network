@@ -19,6 +19,7 @@ import {
   StickyNote,
   Send,
   X,
+  Shield,
 } from "lucide-react";
 import {
   CRM_AGENTS,
@@ -65,19 +66,17 @@ export default function CRMPipelineDashboard({}: CRMPipelineDashboardProps) {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [newClientName, setNewClientName] = useState("");
   const [newPhone, setNewPhone] = useState("");
-  const [newOrigin, setNewOrigin] = useState<LeadOrigin>(
-    "International Diaspora"
-  );
-  const [newCountryCity, setNewCountryCity] = useState("Jeddah, Saudi Arabia");
+  const [newOrigin, setNewOrigin] = useState<LeadOrigin>("Pakistan");
+  const [newCountryCity, setNewCountryCity] = useState("Lahore, Pakistan");
   const [newCategory, setNewCategory] = useState<PropertyCategory>(
-    "Madina International Apartments"
+    "Luxury High-Rise Apartments"
   );
   const [newProject, setNewProject] = useState(
-    "Value Apartments - Madina Al Munawwarah (Wadi Mubarak)"
+    "Green View Executive Apartments (DHA Phase 5, Lahore)"
   );
-  const [newUnit, setNewUnit] = useState("2-Bedroom Family Sanctuary");
-  const [newBudget, setNewBudget] = useState("SAR 1,050,000 (~PKR 7.8 Cr)");
-  const [newValPKR, setNewValPKR] = useState(78);
+  const [newUnit, setNewUnit] = useState("2-Bed Executive Suite");
+  const [newBudget, setNewBudget] = useState("PKR 2.85 Crore – 4.50 Crore");
+  const [newValPKR, setNewValPKR] = useState(45);
   const [newAgent, setNewAgent] = useState(CRM_AGENTS[0]);
   const [newInitialNote, setNewInitialNote] = useState("");
 
@@ -113,17 +112,11 @@ export default function CRMPipelineDashboard({}: CRMPipelineDashboardProps) {
     totalInboundLeads > 0
       ? ((closedDealsCount / totalInboundLeads) * 100).toFixed(1)
       : "0.0";
-  const activeInternationalMadinaLeads = leads.filter(
-    (l) =>
-      l.propertyCategory === "Madina International Apartments" ||
-      l.originType === "International Diaspora"
+  const diasporaLeadsCount = leads.filter(
+    (l) => l.originType === "Overseas Pakistani Diaspora"
   ).length;
   const totalPipelineValuePKR = leads.reduce(
     (sum, l) => sum + (Number(l.estimatedValuePKR) || 0),
-    0
-  );
-  const totalPipelineValueSAR = leads.reduce(
-    (sum, l) => sum + (Number(l.estimatedValueSAR) || 0),
     0
   );
 
@@ -174,19 +167,18 @@ export default function CRMPipelineDashboard({}: CRMPipelineDashboardProps) {
       phone: newPhone.trim(),
       email: "client@raviestate.com",
       originType: newOrigin,
-      countryCity: newCountryCity.trim() || "Riyadh, Saudi Arabia",
+      countryCity: newCountryCity.trim() || "Lahore, Pakistan",
       propertyCategory: newCategory,
       specificProject: newProject,
       preferredUnitType: newUnit,
       budgetDisplay: newBudget,
-      estimatedValuePKR: Number(newValPKR) || 65,
-      estimatedValueSAR: Math.round((Number(newValPKR) || 65) * 13.5),
+      estimatedValuePKR: Number(newValPKR) || 45,
       assignedAgent: newAgent,
       stage: "new",
-      priority: Number(newValPKR) >= 75 ? "VIP" : "High",
+      priority: Number(newValPKR) >= 70 ? "VIP" : "High",
       notes: [
         newInitialNote.trim() ||
-          "Direct advisor entry logged via Ravi Estate CRM.",
+          "Direct advisor entry logged via Ravi Estate CRM portal.",
       ],
     });
 
@@ -206,21 +198,22 @@ export default function CRMPipelineDashboard({}: CRMPipelineDashboardProps) {
           <ScrollReveal direction="up">
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
               <div className="space-y-1">
-                <div className="text-xs font-bold uppercase tracking-widest text-gold-600">
-                  Internal Sales &amp; Lead Management Portal
+                <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-amber-700">
+                  <Shield className="w-3.5 h-3.5" />
+                  <span>Internal Sales &amp; Lead Management Portal • Role-Based</span>
                 </div>
                 <h1 className="text-2xl sm:text-3xl font-serif font-bold text-slate-900">
-                  Ravi Estate — Advisory Pipeline Dashboard
+                  Ravi Estate — Client Advisory Pipeline
                 </h1>
                 <p className="text-xs sm:text-sm text-slate-600">
-                  Manage domestic and international client inquiries across New Leads, Qualified, Consultations, and Closed Deals.
+                  Track domestic institutional and overseas Pakistani client inquiries across Lahore developments.
                 </p>
               </div>
 
               {/* Role Switcher & Action Buttons */}
               <div className="flex flex-wrap items-center gap-3">
                 <div className="flex items-center gap-2 bg-slate-50 px-3.5 py-2 rounded-lg border border-slate-200">
-                  <UserCheck className="w-4 h-4 text-gold-600 shrink-0" />
+                  <UserCheck className="w-4 h-4 text-amber-600 shrink-0" />
                   <span className="text-xs text-slate-500">View As:</span>
                   <select
                     value={activeRole}
@@ -242,7 +235,7 @@ export default function CRMPipelineDashboard({}: CRMPipelineDashboardProps) {
                   onClick={() => setIsAddModalOpen(true)}
                   className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs shadow-sm transition-all"
                 >
-                  <Plus className="w-4 h-4 text-gold-400" />
+                  <Plus className="w-4 h-4 text-amber-400" />
                   <span>Add New Lead</span>
                 </button>
 
@@ -252,7 +245,7 @@ export default function CRMPipelineDashboard({}: CRMPipelineDashboardProps) {
                   className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-lg bg-white hover:bg-slate-100 border border-slate-200 text-slate-700 text-xs font-medium transition-all"
                 >
                   <RotateCcw className="w-3.5 h-3.5 text-slate-500" />
-                  <span>Reset</span>
+                  <span>Reset Data</span>
                 </button>
               </div>
             </div>
@@ -264,7 +257,7 @@ export default function CRMPipelineDashboard({}: CRMPipelineDashboardProps) {
               <div className="p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
-                    Total Inbound Leads
+                    Total Inbound Inquiries
                   </span>
                   <Users className="w-4 h-4 text-slate-700" />
                 </div>
@@ -274,7 +267,7 @@ export default function CRMPipelineDashboard({}: CRMPipelineDashboardProps) {
                 <div className="text-xs text-slate-600">
                   {leads.filter((l) => l.stage === "new").length} New •{" "}
                   {leads.filter((l) => l.stage === "consultation").length}{" "}
-                  Consultations Scheduled
+                  Consultations Booked
                 </div>
               </div>
 
@@ -290,22 +283,22 @@ export default function CRMPipelineDashboard({}: CRMPipelineDashboardProps) {
                 </div>
                 <div className="text-xs text-emerald-700 flex items-center gap-1 font-medium">
                   <CheckCircle2 className="w-3.5 h-3.5" />
-                  <span>{closedDealsCount} Deals Closed / Won</span>
+                  <span>{closedDealsCount} Transactions Closed</span>
                 </div>
               </div>
 
               <div className="p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold uppercase tracking-wider text-gold-600">
-                    Active Int&apos;l Leads (Madina)
+                  <span className="text-xs font-bold uppercase tracking-wider text-amber-700">
+                    Overseas Pakistani Leads
                   </span>
-                  <Globe2 className="w-4 h-4 text-gold-600" />
+                  <Globe2 className="w-4 h-4 text-amber-600" />
                 </div>
                 <div className="text-3xl font-serif font-bold text-slate-900">
-                  {activeInternationalMadinaLeads}
+                  {diasporaLeadsCount}
                 </div>
                 <div className="text-xs text-slate-600">
-                  Value Apartments – Wadi Mubarak, KSA
+                  UK, UAE, USA &amp; Canada Diaspora
                 </div>
               </div>
 
@@ -320,7 +313,7 @@ export default function CRMPipelineDashboard({}: CRMPipelineDashboardProps) {
                   PKR {(totalPipelineValuePKR / 10).toFixed(2)} Cr
                 </div>
                 <div className="text-xs text-slate-600">
-                  ≈ SAR {(totalPipelineValueSAR / 1000).toFixed(2)} Million Volume
+                  Across 6 Partner Developments in Lahore
                 </div>
               </div>
             </div>
@@ -334,14 +327,14 @@ export default function CRMPipelineDashboard({}: CRMPipelineDashboardProps) {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search by client name, phone, city, or project..."
+                placeholder="Search by client name, phone, city, or development..."
                 className="w-full pl-10 pr-4 py-2.5 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-slate-900"
               />
             </div>
 
             <div className="flex flex-wrap items-center gap-2">
               <div className="flex items-center bg-slate-100 p-1 rounded-lg border border-slate-200 text-xs">
-                {(["All", "International Diaspora", "Pakistan"] as const).map(
+                {(["All", "Pakistan", "Overseas Pakistani Diaspora"] as const).map(
                   (orig) => (
                     <button
                       key={orig}
@@ -352,7 +345,7 @@ export default function CRMPipelineDashboard({}: CRMPipelineDashboardProps) {
                           : "text-slate-600 hover:text-slate-900"
                       }`}
                     >
-                      {orig === "All" ? "All Origins" : orig}
+                      {orig === "All" ? "All Profiles" : orig}
                     </button>
                   )
                 )}
@@ -362,24 +355,21 @@ export default function CRMPipelineDashboard({}: CRMPipelineDashboardProps) {
                 {(
                   [
                     "All",
-                    "Madina International Apartments",
-                    "Local Pakistani Properties",
+                    "Luxury High-Rise Apartments",
+                    "Commercial Plazas & Corporate Towers",
+                    "Organic Farmhouses & Agri-Estates",
                   ] as const
                 ).map((cat) => (
                   <button
                     key={cat}
-                    onClick={() => setCategoryFilter(cat)}
+                    onClick={() => setCategoryFilter(cat as any)}
                     className={`px-3 py-1.5 rounded-md font-semibold transition-all ${
                       categoryFilter === cat
                         ? "bg-slate-900 text-white shadow-sm"
                         : "text-slate-600 hover:text-slate-900"
                     }`}
                   >
-                    {cat === "All"
-                      ? "All Projects"
-                      : cat === "Madina International Apartments"
-                      ? "Madina Project"
-                      : "Pakistan Portfolio"}
+                    {cat === "All" ? "All Classes" : cat.split(" ")[0]}
                   </button>
                 ))}
               </div>
@@ -461,13 +451,21 @@ export default function CRMPipelineDashboard({}: CRMPipelineDashboardProps) {
 
                               <span
                                 className={`px-2 py-0.5 rounded text-[10px] font-semibold border ${
-                                  lead.originType === "International Diaspora"
+                                  lead.originType === "Overseas Pakistani Diaspora"
                                     ? "bg-amber-50 text-amber-900 border-amber-200"
                                     : "bg-slate-100 text-slate-800 border-slate-200"
                                 }`}
                               >
-                                {lead.originType}
+                                {lead.originType === "Overseas Pakistani Diaspora"
+                                  ? "Overseas"
+                                  : "Domestic"}
                               </span>
+
+                              {lead.priority === "VIP" && (
+                                <span className="px-1.5 py-0.5 rounded bg-amber-100 text-amber-900 text-[10px] font-bold">
+                                  VIP
+                                </span>
+                              )}
                             </div>
 
                             {/* Client Name & Location */}
@@ -484,9 +482,9 @@ export default function CRMPipelineDashboard({}: CRMPipelineDashboardProps) {
                             <div className="flex items-center justify-between gap-2 p-2 rounded-lg bg-slate-50 border border-slate-200/80 text-xs">
                               <a
                                 href={`tel:${lead.phone}`}
-                                className="flex items-center gap-1.5 text-slate-800 hover:text-gold-600 font-medium truncate"
+                                className="flex items-center gap-1.5 text-slate-800 hover:text-amber-700 font-medium truncate"
                               >
-                                <Phone className="w-3.5 h-3.5 text-gold-600 shrink-0" />
+                                <Phone className="w-3.5 h-3.5 text-amber-600 shrink-0" />
                                 <span className="truncate">{lead.phone}</span>
                               </a>
                               <a
@@ -505,7 +503,7 @@ export default function CRMPipelineDashboard({}: CRMPipelineDashboardProps) {
 
                             {/* Property Interest */}
                             <div className="p-2.5 rounded-lg bg-slate-50 border border-slate-200/80 space-y-1">
-                              <div className="flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-gold-600">
+                              <div className="flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-amber-700">
                                 <Building2 className="w-3 h-3 shrink-0" />
                                 <span className="truncate">
                                   {lead.propertyCategory}
@@ -546,7 +544,7 @@ export default function CRMPipelineDashboard({}: CRMPipelineDashboardProps) {
                             <div className="p-2.5 rounded-lg bg-slate-50 border border-slate-200/60 space-y-1">
                               <div className="flex items-center justify-between text-[10px] text-slate-500">
                                 <span className="font-semibold uppercase tracking-wider flex items-center gap-1">
-                                  <StickyNote className="w-3 h-3 text-gold-600" />
+                                  <StickyNote className="w-3 h-3 text-amber-600" />
                                   Notes ({lead.notes.length})
                                 </span>
                                 <button
@@ -582,7 +580,7 @@ export default function CRMPipelineDashboard({}: CRMPipelineDashboardProps) {
                                 className="px-2.5 py-1.5 rounded-md bg-slate-900 hover:bg-slate-800 text-white disabled:opacity-30 disabled:pointer-events-none text-[11px] font-semibold flex items-center gap-1 transition-all"
                               >
                                 <span>Next Stage</span>
-                                <ArrowRight className="w-3 h-3 text-gold-400" />
+                                <ArrowRight className="w-3 h-3 text-amber-400" />
                               </button>
                             </div>
                           </div>
@@ -603,7 +601,7 @@ export default function CRMPipelineDashboard({}: CRMPipelineDashboardProps) {
           <div className="max-w-lg w-full rounded-2xl bg-white border border-slate-200 p-6 shadow-2xl space-y-5">
             <div className="flex items-start justify-between gap-3 border-b border-slate-200 pb-4">
               <div>
-                <span className="text-xs text-gold-600 font-bold">
+                <span className="text-xs text-amber-700 font-bold">
                   {activeInspectedLead.id} • {activeInspectedLead.originType}
                 </span>
                 <h3 className="text-xl font-serif font-bold text-slate-900 mt-0.5">
@@ -636,7 +634,7 @@ export default function CRMPipelineDashboard({}: CRMPipelineDashboardProps) {
               </div>
               <div className="flex justify-between">
                 <span className="text-slate-500">Estimated Deal Value:</span>
-                <span className="text-gold-600 font-bold">
+                <span className="text-amber-700 font-bold">
                   {activeInspectedLead.budgetDisplay}
                 </span>
               </div>
@@ -655,14 +653,14 @@ export default function CRMPipelineDashboard({}: CRMPipelineDashboardProps) {
                 type="text"
                 value={newNoteText}
                 onChange={(e) => setNewNoteText(e.target.value)}
-                placeholder="Add call summary or follow-up note..."
+                placeholder="Add advisory note or call summary..."
                 className="flex-1 px-3.5 py-2.5 rounded-lg bg-white border border-slate-300 text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-slate-900"
               />
               <button
                 type="submit"
                 className="px-4 py-2.5 rounded-lg bg-slate-900 text-white font-semibold text-xs flex items-center gap-1.5"
               >
-                <Send className="w-3.5 h-3.5 text-gold-400" />
+                <Send className="w-3.5 h-3.5 text-amber-400" />
                 <span>Add</span>
               </button>
             </form>
@@ -690,7 +688,7 @@ export default function CRMPipelineDashboard({}: CRMPipelineDashboardProps) {
           <div className="max-w-lg w-full rounded-2xl bg-white border border-slate-200 p-6 shadow-2xl space-y-4 my-auto">
             <div className="flex items-center justify-between border-b border-slate-200 pb-3">
               <h3 className="text-lg font-serif font-bold text-slate-900">
-                Add New Lead to Pipeline
+                Register New Client Lead in Pipeline
               </h3>
               <button
                 onClick={() => setIsAddModalOpen(false)}
@@ -724,7 +722,7 @@ export default function CRMPipelineDashboard({}: CRMPipelineDashboardProps) {
                     required
                     value={newPhone}
                     onChange={(e) => setNewPhone(e.target.value)}
-                    placeholder="+966 50 ... or +92 300 ..."
+                    placeholder="+92 300 ... or overseas"
                     className="w-full px-3 py-2 rounded-lg bg-white border border-slate-300 text-slate-900"
                   />
                 </div>
@@ -733,17 +731,15 @@ export default function CRMPipelineDashboard({}: CRMPipelineDashboardProps) {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="text-slate-700 font-semibold block mb-1">
-                    Origin Classification
+                    Origin Profile
                   </label>
                   <select
                     value={newOrigin}
                     onChange={(e) => setNewOrigin(e.target.value as LeadOrigin)}
                     className="w-full px-3 py-2 rounded-lg bg-white border border-slate-300 text-slate-900"
                   >
-                    <option value="International Diaspora">
-                      International Diaspora
-                    </option>
                     <option value="Pakistan">Pakistan Domestic</option>
+                    <option value="Overseas Pakistani Diaspora">Overseas Pakistani Diaspora</option>
                   </select>
                 </div>
                 <div>
@@ -761,38 +757,25 @@ export default function CRMPipelineDashboard({}: CRMPipelineDashboardProps) {
 
               <div>
                 <label className="text-slate-700 font-semibold block mb-1">
-                  Portfolio Category
+                  Target Development
                 </label>
                 <select
-                  value={newCategory}
-                  onChange={(e) => {
-                    const cat = e.target.value as PropertyCategory;
-                    setNewCategory(cat);
-                    if (cat === "Madina International Apartments") {
-                      setNewProject(
-                        "Value Apartments - Madina Al Munawwarah (Wadi Mubarak)"
-                      );
-                    } else {
-                      setNewProject(
-                        `${PAKISTAN_PORTFOLIO[0].title} (${PAKISTAN_PORTFOLIO[0].location})`
-                      );
-                    }
-                  }}
+                  value={newProject}
+                  onChange={(e) => setNewProject(e.target.value)}
                   className="w-full px-3 py-2 rounded-lg bg-white border border-slate-300 text-slate-900"
                 >
-                  <option value="Madina International Apartments">
-                    Madina International Apartments (Wadi Mubarak)
-                  </option>
-                  <option value="Local Pakistani Properties">
-                    Local Pakistani Properties (Lahore)
-                  </option>
+                  {PAKISTAN_PORTFOLIO.map((p) => (
+                    <option key={p.id} value={`${p.title} (${p.location})`}>
+                      {p.title} ({p.location})
+                    </option>
+                  ))}
                 </select>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="text-slate-700 font-semibold block mb-1">
-                    Unit Preference
+                    Unit / Parcel Preference
                   </label>
                   <input
                     type="text"
@@ -803,7 +786,7 @@ export default function CRMPipelineDashboard({}: CRMPipelineDashboardProps) {
                 </div>
                 <div>
                   <label className="text-slate-700 font-semibold block mb-1">
-                    Est. Deal Value (PKR Millions)
+                    Estimated Deal Value (PKR Millions)
                   </label>
                   <input
                     type="number"
@@ -843,7 +826,7 @@ export default function CRMPipelineDashboard({}: CRMPipelineDashboardProps) {
                   type="text"
                   value={newInitialNote}
                   onChange={(e) => setNewInitialNote(e.target.value)}
-                  placeholder="Enter note..."
+                  placeholder="Enter initial advisory context..."
                   className="w-full px-3 py-2 rounded-lg bg-white border border-slate-300 text-slate-900"
                 />
               </div>

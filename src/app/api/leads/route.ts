@@ -16,25 +16,24 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const newLead: Lead = {
       id: body.id || `LD-${Math.floor(1050 + Math.random() * 9000)}`,
-      clientName: body.clientName || "Prospective Investor",
+      clientName: body.clientName || "Prospective Client",
       phone: body.phone || "+92 300 0000000",
-      email: body.email || "investor@example.com",
-      originType: body.originType || "International Diaspora",
-      countryCity: body.countryCity || "Riyadh, Saudi Arabia",
-      propertyCategory: body.propertyCategory || "Madina International Apartments",
+      email: body.email || "advisory.client@raviestate.com",
+      originType: body.originType || "Pakistan",
+      countryCity: body.countryCity || "Lahore, Pakistan",
+      propertyCategory: body.propertyCategory || "Luxury High-Rise Apartments",
       specificProject:
         body.specificProject ||
-        "Value Apartments - Madina Al Munawwarah (Wadi Mubarak)",
-      preferredUnitType: body.preferredUnitType || "1-Bedroom Luxury Residence",
-      budgetDisplay: body.budgetDisplay || "SAR 750,000 (~PKR 5.5 Cr)",
-      estimatedValuePKR: Number(body.estimatedValuePKR) || 55,
-      estimatedValueSAR: Number(body.estimatedValueSAR) || 750,
-      assignedAgent: body.assignedAgent || "Zainab Raza (KSA Desk Lead)",
+        "Green View Executive Apartments (DHA Phase 5, Lahore)",
+      preferredUnitType: body.preferredUnitType || "2-Bed Executive Suite",
+      budgetDisplay: body.budgetDisplay || "PKR 2.85 Crore – 4.50 Crore",
+      estimatedValuePKR: Number(body.estimatedValuePKR) || 45,
+      assignedAgent: body.assignedAgent || "Chaudhry Bilal (Head of Commercial Advisory)",
       stage: body.stage || "new",
       priority: body.priority || "High",
       notes: Array.isArray(body.notes)
         ? body.notes
-        : [body.notes || "Inbound inquiry submitted via raviestate.com portal."],
+        : [body.notes || "Inbound inquiry submitted via raviestate.com website portal."],
       createdAt: new Date().toISOString().split("T")[0],
       lastContacted: "Just now",
     };

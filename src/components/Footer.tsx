@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import {
   Phone,
   Globe,
@@ -10,9 +11,12 @@ import {
   FileDown,
   ShieldCheck,
   LayoutDashboard,
+  Mail,
+  Clock,
+  BookOpen,
 } from "lucide-react";
 import RaviEstateLogo from "./RaviEstateLogo";
-import { COMPANY_INFO, PAKISTAN_PORTFOLIO } from "@/lib/data";
+import { COMPANY_INFO, PAKISTAN_PORTFOLIO, BLOG_POSTS } from "@/lib/data";
 import { useLeads } from "@/context/LeadContext";
 import ScrollReveal from "./ScrollReveal";
 
@@ -26,7 +30,7 @@ export default function Footer({ onSwitchToCRM }: FooterProps) {
   return (
     <footer className="bg-slate-900 text-slate-300 border-t border-slate-800">
       {/* Top Corporate Callout Banner */}
-      <div className="border-b border-slate-800 bg-slate-950/50">
+      <div className="border-b border-slate-800 bg-slate-950/60">
         <div className="max-w-7xl mx-auto px-6 lg:px-10 py-10">
           <ScrollReveal direction="up">
             <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
@@ -39,14 +43,14 @@ export default function Footer({ onSwitchToCRM }: FooterProps) {
                   />
                 </div>
                 <div>
-                  <span className="text-xs font-bold uppercase tracking-widest text-gold-400">
-                    Authorized Advisory &amp; Marketing Partner • Value Group
+                  <span className="text-xs font-bold uppercase tracking-widest text-amber-400">
+                    Official Advisory &amp; Marketing Partner • Value Group
                   </span>
                   <h3 className="text-xl sm:text-2xl font-serif font-bold text-white mt-0.5">
                     Ravi Estate — &ldquo;{COMPANY_INFO.tagline}&rdquo;
                   </h3>
                   <p className="text-xs sm:text-sm text-slate-400 mt-1">
-                    Advising families and investors across Lahore, Pakistan and Madina Al Munawwarah, Saudi Arabia.
+                    Advising high-net-worth families, institutions, and overseas Pakistanis across Lahore since {COMPANY_INFO.foundedYear}.
                   </p>
                 </div>
               </div>
@@ -54,19 +58,27 @@ export default function Footer({ onSwitchToCRM }: FooterProps) {
               <div className="flex flex-wrap items-center gap-3 shrink-0">
                 <button
                   onClick={() => setIsBrochureModalOpen(true)}
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-gold-500 hover:bg-gold-400 text-slate-950 font-bold text-sm transition-all whitespace-nowrap"
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm transition-all whitespace-nowrap"
                 >
                   <FileDown className="w-4 h-4" />
-                  <span>Download Official Brochure</span>
+                  <span>Download Portfolio Dossier</span>
                 </button>
-                {onSwitchToCRM && (
+                {onSwitchToCRM ? (
                   <button
                     onClick={onSwitchToCRM}
                     className="inline-flex items-center gap-2 px-4 py-3 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white font-semibold text-sm transition-all whitespace-nowrap"
                   >
-                    <LayoutDashboard className="w-4 h-4 text-gold-400" />
-                    <span>Staff CRM Portal</span>
+                    <LayoutDashboard className="w-4 h-4 text-amber-400" />
+                    <span>CRM Portal</span>
                   </button>
+                ) : (
+                  <Link
+                    href="/crm"
+                    className="inline-flex items-center gap-2 px-4 py-3 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white font-semibold text-sm transition-all whitespace-nowrap"
+                  >
+                    <LayoutDashboard className="w-4 h-4 text-amber-400" />
+                    <span>CRM Portal</span>
+                  </Link>
                 )}
               </div>
             </div>
@@ -80,21 +92,21 @@ export default function Footer({ onSwitchToCRM }: FooterProps) {
         <div className="space-y-4">
           <RaviEstateLogo variant="dark" showTagline={true} />
           <p className="text-sm text-slate-400 leading-relaxed">
-            Premier real estate advisory and marketing company handling domestic residential and commercial developments across Pakistan and international real estate investments in Madina Al Munawwarah.
+            Premier property advisory and investment marketing firm specializing in verified, high-yield residential apartments, corporate office towers, smart townhouses, and organic country estates across Lahore, Pakistan.
           </p>
 
           <div className="pt-1 space-y-2 text-xs">
-            <div className="flex items-center gap-2 text-gold-400 font-medium">
+            <div className="flex items-center gap-2 text-amber-400 font-medium">
               <ShieldCheck className="w-4 h-4 shrink-0" />
-              <span>Value Group Official Partner</span>
+              <span>Value Group Authorized Partner</span>
             </div>
             <div className="flex items-center gap-2 text-slate-300">
-              <Globe className="w-4 h-4 text-gold-400 shrink-0" />
+              <Globe className="w-4 h-4 text-amber-400 shrink-0" />
               <a
                 href={COMPANY_INFO.websiteUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="hover:text-gold-400 underline underline-offset-4"
+                className="hover:text-amber-400 underline underline-offset-4"
               >
                 {COMPANY_INFO.domain}
               </a>
@@ -108,7 +120,7 @@ export default function Footer({ onSwitchToCRM }: FooterProps) {
               rel="noreferrer"
               className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-medium text-white transition-all"
             >
-              <Instagram className="w-3.5 h-3.5 text-gold-400" />
+              <Instagram className="w-3.5 h-3.5 text-amber-400" />
               <span>{COMPANY_INFO.instagramHandle}</span>
             </a>
             <a
@@ -117,66 +129,77 @@ export default function Footer({ onSwitchToCRM }: FooterProps) {
               rel="noreferrer"
               className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-medium text-white transition-all"
             >
-              <Facebook className="w-3.5 h-3.5 text-gold-400" />
+              <Facebook className="w-3.5 h-3.5 text-amber-400" />
               <span>{COMPANY_INFO.facebookName}</span>
             </a>
           </div>
         </div>
 
-        {/* Col 2: Flagship Madina Project */}
+        {/* Col 2: Pakistan Portfolio Links */}
         <div className="space-y-3">
-          <h4 className="text-xs font-bold uppercase tracking-widest text-gold-400">
-            International Flagship (KSA)
-          </h4>
-          <p className="text-base font-serif font-semibold text-white">
-            Value Apartments – Madina Al Munawwarah (Wadi Mubarak)
-          </p>
-          <ul className="space-y-2 text-xs text-slate-400">
-            <li>• 10-Minute Proximity to Masjid an-Nabawi</li>
-            <li>• Haramain High-Speed Railway Station Access</li>
-            <li>• 8 km to Prince Mohammad bin Abdulaziz Int&apos;l Airport</li>
-            <li>• Smart Home Living &amp; Hotel-Grade Reception</li>
-            <li>• Near Masjid Quba, Uhud Mountain &amp; King Fahad Park</li>
-          </ul>
-        </div>
-
-        {/* Col 3: Pakistani Portfolio */}
-        <div className="space-y-3">
-          <h4 className="text-xs font-bold uppercase tracking-widest text-gold-400">
+          <h4 className="text-xs font-bold uppercase tracking-widest text-amber-400">
             Pakistan Portfolio (Lahore)
           </h4>
           <ul className="space-y-2 text-xs text-slate-300">
             {PAKISTAN_PORTFOLIO.map((proj) => (
               <li key={proj.id}>
-                <a
-                  href="#pakistan-portfolio"
-                  className="hover:text-gold-400 transition-colors block"
+                <Link
+                  href={`/portfolio#${proj.id}`}
+                  className="hover:text-amber-400 transition-colors block"
                 >
                   <strong className="text-white font-medium">
                     {proj.title}
                   </strong>{" "}
                   <span className="text-slate-400">({proj.location})</span>
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
         </div>
 
-        {/* Col 4: Contact Offices */}
+        {/* Col 3: Market Intelligence & Case Studies */}
+        <div className="space-y-3">
+          <h4 className="text-xs font-bold uppercase tracking-widest text-amber-400">
+            Research &amp; Case Studies
+          </h4>
+          <ul className="space-y-2.5 text-xs text-slate-300">
+            {BLOG_POSTS.slice(0, 4).map((post) => (
+              <li key={post.slug}>
+                <Link
+                  href={`/blog/${post.slug}`}
+                  className="hover:text-amber-400 transition-colors line-clamp-2"
+                >
+                  <span className="text-white font-medium">{post.title}</span>
+                </Link>
+              </li>
+            ))}
+            <li className="pt-1">
+              <Link
+                href="/blog"
+                className="text-amber-400 hover:underline font-semibold inline-flex items-center gap-1"
+              >
+                <BookOpen className="w-3.5 h-3.5" />
+                <span>Explore all 6 articles &rarr;</span>
+              </Link>
+            </li>
+          </ul>
+        </div>
+
+        {/* Col 4: Contact & Office Hours */}
         <div className="space-y-4">
-          <h4 className="text-xs font-bold uppercase tracking-widest text-gold-400">
-            Direct Advisory Numbers
+          <h4 className="text-xs font-bold uppercase tracking-widest text-amber-400">
+            Direct Advisory Desks
           </h4>
 
           <div className="p-4 rounded-xl bg-slate-800/80 border border-slate-700 space-y-1">
-            <div className="text-[11px] uppercase tracking-wider text-gold-400 font-semibold">
-              Pakistan Domestic Office
+            <div className="text-[11px] uppercase tracking-wider text-amber-400 font-semibold">
+              Pakistan Advisory Hotline
             </div>
             <a
               href={`tel:${COMPANY_INFO.pakistanPhoneRaw}`}
-              className="flex items-center gap-2 text-base font-bold text-white hover:text-gold-400 transition-colors"
+              className="flex items-center gap-2 text-base font-bold text-white hover:text-amber-400 transition-colors"
             >
-              <Phone className="w-4 h-4 text-gold-400" />
+              <Phone className="w-4 h-4 text-amber-400" />
               <span>{COMPANY_INFO.pakistanPhone}</span>
             </a>
             <div className="flex items-start gap-1.5 text-xs text-slate-400 pt-1">
@@ -185,17 +208,14 @@ export default function Footer({ onSwitchToCRM }: FooterProps) {
             </div>
           </div>
 
-          <div className="p-4 rounded-xl bg-slate-800/80 border border-slate-700 space-y-1">
-            <div className="text-[11px] uppercase tracking-wider text-gold-400 font-semibold">
-              Saudi Arabia International Support
+          <div className="p-3.5 rounded-xl bg-slate-800/80 border border-slate-700 space-y-1 text-xs">
+            <div className="flex items-center gap-1.5 text-slate-300">
+              <Mail className="w-3.5 h-3.5 text-amber-400" />
+              <span>{COMPANY_INFO.email}</span>
             </div>
-            <div className="flex items-center gap-2 text-base font-bold text-white">
-              <Phone className="w-4 h-4 text-gold-400" />
-              <span>{COMPANY_INFO.saudiPhone}</span>
-            </div>
-            <div className="flex items-start gap-1.5 text-xs text-slate-400 pt-1">
-              <MapPin className="w-3.5 h-3.5 text-slate-500 shrink-0 mt-0.5" />
-              <span>{COMPANY_INFO.internationalDesk}</span>
+            <div className="flex items-center gap-1.5 text-slate-400 pt-1">
+              <Clock className="w-3.5 h-3.5 text-slate-500" />
+              <span>{COMPANY_INFO.officeHours}</span>
             </div>
           </div>
         </div>
@@ -208,16 +228,19 @@ export default function Footer({ onSwitchToCRM }: FooterProps) {
             © {new Date().getFullYear()}{" "}
             <strong className="text-white">Ravi Estate</strong> (
             {COMPANY_INFO.domain}) —{" "}
-            <span className="italic text-gold-400">
+            <span className="italic text-amber-400">
               &ldquo;{COMPANY_INFO.tagline}&rdquo;
-            </span>
+            </span>{" "}
+            All rights reserved.
           </div>
           <div className="flex flex-wrap items-center gap-4">
-            <span>Instagram: {COMPANY_INFO.instagramHandle}</span>
+            <Link href="/about" className="hover:text-white">About Us</Link>
             <span>•</span>
-            <span>Facebook: {COMPANY_INFO.facebookName}</span>
+            <Link href="/portfolio" className="hover:text-white">Portfolio</Link>
             <span>•</span>
-            <span>Tel: {COMPANY_INFO.pakistanPhone}</span>
+            <Link href="/blog" className="hover:text-white">Blog &amp; Case Studies</Link>
+            <span>•</span>
+            <Link href="/contact" className="hover:text-white">Contact</Link>
           </div>
         </div>
       </div>

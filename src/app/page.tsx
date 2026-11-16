@@ -3,8 +3,10 @@
 import React, { useState } from "react";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
-import MadinaSpotlight from "@/components/MadinaSpotlight";
+import PartnershipSpotlight from "@/components/PartnershipSpotlight";
 import PakistanPortfolio from "@/components/PakistanPortfolio";
+import WhyRaviEstate from "@/components/WhyRaviEstate";
+import BlogPreview from "@/components/BlogPreview";
 import LeadCaptureForm from "@/components/LeadCaptureForm";
 import Footer from "@/components/Footer";
 import BrochureModal from "@/components/BrochureModal";
@@ -20,8 +22,10 @@ export default function HomePage() {
       {activeModule === "public" ? (
         <main className="flex-1">
           <HeroSection />
-          <MadinaSpotlight />
+          <PartnershipSpotlight />
           <PakistanPortfolio />
+          <WhyRaviEstate />
+          <BlogPreview />
           <LeadCaptureForm
             onSwitchToCRM={() => {
               setActiveModule("crm");

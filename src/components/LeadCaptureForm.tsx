@@ -5,9 +5,11 @@ import {
   Send,
   CheckCircle2,
   Phone,
-  Globe,
-  LayoutDashboard,
+  Mail,
+  MapPin,
   ShieldCheck,
+  Building2,
+  Calendar,
 } from "lucide-react";
 import {
   COMPANY_INFO,
@@ -36,21 +38,19 @@ export default function LeadCaptureForm({
   const [clientName, setClientName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
-  const [originType, setOriginType] = useState<LeadOrigin>(
-    "International Diaspora"
-  );
-  const [countryCity, setCountryCity] = useState("Riyadh, Saudi Arabia");
+  const [originType, setOriginType] = useState<LeadOrigin>("Pakistan");
+  const [countryCity, setCountryCity] = useState("Lahore, Pakistan");
   const [propertyCategory, setPropertyCategory] = useState<PropertyCategory>(
-    "Madina International Apartments"
+    "Luxury High-Rise Apartments"
   );
   const [specificProject, setSpecificProject] = useState(
-    "Value Apartments - Madina Al Munawwarah (Wadi Mubarak)"
+    "Green View Executive Apartments (DHA Phase 5, Lahore)"
   );
   const [preferredUnitType, setPreferredUnitType] = useState(
-    "1-Bedroom Luxury Residence"
+    "2-Bed Executive Suite"
   );
   const [budgetTier, setBudgetTier] = useState(
-    "SAR 680,000 – 790,000 (~PKR 5.2 Cr)"
+    "PKR 2.85 Crore – 4.50 Crore"
   );
   const [notes, setNotes] = useState("");
   const [submitting, setSubmitting] = useState(false);
@@ -58,33 +58,18 @@ export default function LeadCaptureForm({
 
   useEffect(() => {
     if (preselectedProjectForInquiry) {
-      if (preselectedProjectForInquiry.includes("Madina")) {
-        setPropertyCategory("Madina International Apartments");
-      } else {
-        setPropertyCategory("Local Pakistani Properties");
-        setOriginType("Pakistan");
-        setCountryCity("Lahore, Pakistan");
-      }
       setSpecificProject(preselectedProjectForInquiry);
+      if (preselectedProjectForInquiry.includes("Corporate")) {
+        setPropertyCategory("Commercial Plazas & Corporate Towers");
+      } else if (preselectedProjectForInquiry.includes("Farmhouse")) {
+        setPropertyCategory("Organic Farmhouses & Agri-Estates");
+      } else if (preselectedProjectForInquiry.includes("Smart")) {
+        setPropertyCategory("Smart Homes & Turnkey Villas");
+      } else {
+        setPropertyCategory("Luxury High-Rise Apartments");
+      }
     }
   }, [preselectedProjectForInquiry]);
-
-  const handleCategoryChange = (cat: PropertyCategory) => {
-    setPropertyCategory(cat);
-    if (cat === "Madina International Apartments") {
-      setSpecificProject(
-        "Value Apartments - Madina Al Munawwarah (Wadi Mubarak)"
-      );
-      setPreferredUnitType("1-Bedroom Luxury Residence");
-      setBudgetTier("SAR 680,000 – 790,000 (~PKR 5.2 Cr)");
-    } else {
-      setSpecificProject(
-        `${PAKISTAN_PORTFOLIO[0].title} (${PAKISTAN_PORTFOLIO[0].location})`
-      );
-      setPreferredUnitType("2-Bed Executive Apartment");
-      setBudgetTier("PKR 2.85 Crore – 4.50 Crore");
-    }
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -92,43 +77,35 @@ export default function LeadCaptureForm({
 
     setSubmitting(true);
 
-    let estimatedValuePKR = 52;
-    let estimatedValueSAR = 720;
-    if (budgetTier.includes("1,850,000") || budgetTier.includes("12+ Crore")) {
-      estimatedValuePKR = 135;
-      estimatedValueSAR = 1850;
-    } else if (budgetTier.includes("980,000") || budgetTier.includes("6.00")) {
-      estimatedValuePKR = 78;
-      estimatedValueSAR = 1050;
-    } else if (budgetTier.includes("420,000") || budgetTier.includes("2.85")) {
-      estimatedValuePKR = 35;
-      estimatedValueSAR = 460;
+    let estimatedValuePKR = 45;
+    if (budgetTier.includes("8.50") || budgetTier.includes("12+")) {
+      estimatedValuePKR = 95;
+    } else if (budgetTier.includes("5.00") || budgetTier.includes("6.75")) {
+      estimatedValuePKR = 60;
+    } else if (budgetTier.includes("1.65") || budgetTier.includes("2.85")) {
+      estimatedValuePKR = 30;
     }
 
-    const assignedAgent =
-      propertyCategory === "Madina International Apartments"
-        ? CRM_AGENTS[0]
-        : CRM_AGENTS[1];
+    const assignedAgent = CRM_AGENTS[0];
 
     const created = await addLead({
       clientName: clientName.trim(),
       phone: phone.trim(),
-      email: email.trim() || "investor@raviestate-client.com",
+      email: email.trim() || "advisory.client@raviestate.com",
       originType,
-      countryCity: countryCity.trim() || "Lahore / International",
+      countryCity: countryCity.trim() || "Lahore, Pakistan",
       propertyCategory,
       specificProject,
       preferredUnitType,
       budgetDisplay: budgetTier,
       estimatedValuePKR,
-      estimatedValueSAR,
       assignedAgent,
       stage: "new",
-      priority: estimatedValuePKR >= 75 ? "VIP" : "High",
+      priority: estimatedValuePKR >= 70 ? "VIP" : "High",
       notes: [
         notes.trim()
-          ? `Client Inquiry Note: "${notes.trim()}"`
-          : `Website inquiry submitted for ${specificProject} (${preferredUnitType}).`,
+          ? `Investor Inquiry Note: "${notes.trim()}"`
+          : `Website advisory inquiry for ${specificProject} (${preferredUnitType}).`,
       ],
     });
 
@@ -156,68 +133,80 @@ export default function LeadCaptureForm({
           <div className="lg:col-span-5">
             <ScrollReveal direction="up" delayMs={80}>
               <div className="space-y-6">
-                <div className="text-xs font-bold uppercase tracking-widest text-gold-600">
+                <div className="text-xs font-bold uppercase tracking-widest text-amber-700">
                   Investor Relations &amp; Advisory Desk
                 </div>
 
                 <h2 className="text-3xl sm:text-4xl font-serif font-bold text-slate-900 leading-tight">
-                  Request a Private Consultation or{" "}
-                  <span className="text-gold-600">Property Dossier</span>
+                  Schedule a Private Consultation or{" "}
+                  <span className="text-amber-700">Project Briefing</span>
                 </h2>
 
                 <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
-                  Whether you are interested in{" "}
-                  <strong className="text-slate-900">
-                    Value Apartments in Madina Al Munawwarah (Wadi Mubarak)
-                  </strong>{" "}
-                  or our residential and commercial developments across{" "}
-                  <strong className="text-slate-900">Lahore, Pakistan</strong>, our senior property advisors are ready to assist you with payment plans, legal documentation, and site visits.
+                  Whether you are an overseas Pakistani planning your next acquisition or a domestic business family exploring high-yield commercial floors or organic farmhouses in Lahore, our senior partners are at your service.
                 </p>
 
                 {/* Direct Contact Cards */}
                 <div className="space-y-3.5 pt-2">
                   <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-4">
-                    <div className="w-11 h-11 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-gold-600 shrink-0 shadow-sm">
+                    <div className="w-11 h-11 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-amber-700 shrink-0 shadow-sm">
                       <Phone className="w-5 h-5" />
                     </div>
                     <div>
                       <div className="text-xs font-bold uppercase tracking-wider text-slate-500">
-                        Pakistan Domestic Advisory
+                        Direct Phone &amp; WhatsApp Hotline
                       </div>
                       <div className="text-lg font-bold text-slate-900">
                         {COMPANY_INFO.pakistanPhone}
                       </div>
                       <div className="text-xs text-slate-500">
-                        Direct Call &amp; WhatsApp • Lahore Head Office
+                        Monday – Saturday • 10:00 AM – 7:30 PM PKT
                       </div>
                     </div>
                   </div>
 
                   <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-4">
                     <div className="w-11 h-11 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-slate-800 shrink-0 shadow-sm">
-                      <Globe className="w-5 h-5" />
+                      <MapPin className="w-5 h-5 text-amber-700" />
                     </div>
                     <div>
                       <div className="text-xs font-bold uppercase tracking-wider text-slate-500">
-                        Saudi Arabia International Support
+                        Head Office Locations
                       </div>
-                      <div className="text-lg font-bold text-slate-900">
-                        {COMPANY_INFO.saudiPhone}
+                      <div className="text-sm font-bold text-slate-900">
+                        DHA Phase 5 &amp; Gulberg III
                       </div>
                       <div className="text-xs text-slate-500">
-                        Wadi Mubarak Site Viewings • Madina Al Munawwarah
+                        Lahore, Punjab, Pakistan
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-4">
+                    <div className="w-11 h-11 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-slate-800 shrink-0 shadow-sm">
+                      <Mail className="w-5 h-5 text-amber-700" />
+                    </div>
+                    <div>
+                      <div className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                        Email Advisory Desk
+                      </div>
+                      <div className="text-sm font-bold text-slate-900">
+                        {COMPANY_INFO.email}
+                      </div>
+                      <div className="text-xs text-slate-500">
+                        Confidential corporate &amp; family office inquiries
                       </div>
                     </div>
                   </div>
                 </div>
 
                 <div className="p-4 rounded-xl bg-amber-50/70 border border-amber-200/80 text-xs text-slate-700 flex items-start gap-3">
-                  <ShieldCheck className="w-5 h-5 text-gold-600 shrink-0 mt-0.5" />
+                  <ShieldCheck className="w-5 h-5 text-amber-700 shrink-0 mt-0.5" />
                   <span>
                     <strong className="text-slate-900">
-                      Direct Advisory Assignment:
+                      Strict Client Confidentiality:
                     </strong>{" "}
-                    All inquiries submitted via this form are assigned directly to a dedicated Ravi Estate advisor in our CRM pipeline.
+                    All financial, corporate, and personal property inquiries are managed strictly under attorney-client privilege guidelines.
                   </span>
                 </div>
               </div>
@@ -236,7 +225,7 @@ export default function LeadCaptureForm({
 
                     <div className="space-y-2">
                       <span className="px-3 py-1 rounded bg-white border border-slate-200 text-slate-700 text-xs font-bold uppercase tracking-widest">
-                        Inquiry Registered • Reference {submittedLead.id}
+                        Inquiry Registered • Reference #{submittedLead.id}
                       </span>
                       <h3 className="text-2xl sm:text-3xl font-serif font-bold text-slate-900">
                         Thank You, {submittedLead.clientName}
@@ -246,46 +235,30 @@ export default function LeadCaptureForm({
                         <strong className="text-slate-900">
                           {submittedLead.specificProject}
                         </strong>{" "}
-                        has been received and assigned to{" "}
-                        <strong className="text-slate-900">
-                          {submittedLead.assignedAgent}
-                        </strong>
-                        .
+                        has been logged into our advisory system. A senior partner will contact you shortly.
                       </p>
                     </div>
 
                     <div className="p-5 rounded-xl bg-white border border-slate-200 text-left grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                       <div>
-                        <span className="text-slate-500 block">
-                          Phone / WhatsApp:
-                        </span>
-                        <span className="text-slate-900 font-bold">
-                          {submittedLead.phone}
-                        </span>
+                        <span className="text-slate-500 block">Phone / WhatsApp:</span>
+                        <span className="text-slate-900 font-bold">{submittedLead.phone}</span>
                       </div>
                       <div>
-                        <span className="text-slate-500 block">
-                          Investor Origin:
-                        </span>
+                        <span className="text-slate-500 block">Investor Origin:</span>
                         <span className="text-slate-900 font-bold">
                           {submittedLead.originType} ({submittedLead.countryCity})
                         </span>
                       </div>
                       <div>
-                        <span className="text-slate-500 block">
-                          Selected Portfolio:
-                        </span>
-                        <span className="text-gold-600 font-bold">
+                        <span className="text-slate-500 block">Target Asset Class:</span>
+                        <span className="text-amber-800 font-bold">
                           {submittedLead.propertyCategory}
                         </span>
                       </div>
                       <div>
-                        <span className="text-slate-500 block">
-                          Investment Budget:
-                        </span>
-                        <span className="text-slate-900 font-bold">
-                          {submittedLead.budgetDisplay}
-                        </span>
+                        <span className="text-slate-500 block">Indicative Budget:</span>
+                        <span className="text-slate-900 font-bold">{submittedLead.budgetDisplay}</span>
                       </div>
                     </div>
 
@@ -295,7 +268,6 @@ export default function LeadCaptureForm({
                           onClick={onSwitchToCRM}
                           className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs transition-all"
                         >
-                          <LayoutDashboard className="w-4 h-4 text-gold-400" />
                           <span>View Inquiry in CRM Pipeline</span>
                         </button>
                       )}
@@ -311,100 +283,67 @@ export default function LeadCaptureForm({
                   <form onSubmit={handleSubmit} className="space-y-5">
                     <div className="border-b border-slate-200 pb-4">
                       <h3 className="text-xl font-serif font-bold text-slate-900">
-                        Investor Inquiry Form
+                        Property Advisory Inquiry Form
                       </h3>
                       <p className="text-xs text-slate-600 mt-1">
-                        Complete the details below to receive official floor plans, payment schedules, and advisory assistance.
+                        Please indicate your property preferences to receive tailored floor plans, feasibility analyses, and title verification reports.
                       </p>
                     </div>
 
-                    {/* Portfolio Selection */}
-                    <div className="space-y-2">
-                      <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block">
-                        1. Select Property Interest *
+                    {/* Property Category Selection */}
+                    <div>
+                      <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-2">
+                        1. Target Asset Class *
                       </label>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <button
-                          type="button"
-                          onClick={() =>
-                            handleCategoryChange(
-                              "Madina International Apartments"
-                            )
+                      <select
+                        value={propertyCategory}
+                        onChange={(e) => {
+                          const cat = e.target.value as PropertyCategory;
+                          setPropertyCategory(cat);
+                          if (cat === "Luxury High-Rise Apartments") {
+                            setSpecificProject("Green View Executive Apartments (DHA Phase 5, Lahore)");
+                            setPreferredUnitType("2-Bed Executive Suite");
+                            setBudgetTier("PKR 2.85 Crore – 4.50 Crore");
+                          } else if (cat === "Commercial Plazas & Corporate Towers") {
+                            setSpecificProject("Corporate Tower (Gulberg III, Lahore)");
+                            setPreferredUnitType("Commercial Corporate Floor");
+                            setBudgetTier("PKR 4.50 Crore – 12+ Crore");
+                          } else if (cat === "Organic Farmhouses & Agri-Estates") {
+                            setSpecificProject("Value Lahore Organic Farmhouses (Barki Road)");
+                            setPreferredUnitType("4 Kanal Organic Farm Parcel");
+                            setBudgetTier("PKR 6.75 Crore – 14+ Crore");
+                          } else if (cat === "Smart Homes & Turnkey Villas") {
+                            setSpecificProject("Green View Smart Homes (DHA Phase 12 EME)");
+                            setPreferredUnitType("Turnkey Smart Townhouse");
+                            setBudgetTier("PKR 2.95 Crore – 4.50 Crore");
+                          } else {
+                            setSpecificProject("Value Residencies (Barki Road, Opp. DHA Phase 8)");
+                            setPreferredUnitType("Gated Residential Plot");
+                            setBudgetTier("PKR 3.40 Crore – 6.00 Crore");
                           }
-                          className={`p-3.5 rounded-xl border text-left transition-all ${
-                            propertyCategory ===
-                            "Madina International Apartments"
-                              ? "bg-slate-900 border-slate-900 text-white shadow-sm"
-                              : "bg-white border-slate-200 text-slate-700 hover:border-slate-300"
-                          }`}
-                        >
-                          <div
-                            className={`text-xs font-bold ${
-                              propertyCategory ===
-                              "Madina International Apartments"
-                                ? "text-gold-400"
-                                : "text-slate-900"
-                            }`}
-                          >
-                            Madina International Apartments
-                          </div>
-                          <div
-                            className={`text-[11px] mt-0.5 ${
-                              propertyCategory ===
-                              "Madina International Apartments"
-                                ? "text-slate-300"
-                                : "text-slate-500"
-                            }`}
-                          >
-                            Value Apartments – Wadi Mubarak, KSA
-                          </div>
-                        </button>
-
-                        <button
-                          type="button"
-                          onClick={() =>
-                            handleCategoryChange("Local Pakistani Properties")
-                          }
-                          className={`p-3.5 rounded-xl border text-left transition-all ${
-                            propertyCategory === "Local Pakistani Properties"
-                              ? "bg-slate-900 border-slate-900 text-white shadow-sm"
-                              : "bg-white border-slate-200 text-slate-700 hover:border-slate-300"
-                          }`}
-                        >
-                          <div
-                            className={`text-xs font-bold ${
-                              propertyCategory === "Local Pakistani Properties"
-                                ? "text-gold-400"
-                                : "text-slate-900"
-                            }`}
-                          >
-                            Local Pakistani Properties
-                          </div>
-                          <div
-                            className={`text-[11px] mt-0.5 ${
-                              propertyCategory === "Local Pakistani Properties"
-                                ? "text-slate-300"
-                                : "text-slate-500"
-                            }`}
-                          >
-                            DHA, Gulberg, Model Town &amp; Barki Road Lahore
-                          </div>
-                        </button>
-                      </div>
+                        }}
+                        className="w-full px-3.5 py-2.5 rounded-lg bg-white border border-slate-300 text-sm text-slate-900 focus:outline-none focus:border-slate-900"
+                      >
+                        <option value="Luxury High-Rise Apartments">Luxury High-Rise Apartments (DHA Phase 5 & Model Town)</option>
+                        <option value="Commercial Plazas & Corporate Towers">Commercial Plazas & Corporate Towers (Gulberg CBD)</option>
+                        <option value="Smart Homes & Turnkey Villas">Smart Homes & Turnkey Villas (DHA Phase 12 EME)</option>
+                        <option value="Organic Farmhouses & Agri-Estates">Organic Farmhouses & Agri-Estates (Barki Road)</option>
+                        <option value="DHA & Master-Planned Land Banking">DHA & Master-Planned Land Banking (Barki Road Opp. DHA 8)</option>
+                      </select>
                     </div>
 
                     {/* Name & Phone */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
                         <label className="text-xs font-semibold text-slate-700 block mb-1.5">
-                          Full Name *
+                          Full Name / Company Name *
                         </label>
                         <input
                           type="text"
                           required
                           value={clientName}
                           onChange={(e) => setClientName(e.target.value)}
-                          placeholder="Enter your full name"
+                          placeholder="e.g. Mian Tariq / Usman Textile Group"
                           className="w-full px-3.5 py-2.5 rounded-lg bg-white border border-slate-300 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-slate-900"
                         />
                       </div>
@@ -418,7 +357,7 @@ export default function LeadCaptureForm({
                           required
                           value={phone}
                           onChange={(e) => setPhone(e.target.value)}
-                          placeholder="+966 50 ... or +92 300 ..."
+                          placeholder="+92 300 ... or international format"
                           className="w-full px-3.5 py-2.5 rounded-lg bg-white border border-slate-300 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-slate-900"
                         />
                       </div>
@@ -428,57 +367,45 @@ export default function LeadCaptureForm({
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
                         <label className="text-xs font-semibold text-slate-700 block mb-1.5">
-                          Investor Origin *
+                          Investor Profile *
                         </label>
                         <select
                           value={originType}
-                          onChange={(e) =>
-                            setOriginType(e.target.value as LeadOrigin)
-                          }
+                          onChange={(e) => setOriginType(e.target.value as LeadOrigin)}
                           className="w-full px-3.5 py-2.5 rounded-lg bg-white border border-slate-300 text-sm text-slate-900 focus:outline-none focus:border-slate-900"
                         >
-                          <option value="International Diaspora">
-                            International Diaspora (KSA / UAE / UK / North America)
-                          </option>
-                          <option value="Pakistan">
-                            Pakistan Domestic Investor
-                          </option>
+                          <option value="Pakistan">Pakistan Domestic Resident / Corporate</option>
+                          <option value="Overseas Pakistani Diaspora">Overseas Pakistani (UK / UAE / North America)</option>
                         </select>
                       </div>
 
                       <div>
                         <label className="text-xs font-semibold text-slate-700 block mb-1.5">
-                          City &amp; Country
+                          Current City &amp; Country
                         </label>
                         <input
                           type="text"
                           value={countryCity}
                           onChange={(e) => setCountryCity(e.target.value)}
-                          placeholder="e.g., Riyadh, London, Dubai, Lahore"
+                          placeholder="e.g. Lahore, Karachi, London, Dubai"
                           className="w-full px-3.5 py-2.5 rounded-lg bg-white border border-slate-300 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-slate-900"
                         />
                       </div>
                     </div>
 
-                    {/* Specific Project & Budget */}
+                    {/* Project & Budget */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
                         <label className="text-xs font-semibold text-slate-700 block mb-1.5">
-                          Preferred Development
+                          Preferred Project
                         </label>
                         <select
                           value={specificProject}
                           onChange={(e) => setSpecificProject(e.target.value)}
                           className="w-full px-3.5 py-2.5 rounded-lg bg-white border border-slate-300 text-sm text-slate-900 focus:outline-none focus:border-slate-900"
                         >
-                          <option value="Value Apartments - Madina Al Munawwarah (Wadi Mubarak)">
-                            Value Apartments - Madina Al Munawwarah (Wadi Mubarak)
-                          </option>
                           {PAKISTAN_PORTFOLIO.map((p) => (
-                            <option
-                              key={p.id}
-                              value={`${p.title} (${p.location})`}
-                            >
+                            <option key={p.id} value={`${p.title} (${p.location})`}>
                               {p.title} ({p.location})
                             </option>
                           ))}
@@ -487,39 +414,22 @@ export default function LeadCaptureForm({
 
                       <div>
                         <label className="text-xs font-semibold text-slate-700 block mb-1.5">
-                          Estimated Budget Range
+                          Indicative Budget Range
                         </label>
                         <select
                           value={budgetTier}
                           onChange={(e) => setBudgetTier(e.target.value)}
                           className="w-full px-3.5 py-2.5 rounded-lg bg-white border border-slate-300 text-sm text-slate-900 focus:outline-none focus:border-slate-900"
                         >
-                          <option value="SAR 420,000 – 495,000 (~PKR 3.4 Cr)">
-                            SAR 420,000 – 495,000 (~PKR 3.4 Cr • Studio)
-                          </option>
-                          <option value="SAR 680,000 – 790,000 (~PKR 5.2 Cr)">
-                            SAR 680,000 – 790,000 (~PKR 5.2 Cr • 1-Bed Luxury)
-                          </option>
-                          <option value="SAR 980,000 – 1,180,000 (~PKR 8.2 Cr)">
-                            SAR 980,000 – 1,180,000 (~PKR 8.2 Cr • 2-Bed Family)
-                          </option>
-                          <option value="SAR 1,850,000+ (~PKR 14+ Cr)">
-                            SAR 1,850,000+ (~PKR 14+ Cr • Penthouse)
-                          </option>
-                          <option value="PKR 1.65 Crore – 2.85 Crore (Lahore Residential)">
-                            PKR 1.65 Cr – 2.85 Cr (Lahore Apartments)
-                          </option>
-                          <option value="PKR 3.00 Crore – 6.00 Crore (Smart Homes / Villas)">
-                            PKR 3.00 Cr – 6.00 Cr (Smart Homes / Residencies)
-                          </option>
-                          <option value="PKR 6.75 Crore – 12+ Crore (Commercial / Farmhouses)">
-                            PKR 6.75 Cr – 12+ Cr (Corporate Tower / Farmhouses)
-                          </option>
+                          <option value="PKR 1.65 Crore – 2.85 Crore">PKR 1.65 Cr – 2.85 Cr (Urban Apartments)</option>
+                          <option value="PKR 2.85 Crore – 4.50 Crore">PKR 2.85 Cr – 4.50 Cr (DHA Apartments / Smart Homes)</option>
+                          <option value="PKR 4.50 Crore – 8.00 Crore">PKR 4.50 Cr – 8.00 Cr (Commercial / Farmhouses)</option>
+                          <option value="PKR 8.00 Crore – 15+ Crore">PKR 8.00 Cr – 15+ Cr (Corporate Tower Floor / Estates)</option>
                         </select>
                       </div>
                     </div>
 
-                    {/* Email & Unit Type */}
+                    {/* Email & Configuration */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
                         <label className="text-xs font-semibold text-slate-700 block mb-1.5">
@@ -529,20 +439,20 @@ export default function LeadCaptureForm({
                           type="email"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
-                          placeholder="yourname@domain.com"
+                          placeholder="client@domain.com"
                           className="w-full px-3.5 py-2.5 rounded-lg bg-white border border-slate-300 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-slate-900"
                         />
                       </div>
 
                       <div>
                         <label className="text-xs font-semibold text-slate-700 block mb-1.5">
-                          Preferred Unit Type
+                          Preferred Unit / Parcel Size
                         </label>
                         <input
                           type="text"
                           value={preferredUnitType}
                           onChange={(e) => setPreferredUnitType(e.target.value)}
-                          placeholder="e.g., 1-Bed Luxury / 2-Bed / Commercial"
+                          placeholder="e.g. 2-Bed Luxury, 4 Kanal Farmhouse"
                           className="w-full px-3.5 py-2.5 rounded-lg bg-white border border-slate-300 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-slate-900"
                         />
                       </div>
@@ -551,13 +461,13 @@ export default function LeadCaptureForm({
                     {/* Notes */}
                     <div>
                       <label className="text-xs font-semibold text-slate-700 block mb-1.5">
-                        Message or Inquiry Notes
+                        Specific Questions or Consultation Notes
                       </label>
                       <textarea
                         rows={2}
                         value={notes}
                         onChange={(e) => setNotes(e.target.value)}
-                        placeholder="Please share any specific requirements or preferred consultation time..."
+                        placeholder="Please share any specific requirements, RDA banking questions, or preferred consultation dates..."
                         className="w-full px-3.5 py-2.5 rounded-lg bg-white border border-slate-300 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-slate-900"
                       />
                     </div>
@@ -567,11 +477,11 @@ export default function LeadCaptureForm({
                       disabled={submitting}
                       className="w-full py-3.5 px-6 rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-semibold text-sm shadow-sm transition-all flex items-center justify-center gap-2"
                     >
-                      <Send className="w-4 h-4 text-gold-400" />
+                      <Send className="w-4 h-4 text-amber-400" />
                       <span>
                         {submitting
-                          ? "Submitting Inquiry..."
-                          : "Submit Property Inquiry"}
+                          ? "Submitting to Advisory Desk..."
+                          : "Submit Property Advisory Inquiry"}
                       </span>
                     </button>
                   </form>
