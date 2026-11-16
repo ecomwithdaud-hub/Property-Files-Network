@@ -79,16 +79,23 @@ export default function HeroSection() {
       id="about"
       className="relative min-h-[640px] lg:min-h-[720px] bg-slate-950 text-white overflow-hidden flex items-center border-b border-slate-800"
     >
-      {/* 1. Cinematic Background Video & Luxury Estate Backdrop */}
+      {/* 1. Cinematic Background Video & Luxury Estate Backdrop (Vivid & Clear) */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        {/* High-Definition Luxury Estate Backdrop Image */}
+        <img
+          src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2200&q=85"
+          alt="Luxury Property Background"
+          className="absolute inset-0 w-full h-full object-cover object-center brightness-105 contrast-105 opacity-80"
+        />
+
         {/* HTML5 Seamless Aerial Property Tour Video */}
         <video
           autoPlay
           loop
           muted
           playsInline
-          poster="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2000&q=80"
-          className="w-full h-full object-cover object-center opacity-30 scale-105 transform motion-safe:transition-transform duration-1000"
+          poster="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2000&q=85"
+          className="absolute inset-0 w-full h-full object-cover object-center opacity-75 brightness-105 contrast-105 scale-102 transform motion-safe:transition-transform duration-1000"
         >
           <source
             src="https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-a-luxury-modern-house-and-pool-42845-large.mp4"
@@ -100,12 +107,12 @@ export default function HeroSection() {
           />
         </video>
 
-        {/* 3D Moving Architectural Grid Lines */}
-        <div className="absolute inset-0 bg-architectural-grid-dark animate-grid-flow opacity-60 pointer-events-none" />
+        {/* 3D Subtle Architectural Grid Lines (Clean & Non-Hazy) */}
+        <div className="absolute inset-0 bg-architectural-grid-dark animate-grid-flow opacity-15 pointer-events-none" />
 
-        {/* Multilayered 3D Atmospheric Gradients for High Readability */}
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 to-slate-950/70" />
-        <div className="absolute inset-0 bg-radial-at-c from-amber-500/10 via-transparent to-slate-950/80 mix-blend-screen" />
+        {/* Clearer, Reduced Gradient Overlay: Keeps Scenery Crisp while Preserving Text Readability */}
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/85 via-slate-950/45 to-slate-950/20" />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-transparent to-slate-950/20" />
       </div>
 
       {/* 2. Floating 3D Geometric Accents & Ambient Orbs */}
@@ -250,14 +257,14 @@ export default function HeroSection() {
                   </div>
                 </div>
 
-                {/* Video Walkthrough Screen */}
+                {/* Video Walkthrough Screen (Bright & Crystal Clear) */}
                 <div className="relative aspect-[16/10] rounded-xl overflow-hidden bg-slate-900 border border-white/15 group">
                   <img
                     src={activeTour.previewImage}
                     alt={activeTour.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 brightness-105 contrast-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/15 to-transparent" />
 
                   {/* Tour Badge */}
                   <div className="absolute top-2.5 left-2.5">
