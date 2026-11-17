@@ -8,16 +8,11 @@ import {
   Send,
   Sparkles,
   Bot,
-  ShieldCheck,
-  TrendingUp,
-  MapPin,
-  ArrowRight,
   RotateCcw,
-  Minimize2,
-  Maximize2,
-  HelpCircle,
-  Building2,
-  FileCheck2,
+  Volume2,
+  VolumeX,
+  Flame,
+  Compass,
 } from "lucide-react";
 import { COMPANY_INFO, FOUNDERS_LEADERSHIP } from "@/lib/data";
 
@@ -30,19 +25,79 @@ interface ChatMessage {
   timestamp: string;
 }
 
+interface Waypoint {
+  getX: (vw: number) => number;
+  getY: (vh: number) => number;
+  speechSide: "left" | "right";
+  tilt: number;
+  heading: string;
+}
+
+const WAYPOINTS: Waypoint[] = [
+  // 1. Middle-Right (Eye level right)
+  {
+    getX: (vw) => (vw < 640 ? vw - 76 : vw - 96),
+    getY: (vh) => vh * 0.38,
+    speechSide: "left",
+    tilt: 5,
+    heading: "Patrolling east",
+  },
+  // 2. Top-Left (Below navbar)
+  {
+    getX: () => 20,
+    getY: () => 105,
+    speechSide: "right",
+    tilt: -6,
+    heading: "Cruising north-west",
+  },
+  // 3. Top-Right (Below navbar right)
+  {
+    getX: (vw) => (vw < 640 ? vw - 76 : vw - 96),
+    getY: () => 110,
+    speechSide: "left",
+    tilt: 6,
+    heading: "Surveying north-east",
+  },
+  // 4. Middle-Left (Center left)
+  {
+    getX: () => 20,
+    getY: (vh) => vh * 0.55,
+    speechSide: "right",
+    tilt: -5,
+    heading: "Navigating west",
+  },
+  // 5. Bottom-Left (Above footer area)
+  {
+    getX: () => (typeof window !== "undefined" && window.innerWidth < 640 ? 16 : 28),
+    getY: (vh) => (typeof window !== "undefined" && window.innerWidth < 640 ? vh - 100 : vh - 130),
+    speechSide: "right",
+    tilt: 4,
+    heading: "Descending south-west",
+  },
+  // 6. Lower-Right (Above WhatsApp button)
+  {
+    getX: (vw) => (vw < 640 ? vw - 76 : vw - 96),
+    getY: (vh) => (vh < 700 ? vh * 0.65 : vh * 0.72),
+    speechSide: "left",
+    tilt: -4,
+    heading: "Hovering south-east",
+  },
+];
+
 const ROBOT_PROMPTS = [
-  "👋 Need help with MGH or DHA Property Files?",
+  "🚀 Hey! I'm flying by... Need help with property files?",
   "📈 Looking for today's verified DHA Phase 9 Prism rates?",
-  "🌊 Inquiring about MGH Mangla 1 Kanal waterfront files?",
-  "🛡️ Need biometric verification on an affidavit file?",
-  "📞 Want to speak directly with Co-Founder M Talha Cheema?",
+  "🌊 Hey! Inquiring about MGH Mangla 1 Kanal waterfront files?",
+  "🛡️ Need biometric verification on an affidavit or deed?",
+  "📞 Hey! Tap me to speak directly with Co-Founder M Talha Cheema!",
   "💼 Seeking high-yield commercial plazas in DHA Phase 8?",
+  "👋 Hey! I'm here everywhere on the page to solve your questions!",
 ];
 
 const INITIAL_BOT_MESSAGE: ChatMessage = {
   id: "msg-0",
   sender: "bot",
-  text: "Hello! I am Aero-Estate Bot 🤖, Property Files Network's 24/7 AI Real Estate Advisor. How can I assist you with your property investments today?",
+  text: "Hello! I am Aero-Estate Bot 🤖, Property Files Network's autonomous AI Real Estate Advisor. I fly across the site to help you with instant rates, verification, and founder appointments. How can I assist you?",
   quickReplies: [
     { label: "📊 Check Today's File Rates", action: "rates" },
     { label: "🌊 MGH Mangla Waterfront Files", action: "mgh" },
@@ -56,24 +111,65 @@ const INITIAL_BOT_MESSAGE: ChatMessage = {
 
 export default function FloatingRoboticAgent() {
   const [isOpen, setIsOpen] = useState(false);
+  const [waypointIndex, setWaypointIndex] = useState(0);
   const [currentPromptIndex, setCurrentPromptIndex] = useState(0);
   const [showSpeechBubble, setShowSpeechBubble] = useState(true);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isFlying, setIsFlying] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([INITIAL_BOT_MESSAGE]);
   const [inputValue, setInputValue] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+  const [flightCoords, setFlightCoords] = useState<{ x: number; y: number }>({
+    x: 20,
+    y: 120,
+  });
+
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
-  // Proactive speech bubble rotation
+  // Calculate current coordinates
+  const updateCoordinates = (idx: number) => {
+    if (typeof window === "undefined") return;
+    const wp = WAYPOINTS[idx % WAYPOINTS.length];
+    const x = wp.getX(window.innerWidth);
+    const y = wp.getY(window.innerHeight);
+    setFlightCoords({ x, y });
+  };
+
+  // Autonomous flight patrol loop
   useEffect(() => {
-    const interval = setInterval(() => {
+    // Initial placement
+    updateCoordinates(0);
+
+    const handleResize = () => updateCoordinates(waypointIndex);
+    window.addEventListener("resize", handleResize);
+
+    const flightInterval = setInterval(() => {
+      // Don't fly if user is chatting or hovering over the robot
+      if (isOpen || isHovered) return;
+
+      setIsFlying(true);
       setShowSpeechBubble(false);
+
+      setWaypointIndex((prev) => {
+        const next = (prev + 1) % WAYPOINTS.length;
+        updateCoordinates(next);
+        return next;
+      });
+
+      setCurrentPromptIndex((prev) => (prev + 1) % ROBOT_PROMPTS.length);
+
+      // Re-enable speech bubble after flight completes (approx 3.8s)
       setTimeout(() => {
-        setCurrentPromptIndex((prev) => (prev + 1) % ROBOT_PROMPTS.length);
+        setIsFlying(false);
         setShowSpeechBubble(true);
-      }, 500);
-    }, 7000);
-    return () => clearInterval(interval);
-  }, []);
+      }, 3800);
+    }, 9000);
+
+    return () => {
+      clearInterval(flightInterval);
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [isOpen, isHovered, waypointIndex]);
 
   // Auto-scroll chat
   useEffect(() => {
@@ -81,6 +177,8 @@ export default function FloatingRoboticAgent() {
       messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     }
   }, [messages, isOpen, isTyping]);
+
+  const currentWp = WAYPOINTS[waypointIndex % WAYPOINTS.length];
 
   const handleQuickReply = (action: string, label: string) => {
     const userMsg: ChatMessage = {
@@ -101,7 +199,7 @@ export default function FloatingRoboticAgent() {
           botResponse = {
             id: `bot-${Date.now()}`,
             sender: "bot",
-            text: "Here are today's verified market rates:\n\n• MGH Mangla (1 Kanal Waterfront): PKR 68 – 78 Lakh\n• DHA Phase 9 Prism (1 Kanal): PKR 2.45 – 2.95 Crore\n• DHA Phase 10 (1 Kanal Allocation): PKR 38 – 45 Lakh\n• DHA Phase 8 Broadway (4M Commercial): PKR 7.80 – 9.60 Crore\n• MGH Mangla (10 Marla Lakefront): PKR 36 – 44 Lakh\n\nRates fluctuate daily based on market volume. Would you like a live bid/ask quote on WhatsApp?",
+            text: "Here are today's verified market rates:\n\n• MGH Mangla (1 Kanal Waterfront): PKR 68 – 78 Lakh\n• DHA Phase 9 Prism (1 Kanal): PKR 2.45 – 2.95 Crore\n• DHA Phase 10 (1 Kanal Allocation): PKR 38 – 45 Lakh\n• DHA Phase 8 Broadway (4M Commercial): PKR 7.80 – 9.60 Crore\n• MGH Mangla (10 Marla Lakefront): PKR 36 – 44 Lakh\n\nRates fluctuate based on daily trading volume. Would you like a live bid/ask quote directly on WhatsApp?",
             cta: {
               label: "Get Live Quote on WhatsApp",
               href: `https://wa.me/923234304259?text=${encodeURIComponent(
@@ -261,34 +359,79 @@ export default function FloatingRoboticAgent() {
     handleQuickReply(action, text);
   };
 
+  // In chat mode, anchor robot beside the modal
+  const effectiveCoords = isOpen
+    ? { x: 20, y: typeof window !== "undefined" ? window.innerHeight - 80 : 500 }
+    : flightCoords;
+
   return (
     <>
-      {/* 1. Global Floating Flying Robot Character (Levitating on screen) */}
-      <div className="fixed bottom-5 left-4 sm:bottom-6 sm:left-6 z-50 flex items-end gap-3 select-none pointer-events-auto">
-        {/* Animated Flying Robot Avatar */}
+      {/* 1. Autonomous Flying Robot Container (Glides across entire page) */}
+      <div
+        className="fixed z-50 pointer-events-auto select-none"
+        style={{
+          transform: `translate3d(${effectiveCoords.x}px, ${effectiveCoords.y}px, 0px) rotate(${
+            isFlying ? currentWp.tilt * 1.5 : 0
+          }deg)`,
+          transition: isOpen
+            ? "transform 0.5s ease-out"
+            : "transform 3.8s cubic-bezier(0.25, 1, 0.5, 1)",
+          willChange: "transform",
+        }}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
         <div className="relative group cursor-pointer" onClick={() => setIsOpen(!isOpen)}>
-          {/* Proactive Floating Speech Bubble */}
+          {/* Proactive Dynamic Speech Bubble (Aligns left or right based on screen position) */}
           {!isOpen && showSpeechBubble && (
-            <div className="absolute -top-14 left-0 sm:left-2 w-64 sm:w-72 p-2.5 rounded-2xl glass-3d-dark border border-amber-400/40 text-white text-xs shadow-2xl animate-in fade-in zoom-in-95 slide-in-from-bottom-2 duration-300 pointer-events-auto">
-              <div className="flex items-center gap-1.5 font-semibold text-amber-300 text-[11px] mb-0.5">
-                <Sparkles className="w-3 h-3 text-amber-400 animate-spin" />
-                <span>Aero-Estate Bot • Online</span>
+            <div
+              className={`absolute -top-16 w-60 sm:w-72 p-2.5 rounded-2xl glass-3d-dark border border-amber-400/50 text-white text-xs shadow-2xl animate-in fade-in zoom-in-95 duration-300 pointer-events-auto ${
+                currentWp.speechSide === "left"
+                  ? "right-0 sm:right-2"
+                  : "left-0 sm:left-2"
+              }`}
+            >
+              <div className="flex items-center justify-between text-amber-300 text-[10px] font-bold mb-0.5">
+                <span className="flex items-center gap-1">
+                  <Sparkles className="w-3 h-3 text-amber-400 animate-spin" />
+                  <span>Aero-Estate Bot • Patrolling</span>
+                </span>
+                <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-emerald-950 text-emerald-400 border border-emerald-500/30">
+                  Tap to Chat
+                </span>
               </div>
-              <p className="text-slate-200 text-[11px] leading-snug">
-                {ROBOT_PROMPTS[currentPromptIndex]}
+              <p className="text-slate-100 text-[11px] leading-snug font-medium">
+                {isHovered
+                  ? "👋 Hey! Need help with property files? Tap me to chat!"
+                  : ROBOT_PROMPTS[currentPromptIndex]}
               </p>
               {/* Pointer triangle */}
-              <div className="absolute -bottom-1.5 left-6 w-3 h-3 bg-slate-900 border-r border-b border-amber-400/40 transform rotate-45" />
+              <div
+                className={`absolute -bottom-1.5 w-3 h-3 bg-slate-900 border-r border-b border-amber-400/50 transform rotate-45 ${
+                  currentWp.speechSide === "left" ? "right-8" : "left-8"
+                }`}
+              />
             </div>
           )}
 
           {/* Futuristic Flying Robot Figure */}
-          <div className="relative w-14 h-14 sm:w-16 sm:h-16 animate-robot-float">
-            {/* Holographic Aura / Thruster Particle Glow */}
-            <div className="absolute -bottom-2 inset-x-2 h-4 bg-gradient-to-t from-cyan-400 to-amber-400 filter blur-md opacity-75 animate-thruster-pulse rounded-full" />
+          <div className="relative w-14 h-14 sm:w-16 sm:h-16 animate-robot-levitate">
+            {/* Holographic Plasma Thruster Jet Glow */}
+            <div
+              className={`absolute -bottom-2 inset-x-2 h-5 bg-gradient-to-t from-cyan-400 via-amber-400 to-transparent filter blur-md rounded-full transition-opacity duration-300 ${
+                isFlying ? "opacity-95 scale-125" : "opacity-70 animate-thruster-pulse"
+              }`}
+            />
+
+            {/* Jet Exhaust Flame Particles */}
+            {isFlying && (
+              <div className="absolute -bottom-3 inset-x-4 flex justify-center">
+                <Flame className="w-4 h-4 text-amber-400 animate-bounce" />
+              </div>
+            )}
 
             {/* Robot Head Structure */}
-            <div className="relative w-full h-full rounded-2xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 border-2 border-amber-400/70 shadow-2xl p-1.5 flex flex-col items-center justify-between group-hover:scale-110 group-hover:border-amber-300 transition-all duration-300">
+            <div className="relative w-full h-full rounded-2xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 border-2 border-amber-400 shadow-2xl p-1.5 flex flex-col items-center justify-between group-hover:scale-110 group-hover:border-amber-300 transition-all duration-300">
               {/* Top Sensor Antenna with Pulsing Beacon */}
               <div className="absolute -top-2 inset-x-0 flex justify-center">
                 <div className="relative flex items-center justify-center">
@@ -297,14 +440,14 @@ export default function FloatingRoboticAgent() {
                 </div>
               </div>
 
-              {/* Futuristic Digital Visor with Glowing Robot Eyes */}
-              <div className="w-full h-7 rounded-xl bg-slate-950 border border-cyan-500/40 p-1 flex items-center justify-around overflow-hidden shadow-inner mt-1">
+              {/* Digital Visor with Glowing Robot Eyes */}
+              <div className="w-full h-7 rounded-xl bg-slate-950 border border-cyan-500/50 p-1 flex items-center justify-around overflow-hidden shadow-inner mt-1">
                 <div className="w-2.5 h-2.5 rounded-full bg-cyan-400 shadow-sm shadow-cyan-300 animate-robot-blink" />
-                <div className="w-3 h-0.5 rounded-full bg-cyan-500/60" />
+                <div className="w-3 h-0.5 rounded-full bg-cyan-500/70" />
                 <div className="w-2.5 h-2.5 rounded-full bg-cyan-400 shadow-sm shadow-cyan-300 animate-robot-blink" />
               </div>
 
-              {/* Lower Body Real Estate Emblem / Crest */}
+              {/* Lower Body Real Estate Emblem */}
               <div className="w-full flex items-center justify-between px-1 text-[8px] font-bold text-amber-300 font-serif">
                 <span>AI</span>
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
@@ -312,9 +455,9 @@ export default function FloatingRoboticAgent() {
               </div>
             </div>
 
-            {/* Hover Tooltip Pill */}
-            <div className="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-950 text-white text-[10px] font-bold px-2 py-0.5 rounded border border-slate-700 whitespace-nowrap pointer-events-none">
-              Click to Consult AI
+            {/* Hover Tooltip */}
+            <div className="absolute -top-7 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-950 text-white text-[10px] font-bold px-2 py-0.5 rounded border border-slate-700 whitespace-nowrap pointer-events-none shadow-md">
+              Tap to Consult AI
             </div>
           </div>
         </div>
@@ -322,7 +465,7 @@ export default function FloatingRoboticAgent() {
 
       {/* 2. Interactive AI Assistant Dialog Modal */}
       {isOpen && (
-        <div className="fixed inset-y-0 right-0 sm:inset-y-auto sm:bottom-6 sm:left-24 z-50 w-full sm:w-[380px] sm:max-h-[620px] bg-slate-950/95 backdrop-blur-2xl border-t sm:border border-white/15 sm:rounded-3xl shadow-2xl flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-5 duration-300">
+        <div className="fixed inset-y-0 right-0 sm:inset-y-auto sm:bottom-6 sm:left-24 z-50 w-full sm:w-[390px] sm:max-h-[620px] bg-slate-950/95 backdrop-blur-2xl border-t sm:border border-white/15 sm:rounded-3xl shadow-2xl flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-5 duration-300">
           {/* Chat Header */}
           <div className="p-4 bg-gradient-to-r from-slate-900 via-slate-950 to-slate-900 border-b border-white/10 flex items-center justify-between">
             <div className="flex items-center gap-2.5">
@@ -465,17 +608,14 @@ export default function FloatingRoboticAgent() {
         </div>
       )}
 
-      {/* Styles for Flying Robot Levitation & Thrusters */}
+      {/* CSS Animations for Smooth Flying & Hover */}
       <style jsx global>{`
-        @keyframes robot-float {
+        @keyframes robot-levitate {
           0%, 100% {
             transform: translateY(0px) rotate(0deg);
           }
-          33% {
-            transform: translateY(-8px) rotate(-1deg);
-          }
-          66% {
-            transform: translateY(-4px) rotate(1deg);
+          50% {
+            transform: translateY(-8px) rotate(1deg);
           }
         }
 
@@ -501,12 +641,12 @@ export default function FloatingRoboticAgent() {
           }
         }
 
-        .animate-robot-float {
-          animation: robot-float 4.5s ease-in-out infinite;
+        .animate-robot-levitate {
+          animation: robot-levitate 3s ease-in-out infinite;
         }
 
         .animate-thruster-pulse {
-          animation: thruster-pulse 1.8s ease-in-out infinite;
+          animation: thruster-pulse 1.6s ease-in-out infinite;
         }
 
         .animate-robot-blink {
