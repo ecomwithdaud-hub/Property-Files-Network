@@ -34,53 +34,53 @@ interface Waypoint {
 }
 
 const WAYPOINTS: Waypoint[] = [
-  // 1. Middle-Right (Eye level right)
+  // 1. Top-Right (Surveying from upper right)
   {
-    getX: (vw) => (vw < 640 ? vw - 76 : vw - 96),
-    getY: (vh) => vh * 0.38,
-    speechSide: "left",
-    tilt: 5,
-    heading: "Patrolling east",
-  },
-  // 2. Top-Left (Below navbar)
-  {
-    getX: () => 20,
-    getY: () => 105,
-    speechSide: "right",
-    tilt: -6,
-    heading: "Cruising north-west",
-  },
-  // 3. Top-Right (Below navbar right)
-  {
-    getX: (vw) => (vw < 640 ? vw - 76 : vw - 96),
+    getX: (vw) => (vw < 640 ? vw - 68 : vw - 88),
     getY: () => 110,
     speechSide: "left",
     tilt: 6,
     heading: "Surveying north-east",
   },
-  // 4. Middle-Left (Center left)
+  // 2. Upper-Left (Cruising across to upper left)
   {
     getX: () => 20,
-    getY: (vh) => vh * 0.55,
+    getY: () => 180,
+    speechSide: "right",
+    tilt: -6,
+    heading: "Cruising north-west",
+  },
+  // 3. Middle-Right (Mid-screen starboard patrol)
+  {
+    getX: (vw) => (vw < 640 ? vw - 68 : vw - 88),
+    getY: (vh) => vh * 0.40,
+    speechSide: "left",
+    tilt: 5,
+    heading: "Patrolling east",
+  },
+  // 4. Middle-Left (Center-west hover)
+  {
+    getX: () => 20,
+    getY: (vh) => vh * 0.52,
     speechSide: "right",
     tilt: -5,
     heading: "Navigating west",
   },
-  // 5. Bottom-Left (Above footer area)
+  // 5. High-Right (Floating below hero header)
   {
-    getX: () => (typeof window !== "undefined" && window.innerWidth < 640 ? 16 : 28),
-    getY: (vh) => (typeof window !== "undefined" && window.innerWidth < 640 ? vh - 100 : vh - 130),
-    speechSide: "right",
-    tilt: 4,
-    heading: "Descending south-west",
-  },
-  // 6. Lower-Right (Above WhatsApp button)
-  {
-    getX: (vw) => (vw < 640 ? vw - 76 : vw - 96),
-    getY: (vh) => (vh < 700 ? vh * 0.65 : vh * 0.72),
+    getX: (vw) => (vw < 640 ? vw - 68 : vw - 88),
+    getY: (vh) => Math.min(260, vh * 0.32),
     speechSide: "left",
+    tilt: 4,
+    heading: "Hovering high-east",
+  },
+  // 6. Lower-Left Float (Safe height, well above footer)
+  {
+    getX: (vw) => (vw < 640 ? 16 : 28),
+    getY: (vh) => Math.min(vh * 0.64, vh - 220),
+    speechSide: "right",
     tilt: -4,
-    heading: "Hovering south-east",
+    heading: "Scanning south-west",
   },
 ];
 
@@ -121,55 +121,76 @@ export default function FloatingRoboticAgent() {
   const [isTyping, setIsTyping] = useState(false);
   const [flightCoords, setFlightCoords] = useState<{ x: number; y: number }>({
     x: 20,
-    y: 120,
+    y: 110,
   });
 
+  const waypointIndexRef = useRef(0);
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
-
-  // Calculate current coordinates
-  const updateCoordinates = (idx: number) => {
-    if (typeof window === "undefined") return;
-    const wp = WAYPOINTS[idx % WAYPOINTS.length];
-    const x = wp.getX(window.innerWidth);
-    const y = wp.getY(window.innerHeight);
-    setFlightCoords({ x, y });
-  };
 
   // Autonomous flight patrol loop
   useEffect(() => {
-    // Initial placement
-    updateCoordinates(0);
+    // Initial placement at waypoint 0
+    if (typeof window !== "undefined") {
+      const initialWp = WAYPOINTS[0];
+      setFlightCoords({
+        x: initialWp.getX(window.innerWidth),
+        y: initialWp.getY(window.innerHeight),
+      });
+    }
 
-    const handleResize = () => updateCoordinates(waypointIndex);
+    const handleResize = () => {
+      if (typeof window === "undefined") return;
+      const currentIdx = waypointIndexRef.current;
+      const wp = WAYPOINTS[currentIdx % WAYPOINTS.length];
+      setFlightCoords({
+        x: wp.getX(window.innerWidth),
+        y: wp.getY(window.innerHeight),
+      });
+    };
     window.addEventListener("resize", handleResize);
 
-    const flightInterval = setInterval(() => {
-      // Don't fly if user is chatting or hovering over the robot
+    const performFlight = () => {
       if (isOpen || isHovered) return;
+      if (typeof window === "undefined") return;
 
+      const nextIdx = (waypointIndexRef.current + 1) % WAYPOINTS.length;
+      waypointIndexRef.current = nextIdx;
+      setWaypointIndex(nextIdx);
+
+      const nextWp = WAYPOINTS[nextIdx];
       setIsFlying(true);
       setShowSpeechBubble(false);
 
-      setWaypointIndex((prev) => {
-        const next = (prev + 1) % WAYPOINTS.length;
-        updateCoordinates(next);
-        return next;
+      setFlightCoords({
+        x: nextWp.getX(window.innerWidth),
+        y: nextWp.getY(window.innerHeight),
       });
 
       setCurrentPromptIndex((prev) => (prev + 1) % ROBOT_PROMPTS.length);
 
-      // Re-enable speech bubble after flight completes (approx 3.8s)
+      // Re-enable speech bubble after flight completes (approx 3.2s)
       setTimeout(() => {
         setIsFlying(false);
         setShowSpeechBubble(true);
-      }, 3800);
-    }, 9000);
+      }, 3200);
+    };
+
+    // Quick initial launch in 2 seconds so user sees takeoff immediately
+    const initialTimer = setTimeout(() => {
+      performFlight();
+    }, 2000);
+
+    // Continuous patrol every 6.5 seconds
+    const flightInterval = setInterval(() => {
+      performFlight();
+    }, 6500);
 
     return () => {
+      clearTimeout(initialTimer);
       clearInterval(flightInterval);
       window.removeEventListener("resize", handleResize);
     };
-  }, [isOpen, isHovered, waypointIndex]);
+  }, [isOpen, isHovered]);
 
   // Auto-scroll chat
   useEffect(() => {
@@ -359,60 +380,54 @@ export default function FloatingRoboticAgent() {
     handleQuickReply(action, text);
   };
 
-  // In chat mode, anchor robot beside the modal
-  const effectiveCoords = isOpen
-    ? { x: 20, y: typeof window !== "undefined" ? window.innerHeight - 80 : 500 }
-    : flightCoords;
-
   return (
     <>
       {/* 1. Autonomous Flying Robot Container (Glides across entire page) */}
-      <div
-        className="fixed z-50 pointer-events-auto select-none"
-        style={{
-          transform: `translate3d(${effectiveCoords.x}px, ${effectiveCoords.y}px, 0px) rotate(${
-            isFlying ? currentWp.tilt * 1.5 : 0
-          }deg)`,
-          transition: isOpen
-            ? "transform 0.5s ease-out"
-            : "transform 3.8s cubic-bezier(0.25, 1, 0.5, 1)",
-          willChange: "transform",
-        }}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-      >
-        <div className="relative group cursor-pointer" onClick={() => setIsOpen(!isOpen)}>
-          {/* Proactive Dynamic Speech Bubble (Aligns left or right based on screen position) */}
-          {!isOpen && showSpeechBubble && (
-            <div
-              className={`absolute -top-16 w-60 sm:w-72 p-2.5 rounded-2xl glass-3d-dark border border-amber-400/50 text-white text-xs shadow-2xl animate-in fade-in zoom-in-95 duration-300 pointer-events-auto ${
-                currentWp.speechSide === "left"
-                  ? "right-0 sm:right-2"
-                  : "left-0 sm:left-2"
-              }`}
-            >
-              <div className="flex items-center justify-between text-amber-300 text-[10px] font-bold mb-0.5">
-                <span className="flex items-center gap-1">
-                  <Sparkles className="w-3 h-3 text-amber-400 animate-spin" />
-                  <span>Aero-Estate Bot • Patrolling</span>
-                </span>
-                <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-emerald-950 text-emerald-400 border border-emerald-500/30">
-                  Tap to Chat
-                </span>
-              </div>
-              <p className="text-slate-100 text-[11px] leading-snug font-medium">
-                {isHovered
-                  ? "👋 Hey! Need help with property files? Tap me to chat!"
-                  : ROBOT_PROMPTS[currentPromptIndex]}
-              </p>
-              {/* Pointer triangle */}
+      {!isOpen && (
+        <div
+          className="fixed top-0 left-0 z-50 pointer-events-auto select-none"
+          style={{
+            transform: `translate3d(${flightCoords.x}px, ${flightCoords.y}px, 0px) rotate(${
+              isFlying ? currentWp.tilt * 1.5 : 0
+            }deg)`,
+            transition: "transform 3.2s cubic-bezier(0.25, 1, 0.5, 1)",
+            willChange: "transform",
+          }}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          <div className="relative group cursor-pointer" onClick={() => setIsOpen(true)}>
+            {/* Proactive Dynamic Speech Bubble (Aligns left or right based on screen position) */}
+            {showSpeechBubble && (
               <div
-                className={`absolute -bottom-1.5 w-3 h-3 bg-slate-900 border-r border-b border-amber-400/50 transform rotate-45 ${
-                  currentWp.speechSide === "left" ? "right-8" : "left-8"
+                className={`absolute -top-16 w-60 sm:w-72 p-2.5 rounded-2xl glass-3d-dark border border-amber-400/50 text-white text-xs shadow-2xl animate-in fade-in zoom-in-95 duration-300 pointer-events-auto ${
+                  currentWp.speechSide === "left"
+                    ? "right-0 sm:right-2"
+                    : "left-0 sm:left-2"
                 }`}
-              />
-            </div>
-          )}
+              >
+                <div className="flex items-center justify-between text-amber-300 text-[10px] font-bold mb-0.5">
+                  <span className="flex items-center gap-1">
+                    <Sparkles className="w-3 h-3 text-amber-400 animate-spin" />
+                    <span>Aero-Estate Bot • Patrolling</span>
+                  </span>
+                  <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-emerald-950 text-emerald-400 border border-emerald-500/30">
+                    Tap to Chat
+                  </span>
+                </div>
+                <p className="text-slate-100 text-[11px] leading-snug font-medium">
+                  {isHovered
+                    ? "👋 Hey! Need help with property files? Tap me to chat!"
+                    : ROBOT_PROMPTS[currentPromptIndex]}
+                </p>
+                {/* Pointer triangle */}
+                <div
+                  className={`absolute -bottom-1.5 w-3 h-3 bg-slate-900 border-r border-b border-amber-400/50 transform rotate-45 ${
+                    currentWp.speechSide === "left" ? "right-8" : "left-8"
+                  }`}
+                />
+              </div>
+            )}
 
           {/* Futuristic Flying Robot Figure */}
           <div className="relative w-14 h-14 sm:w-16 sm:h-16 animate-robot-levitate">
@@ -462,6 +477,7 @@ export default function FloatingRoboticAgent() {
           </div>
         </div>
       </div>
+    )}
 
       {/* 2. Interactive AI Assistant Dialog Modal */}
       {isOpen && (
