@@ -385,7 +385,7 @@ export default function FloatingRoboticAgent() {
       {/* 1. Autonomous Flying Robot Container (Glides across entire page) */}
       {!isOpen && (
         <div
-          className="fixed top-0 left-0 z-50 pointer-events-auto select-none"
+          className="fixed top-0 left-0 z-[9999] pointer-events-none select-none"
           style={{
             transform: `translate3d(${flightCoords.x}px, ${flightCoords.y}px, 0px) rotate(${
               isFlying ? currentWp.tilt * 1.5 : 0
@@ -396,7 +396,7 @@ export default function FloatingRoboticAgent() {
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
-          <div className="relative group cursor-pointer" onClick={() => setIsOpen(true)}>
+          <div className="relative group cursor-pointer pointer-events-auto" onClick={() => setIsOpen(true)}>
             {/* Proactive Dynamic Speech Bubble (Aligns left or right based on screen position) */}
             {showSpeechBubble && (
               <div
@@ -481,7 +481,7 @@ export default function FloatingRoboticAgent() {
 
       {/* 2. Interactive AI Assistant Dialog Modal */}
       {isOpen && (
-        <div className="fixed inset-y-0 right-0 sm:inset-y-auto sm:bottom-6 sm:left-24 z-50 w-full sm:w-[390px] sm:max-h-[620px] bg-slate-950/95 backdrop-blur-2xl border-t sm:border border-white/15 sm:rounded-3xl shadow-2xl flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-5 duration-300">
+        <div className="fixed inset-y-0 right-0 sm:inset-y-auto sm:bottom-6 sm:left-24 z-[9999] w-full sm:w-[390px] sm:max-h-[620px] bg-slate-950/95 backdrop-blur-2xl border-t sm:border border-white/15 sm:rounded-3xl shadow-2xl flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-5 duration-300">
           {/* Chat Header */}
           <div className="p-4 bg-gradient-to-r from-slate-900 via-slate-950 to-slate-900 border-b border-white/10 flex items-center justify-between">
             <div className="flex items-center gap-2.5">

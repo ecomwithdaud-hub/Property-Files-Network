@@ -29,7 +29,7 @@ export default function DualFounderWhatsAppSpeedDial() {
   return (
     <div
       ref={containerRef}
-      className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 select-none"
+      className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-[9998] select-none"
     >
       {/* 3D Floating Popup Card when Opened */}
       {isOpen && (
